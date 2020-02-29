@@ -1,0 +1,1 @@
+Welcome. This is our course project for team application development "news portal". Let's do it!!!
