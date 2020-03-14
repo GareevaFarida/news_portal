@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import ru.geek.news_portal.newsportal.services.ArticleService;
 
 @Controller
@@ -25,12 +24,6 @@ public class MainController {
   @GetMapping("/login")
   public String login() {
     return "login";
-  }
-
-  @GetMapping("/admin")
-  @ResponseBody
-  public String admin() {
-    return "Hello";
   }
 
 }
