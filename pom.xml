@@ -46,9 +46,8 @@
     <modules>
 
         <module>database-news_portal</module>
-        <module>ui-news_portal</module>
         <module>admin-ui-news_portal</module>
-        <!--<module>ui-news_portal</module>-->
+        <module>ui-news_portal</module>
     </modules>
 
 </project>
