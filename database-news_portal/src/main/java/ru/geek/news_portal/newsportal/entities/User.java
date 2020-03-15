@@ -1,9 +1,11 @@
 package ru.geek.news_portal.newsportal.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,6 +39,87 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<ru.geek.news_portal.newsportal.entities.Role> roles;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ArticleLike> articleLikes = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Comment> comments = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<CommentLike> commentLikes = new ArrayList<>();
+
+    public void addArticleLike(ArticleLike like) {
+        articleLikes.add(like);
+    }
+
+    public void removeArticleLike(ArticleLike like) {
+        articleLikes.remove(like);
+    }
+
+    public void addCommentLike(CommentLike like) {
+        commentLikes.add(like);
+    }
+
+    public void removeCommentLike(CommentLike like) {
+        commentLikes.remove(like);
+    }
+
+    public void addComment(Comment comment){
+        comments.add(comment);
+    }
+
+    public void removeComment(Comment comment){
+        comments.remove(comment);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public List<ArticleLike> getArticleLikes() {
+        return articleLikes;
+    }
+
+    public void setArticleLikes(List<ArticleLike> articleLikes) {
+        this.articleLikes = articleLikes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Collection<Role> getRoles() {
         return roles;
