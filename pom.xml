@@ -44,10 +44,7 @@
     </dependencies>
 
     <modules>
-
-        <module>database-news_portal</module>
-        <module>admin-ui-news_portal</module>
-        <module>ui-news_portal</module>
+        <module>news_portal_all_in</module>
     </modules>
 
 </project>
