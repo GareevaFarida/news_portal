@@ -42,6 +42,7 @@ public class User {
 
     @JsonBackReference
     @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
@@ -49,6 +50,7 @@ public class User {
 
     @JsonBackReference
     @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
@@ -56,10 +58,35 @@ public class User {
 
     @JsonBackReference
     @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<CommentLike> commentLikes = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ArticleRating> articleRatings = new ArrayList<>();
+
+    public void addArticleRating(ArticleRating rating) {
+        articleRatings.add(rating);
+    }
+
+    public void removeArticleRating(ArticleRating rating) {
+        articleRatings.remove(rating);
+    }
+
+    public List<ArticleRating> getArticleRatings() {
+        return articleRatings;
+    }
+
+    public void setArticleRatings(List<ArticleRating> articleRatings) {
+        this.articleRatings = articleRatings;
+    }
 
     public void addArticleLike(ArticleLike like) {
         articleLikes.add(like);
