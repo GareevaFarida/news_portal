@@ -42,15 +42,15 @@ public class SystemUser {
         return password;
     }
 
-  public String getFirstName() {
-      return firstName;
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  public String getLastName() {
-      return lastName;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  public String getEmail() {
-      return email;
-  }
+    public String getEmail() {
+        return email;
+    }
 }
