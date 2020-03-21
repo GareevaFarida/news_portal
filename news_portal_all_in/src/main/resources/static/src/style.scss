@@ -1,5 +1,5 @@
-@import "fonts.scss";
-@import "variable.scss";
+@import "fonts";
+@import "variable";
 
 @mixin brand_text($font, $leter_spacing, $font_weight,$float: left) {
   font-size: $font;

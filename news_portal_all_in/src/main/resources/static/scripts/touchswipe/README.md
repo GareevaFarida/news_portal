@@ -35,7 +35,7 @@ bower install jquery-touchswipe --save
 ### Manual
 Include the minified file in your project.
 ````html
-<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.touchSwipe.min.js"></script>
 ````
 
 ## Usage

@@ -30,23 +30,44 @@ public class RegistrationController {
     dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
   }
 
-  @GetMapping("/")
-  public String showMyLoginPage(Model model) {
-    model.addAttribute("systemUser", new SystemUser());
-    return "registration-form";
-  }
+//  @GetMapping("/")
+//  public String showMyLoginPage(Model model) {
+//    model.addAttribute("systemUser", new SystemUser());
+//    return "registration-form";
+//  }
+//
+//  @PostMapping("/process")
+//  public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
+//    String username = systemUser.getUsername();
+//    if (bindingResult.hasErrors()) {
+//      return "registration-form";
+//    }
+//    User existing = userService.findByUsername(username);
+//    if (existing != null) {
+//      model.addAttribute("systemUser", systemUser);
+//      model.addAttribute("registrationError", "User with current username is already exist");
+//      return "registration-form";
+//    }
+//    userService.save(systemUser);
+//    return "registration-confirmation";
+//  }
+@GetMapping("/")
+public String showMyLoginPage(Model model) {
+  model.addAttribute("systemUser", new SystemUser());
+  return "ui/register";
+}
 
   @PostMapping("/process")
   public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
     String username = systemUser.getUsername();
     if (bindingResult.hasErrors()) {
-      return "registration-form";
+      return "ui/register";
     }
     User existing = userService.findByUsername(username);
     if (existing != null) {
       model.addAttribute("systemUser", systemUser);
       model.addAttribute("registrationError", "User with current username is already exist");
-      return "registration-form";
+      return "ui/register";
     }
     userService.save(systemUser);
     return "registration-confirmation";

@@ -26,7 +26,7 @@ Load the required stylesheet and JS:
 ```js
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import $ from 'jquery';
-import 'imports?jQuery=jquery!owl.carousel';
+import 'imports?jQuery=jquery!static/scripts/owlcarousel/dist/owl.carousel';
 ```
 
 #### Static HTML
