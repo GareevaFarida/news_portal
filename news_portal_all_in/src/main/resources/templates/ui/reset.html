@@ -6,7 +6,7 @@
 
 <body class="skin-orange">
 <!-- HEADER -->
-<header class="primary" th:replace="fragments/header.html :: header"></header>
+<header class="primary" th:insert="fragments/header.html :: firstbar"></header>
 <!-- /HEADER -->
 
 		<section class="login first grey">
@@ -38,7 +38,8 @@
 	<footer th:replace="fragments/footer.html :: footer"></footer>
 	<!-- /FOOTER -->
 
-<!--	&lt;!&ndash; JS &ndash;&gt;-->
-<!--	<script th:replace="fragments/footer.html :: scripts"></script>-->
+	<!-- JS -->
+	<script th:remove="tag" th:replace="fragments/scripts.html :: scripts"> </script>
+
 	</body>
 </html>

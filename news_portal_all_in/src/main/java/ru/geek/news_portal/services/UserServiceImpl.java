@@ -1,3 +1,10 @@
+/**
+ * Бизнес логика User
+ * @author
+ * fix Dmitriy Ostrovskiy 19.03.2020
+ * created on
+ */
+
 package ru.geek.news_portal.services;
 
 import org.springframework.beans.factory.annotation.Autowired;

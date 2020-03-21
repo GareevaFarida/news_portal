@@ -1,3 +1,10 @@
+/**
+ * Контроллер общий
+ * @author
+ * fix Dmitriy Ostrovskiy 18.03.2020
+ * created on
+ */
+
 package ru.geek.news_portal.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
             .antMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers("/ui/**").hasRole("WRITER")
             .antMatchers("/admin/records/**").hasAnyRole("ADMIN", "WRITER")
             .antMatchers("/admin/users/**").hasRole("ADMIN")
             .antMatchers("/profile/**").authenticated()

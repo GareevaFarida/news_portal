@@ -1,4 +1,9 @@
-
+/**
+ * Контроллер Main
+ * @author
+ * fix Dmitriy Ostrovskiy 18.03.2020 (добавил маперы для запуска страниц фронта)
+ * created on
+ */
 
 
 package ru.geek.news_portal.controllers;
@@ -7,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.geek.news_portal.services.ArticleService;
+import ru.geek.news_portal.services.UserService;
+import ru.geek.news_portal.utils.SystemUser;
 
 @Controller
 public class MainController {
@@ -21,6 +29,7 @@ public class MainController {
   @GetMapping("/")
   public String index(Model model) {
     model.addAttribute("articles", articleService.findAllArticles());
+    model.addAttribute("systemUser", new SystemUser());
     return "index";
   }
 
@@ -29,9 +38,9 @@ public class MainController {
     return "ui/login";
   }
 
-  @GetMapping("/register")
-  public String register() {
-    return "ui/register";
+  @GetMapping("/logout")
+  public String logout() {
+    return "redirect:/";
   }
 
   @GetMapping("/category")
@@ -99,5 +108,4 @@ public class MainController {
 //  public String admin() {
 //    return "Hello";
 //  }
-
 }

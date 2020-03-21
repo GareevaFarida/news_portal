@@ -6,7 +6,10 @@
 
 <body class="skin-orange">
 <!-- HEADER -->
-<header class="primary" th:replace="fragments/header.html :: header"></header>
+<header class="primary" >
+	<div th:replace="fragments/header.html :: firstbar"></div>
+	<nav th:replace="fragments/header.html :: nav"></nav>
+</header>
 <!-- /HEADER -->
 
 		<section class="category">
@@ -16,7 +19,7 @@
 		        <div class="row">
 		          <div class="col-md-12">        
 		            <ol class="breadcrumb">
-		              <li><a href="#">Home</a></li>
+		              <li><a href="../index.html" th:href="@{/}">Home</a></li>
 		              <li class="active">Computer</li>
 		            </ol>
 		            <h1 class="page-title">Category: Computer</h1>
@@ -28,18 +31,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img01.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img01.jpg" th:src="@{images/news/img01.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -47,7 +50,7 @@
 		                </p>
 		                <footer>
 		                  <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>237</div></a>
-		                  <a class="btn btn-primary more" href="single.html">
+		                  <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single}">
 		                    <div>More</div>
 		                    <div><i class="ion-ios-arrow-thin-right"></i></div>
 		                  </a>
@@ -58,18 +61,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img11.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img11.jpg" th:src="@{/images/news/img11.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -77,7 +80,7 @@
 		                </p>
 		                <footer>
 		                  <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>78</div></a>
-		                  <a class="btn btn-primary more" href="single.html">
+		                  <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single}">
 		                    <div>More</div>
 		                    <div><i class="ion-ios-arrow-thin-right"></i></div>
 		                  </a>
@@ -88,18 +91,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img08.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img08.jpg" th:src="@{/images/news/img08.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -107,7 +110,7 @@
 		                </p>
 		                <footer>
 		                  <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>10</div></a>
-		                  <a class="btn btn-primary more" href="single.html">
+		                  <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single}">
 		                    <div>More</div>
 		                    <div><i class="ion-ios-arrow-thin-right"></i></div>
 		                  </a>
@@ -118,18 +121,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img13.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img13.jpg" th:src="@{/images/news/img13.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -137,7 +140,7 @@
 		                </p>
 		                <footer>
 		                  <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>1820</div></a>
-		                  <a class="btn btn-primary more" href="single.html">
+		                  <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single}">
 		                    <div>More</div>
 		                    <div><i class="ion-ios-arrow-thin-right"></i></div>
 		                  </a>
@@ -148,18 +151,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img15.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img15.jpg" th:src="@{/images/news/img15.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -167,7 +170,7 @@
 		                </p>
 		                <footer>
 		                  <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>739</div></a>
-		                  <a class="btn btn-primary more" href="single.html">
+		                  <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single}">
 		                    <div>More</div>
 		                    <div><i class="ion-ios-arrow-thin-right"></i></div>
 		                  </a>
@@ -178,18 +181,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img03.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img03.jpg" th:src="@{/images/news/img03.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -197,7 +200,7 @@
 		                </p>
 		                <footer>
 		                  <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>902</div></a>
-		                  <a class="btn btn-primary more" href="single.html">
+		                  <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single}">
 		                    <div>More</div>
 		                    <div><i class="ion-ios-arrow-thin-right"></i></div>
 		                  </a>
@@ -208,18 +211,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img15.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img15.jpg" th:src="@{/images/news/img15.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -238,18 +241,18 @@
 		          <article class="col-md-12 article-list">
 		            <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img16.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img16.jpg" th:src="@{/images/news/img16.jpg}">
 		                </a>
 		              </figure>
 		              <div class="details">
 		                <div class="detail">
 		                  <div class="category">
-		                   <a href="category.html">Film</a>
+		                   <a href="../ui/category.html" th:href="@{/category}">Film</a>
 		                  </div>
 		                  <div class="time">December 26, 2016</div>
 		                </div>
-		                <h1><a href="single.html">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 		                <p>
 		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -257,7 +260,7 @@
 		                </p>
 		                <footer>
 		                  <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>198</div></a>
-		                  <a class="btn btn-primary more" href="single.html">
+		                  <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single}">
 		                    <div>More</div>
 		                    <div><i class="ion-ios-arrow-thin-right"></i></div>
 		                  </a>
@@ -285,8 +288,8 @@
 		        <aside>
 		          <div class="aside-body">
 		            <figure class="ads">
-			            <a href="single.html">
-			              <img src="../../static/images/ad.png">
+			            <a href="../ui/single.html" th:href="@{/single}">
+			              <img src="../images/ad.png" th:src="@{/images/ad.png}">
 			            </a>
 		              <figcaption>Advertisement</figcaption>
 		            </figure>
@@ -298,19 +301,19 @@
 		            <article class="article-fw">
 		              <div class="inner">
 		                <figure>
-			                <a href="single.html">
-			                  <img src="../../static/images/news/img12.jpg">
+			                <a href="../ui/single.html" th:href="@{/single}">
+			                  <img src="../images/news/img12.jpg" th:src="@{/images/news/img12.jpg}">
 			                </a>
 		                </figure>
 		                <div class="details">
-		                  <h1><a href="single.html">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</a></h1>
+		                  <h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</a></h1>
 		                  <p>
 		                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		                    tempor incididunt ut labore et dolore magna aliqua.
 		                  </p>
 		                  <div class="detail">
 		                    <div class="time">December 26, 2016</div>
-		                    <div class="category"><a href="category.html">Lifestyle</a></div>
+		                    <div class="category"><a href="../ui/category.html" th:href="@{/category}">Lifestyle</a></div>
 		                  </div>
 		                </div>
 		              </div>
@@ -319,14 +322,14 @@
 		            <article class="article-mini">
 		              <div class="inner">
 		              <figure>
-			              <a href="single.html">
-			                <img src="../../static/images/news/img05.jpg">
+			              <a href="../ui/single.html" th:href="@{/single}">
+			                <img src="../images/news/img05.jpg" th:src="@{/images/news/img05.jpg}">
 		                </a>
 		              </figure>
 		              <div class="padding">
-		                <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+		                <h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 		                <div class="detail">
-		                  <div class="category"><a href="category.html">Lifestyle</a></div>
+		                  <div class="category"><a href="../ui/category.html" th:href="@{/category}">Lifestyle</a></div>
 		                  <div class="time">December 22, 2016</div>
 		                </div>
 		              </div>
@@ -335,14 +338,14 @@
 		            <article class="article-mini">
 		              <div class="inner">
 		                <figure>
-			                <a href="single.html">
-			                  <img src="../../static/images/news/img02.jpg">
+			                <a href="../ui/single.html" th:href="@{/single}">
+			                  <img src="../images/news/img02.jpg" th:src="@{/images/news/img02.jpg}">
 		                  </a>
 		                </figure>
 		                <div class="padding">
-		                  <h1><a href="single.html">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
+		                  <h1><a href="../ui/single.html" th:href="@{/single}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
 		                  <div class="detail">
-		                    <div class="category"><a href="category.html">Travel</a></div>
+		                    <div class="category"><a href="../ui/category.html" th:href="@{/category}">Travel</a></div>
 		                    <div class="time">December 21, 2016</div>
 		                  </div>
 		                </div>
@@ -351,14 +354,14 @@
 		            <article class="article-mini">
 		              <div class="inner">
 		                <figure>
-			                <a href="single.html">
-			                  <img src="../../static/images/news/img13.jpg">
+			                <a href="../ui/single.html" th:href="@{/single}">
+			                  <img src="../images/news/img13.jpg" th:src="@{/images/news/img13.jpg}">
 		                  </a>
 		                </figure>
 		                <div class="padding">
-		                  <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+		                  <h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 		                  <div class="detail">
-		                    <div class="category"><a href="category.html">International</a></div>
+		                    <div class="category"><a href="../ui/category.html" th:href="@{/category}">International</a></div>
 		                    <div class="time">December 20, 2016</div>
 		                  </div>
 		                </div>
@@ -391,8 +394,7 @@
 	<!-- FOOTER -->
 	<footer th:replace="fragments/footer.html :: footer"></footer>
 	<!-- /FOOTER -->
-
-<!--	&lt;!&ndash; JS &ndash;&gt;-->
-<!--	<script th:replace="fragments/footer.html :: scripts"></script>-->
+	<!-- JS -->
+	<script th:remove="tag" th:replace="fragments/scripts.html :: scripts"> </script>
 	</body>
 </html>

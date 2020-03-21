@@ -1,3 +1,10 @@
+/**
+ * Контроллер регитрации пользователя
+ * @author
+ * fix Dmitriy Ostrovskiy 18.03.2020
+ * created on
+ */
+
 package ru.geek.news_portal.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.geek.news_portal.base.entities.User;
 import ru.geek.news_portal.services.UserService;
 import ru.geek.news_portal.utils.SystemUser;
@@ -15,7 +23,7 @@ import ru.geek.news_portal.utils.SystemUser;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/register")
+//@RequestMapping("/register")
 public class RegistrationController {
   private UserService userService;
 
@@ -30,46 +38,55 @@ public class RegistrationController {
     dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
   }
 
-//  @GetMapping("/")
-//  public String showMyLoginPage(Model model) {
-//    model.addAttribute("systemUser", new SystemUser());
-//    return "registration-form";
-//  }
-//
-//  @PostMapping("/process")
-//  public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
-//    String username = systemUser.getUsername();
-//    if (bindingResult.hasErrors()) {
-//      return "registration-form";
-//    }
-//    User existing = userService.findByUsername(username);
-//    if (existing != null) {
-//      model.addAttribute("systemUser", systemUser);
-//      model.addAttribute("registrationError", "User with current username is already exist");
-//      return "registration-form";
-//    }
-//    userService.save(systemUser);
-//    return "registration-confirmation";
-//  }
-@GetMapping("/")
-public String showMyLoginPage(Model model) {
-  model.addAttribute("systemUser", new SystemUser());
-  return "ui/register";
-}
+  @GetMapping("/register")
+  public String showMyLoginPage(Model model) {
+    model.addAttribute("systemUser", new SystemUser());
+    return "ui/register";
+  }
 
-  @PostMapping("/process")
-  public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
+//  @GetMapping("/forgot")
+//  public String showMyForgotPage(Model model) {
+//    model.addAttribute("systemUser", new SystemUser());
+//    return "ui/forgot";
+//  }
+
+
+  @PostMapping("/register/process")
+  public String processRegistrationForm(@ModelAttribute("systemUser")
+                                          @Valid SystemUser systemUser,
+                                        BindingResult bindingResult,
+                                        Model model,
+                                        final RedirectAttributes redirectAttributes) {
     String username = systemUser.getUsername();
     if (bindingResult.hasErrors()) {
       return "ui/register";
     }
     User existing = userService.findByUsername(username);
     if (existing != null) {
-      model.addAttribute("systemUser", systemUser);
+//      model.addAttribute("systemUser", systemUser);
       model.addAttribute("registrationError", "User with current username is already exist");
       return "ui/register";
     }
     userService.save(systemUser);
-    return "registration-confirmation";
+    return "redirect:/login";
   }
+
+//  @PostMapping("/forgot/process")
+//  public String processForgotUser(@ModelAttribute("systemUser")
+//                                        @Valid SystemUser systemUser,
+//                                        BindingResult bindingResult,
+//                                        Model model,
+//                                        final RedirectAttributes redirectAttributes) {
+//    String username = systemUser.getEmail();
+//    if (bindingResult.hasErrors()) {
+//      return "ui/forgot";
+//    }
+//    User existing = userService.findByUsername(username);
+//    if (existing != null) {
+//      model.addAttribute("systemUser", systemUser);
+//      model.addAttribute("forgotMessage", "Email Post");
+//      return "ui/forgot";
+//    }
+//    return "redirect:/login";
+//  }
 }

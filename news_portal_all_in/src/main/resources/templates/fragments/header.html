@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+<html  th:fragment="html" lang="en"  xmlns="http://www.w3.org/1999/xhtml"
 
       xmlns:th="http://www.thymeleaf.org"
 
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:fragment="head"  xmlns:th="http://www.thymeleaf.org">
+<head  th:fragment="head" xmlns:th="http://www.thymeleaf.org">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -41,17 +41,18 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--    &lt;!&ndash;[if lt IE 9]>-->
-<!--    <script th:src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
-<!--    <script th:src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
-    <script th:remove="tag" th:replace="fragments/scripts.html :: scripts"> </script>
+<!--    <script th:src="@{https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js}"></script>-->
+<!--    <script th:src="@{https://oss.maxcdn.com/respond/1.4.2/respond.min.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}"></script>-->
 
     <![endif]-->
 </head>
 
 <!-- HEADER -->
     <body >
-    <header th:fragment="header"  xmlns:th="http://www.thymeleaf.org">
-        <div class="firstbar">
+    <header >
+        <div class="firstbar" th:fragment="firstbar" xmlns:th="http://www.thymeleaf.org">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-12">
@@ -87,7 +88,6 @@
                         <ul class="nav-icons">
                             <li><a sec:authorize="!isAuthenticated()" th:href="@{/register}"><i class="ion-person-add"></i><div>Register</div></a></li>
                             <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}"><i class="ion-person"></i><div>Login</div></a></li>
-                            <a sec:authorize="isAuthenticated()" ><i class="fa fa-user-o"></i>  My Account</a>
                         </ul>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
         </div>
 
     <!-- NAVIGATION -->
-    <nav class="menu" xmlns:th="http://www.thymeleaf.org">
+    <nav class="menu" th:fragment="nav" xmlns:th="http://www.thymeleaf.org">
 <!--        <nav class="menu" th:fragment="navigation"  xmlns:th="http://www.thymeleaf.org">-->
         <!-- Start nav -->
         <div class="container">
@@ -113,8 +113,8 @@
             <div id="menu-list">
                 <ul class="nav-list">
                     <li class="for-tablet nav-title"><a>Menu</a></li>
-                    <li class="for-tablet"><a href="ui/login.html" th:href="@{/login}">Login</a></li>
-                    <li class="for-tablet"><a href="ui/register" th:href="@{/register}">Register</a></li>
+                    <li class="for-tablet"><a href="../ui/login.html" th:href="@{/login}">Login</a></li>
+                    <li class="for-tablet"><a href="../ui/register.html" th:href="@{/register}">Register</a></li>
                     <li><a th:href="@{/category}">Standard</a></li>
                     <li class="dropdown magz-dropdown">
                         <a th:href="@{/category}">Pages <i class="ion-ios-arrow-right"></i></a>
@@ -310,7 +310,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="dropdown magz-dropdown"><a th:href="@{#}">Dropdown Icons <i class="ion-ios-arrow-right"></i></a>
+                    <li class="dropdown magz-dropdown"><a sec:authorize="isAuthenticated()" th:href="@{#}">Dropdown Icons <i class="ion-ios-arrow-right"></i></a>
                         <ul class="dropdown-menu">
                             <li><a th:href="@{#}"><i class="icon ion-person"></i> My Account</a></li>
                             <li><a th:href="@{#}"><i class="icon ion-heart"></i> Favorite</a></li>
@@ -318,7 +318,7 @@
                             <li><a th:href="@{#}"><i class="icon ion-key"></i> Change Password</a></li>
                             <li><a th:href="@{#}"><i class="icon ion-settings"></i> Settings</a></li>
                             <li class="divider"></li>
-                            <li><a th:href="@{#}"><i class="icon ion-log-out"></i> Logout</a></li>
+                            <li><a  th:if="${#request.userPrincipal != null}" th:href="@{/logout}"><i class="icon ion-log-out"></i> Logout</a></li>
                         </ul>
                     </li>
                 </ul>
