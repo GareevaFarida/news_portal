@@ -15,6 +15,10 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://github.com/DiNikOs/news_portal/tree/master/ui-news_portal/src/main/resources/static" />
     <meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
+
+<!--  <meta name="_csrf" th:content="${_csrf.token}" />-->
+<!--  <meta name="_csrf_header" th:content="${_csrf.headerName}" />-->
+
     <title>Magz &mdash; Responsive HTML5 &amp; CSS3 Magazine Template</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" th:href="@{/scripts/bootstrap/bootstrap.min.css}">
@@ -52,7 +56,7 @@
                     <div class="col-md-3 col-sm-12">
                         <div class="brand">
                             <a th:href="@{/}">
-                                <img th:src="@{~/static/images/logo.png}" alt="Magz Logo">
+                                <img th:src="@{~/images/logo.png}" alt="Magz Logo">
                             </a>
                         </div>
                     </div>
@@ -82,6 +86,11 @@
                         <ul class="nav-icons">
                             <li><a sec:authorize="!isAuthenticated()" th:href="@{/register}"><i class="ion-person-add"></i><div>Register</div></a></li>
                             <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}"><i class="ion-person"></i><div>Login</div></a></li>
+                            <li sec:authorize="isAuthenticated()">
+                              <form th:action="@{/logout}" method="POST">
+                                <button class="btn btn-outline-secondary" type="submit">Выйти</button>
+                              </form>
+                            </li>
                             <a sec:authorize="isAuthenticated()" ><i class="fa fa-user-o"></i>  My Account</a>
                         </ul>
                     </div>
@@ -95,7 +104,7 @@
         <div class="container">
             <div class="brand">
                 <a th:href="@{#}">
-                    <img th:src="@{~/static/images/logo.png}" alt="Magz Logo">
+                    <img th:src="@{~/images/logo.png}" alt="Magz Logo">
                 </a>
             </div>
             <div class="mobile-toggle">
@@ -206,7 +215,7 @@
                                                 <div class="inner">
                                                     <figure>
                                                         <a th:href="@{/single}">
-                                                            <img th:src="@{~/static/images/news/img10.jpg}" alt="Sample Article">
+                                                            <img th:src="@{~/images/news/img10.jpg}" alt="Sample Article">
                                                         </a>
                                                     </figure>
                                                     <div class="padding">
@@ -222,7 +231,7 @@
                                                 <div class="inner">
                                                     <figure>
                                                         <a th:href="@{/single}">
-                                                            <img th:src="@{~/static/images/news/img11.jpg}" alt="Sample Article">
+                                                            <img th:src="@{~/images/news/img11.jpg}" alt="Sample Article">
                                                         </a>
                                                     </figure>
                                                     <div class="padding">
@@ -238,7 +247,7 @@
                                                 <div class="inner">
                                                     <figure>
                                                         <a th:href="@{/single}">
-                                                            <img th:src="@{~/static/images/news/img14.jpg}" alt="Sample Article">
+                                                            <img th:src="@{~/images/news/img14.jpg}" alt="Sample Article">
                                                         </a>
                                                     </figure>
                                                     <div class="padding">

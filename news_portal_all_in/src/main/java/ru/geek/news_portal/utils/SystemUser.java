@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
 public class SystemUser {
     @NotNull(message = "is required")
-    @Size(min = 4, message = "is required (min 4 chars")
+    @Size(min = 4, message = "is required (min 4 chars)")
     private String username;
 
     @NotNull(message = "is required")
