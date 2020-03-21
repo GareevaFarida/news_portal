@@ -156,32 +156,31 @@ public class User {
         return username;
     }
 
-
     public String getPassword() {
         return password;
     }
 
     public void setUsername(String username) {
-        this.username=username;
+        this.username = username;
     }
 
     public void setPassword(String password) {
-        this.password=password;
+        this.password = password;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName=firstName;
+        this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName=lastName;
+        this.lastName = lastName;
     }
 
     public void setEmail(String email) {
-        this.email=email;
+        this.email = email;
     }
 
     public void setRoles(Collection<Role> roles) {
-        this.roles=roles;
+        this.roles = roles;
     }
 }
