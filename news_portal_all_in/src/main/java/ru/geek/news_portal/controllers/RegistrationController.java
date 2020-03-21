@@ -30,11 +30,11 @@ public class RegistrationController {
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
-//  @GetMapping("/register")
-//  public String showMyLoginPage(Model model) {
-//    model.addAttribute("systemUser", new SystemUser());
-//    return "ui/register";
-//  }
+  @GetMapping
+  public String showMyLoginPage(Model model) {
+    model.addAttribute("systemUser", new SystemUser());
+    return "ui/register";
+  }
 
     @PostMapping("/process")
     public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser,

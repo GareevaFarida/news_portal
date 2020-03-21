@@ -93,10 +93,10 @@
                             <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}"><i class="ion-person"></i><div>Login</div></a></li>
                             <li sec:authorize="isAuthenticated()">
                               <form th:action="@{/logout}" method="POST">
-                                <button class="btn btn-outline-secondary" type="submit">Выйти</button>
+                                <button class="btn btn-primary" type="submit">Logout</button>
                               </form>
                             </li>
-                            <a sec:authorize="isAuthenticated()" ><i class="fa fa-user-o"></i>  My Account</a>
+                            <a sec:authorize="isAuthenticated()" ><i class="fa fa-user-o"></i>  Hello User!!!</a>
                         </ul>
                     </div>
                 </div>
@@ -319,7 +319,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="dropdown magz-dropdown"><a sec:authorize="isAuthenticated()" th:href="@{#}">Dropdown Icons <i class="ion-ios-arrow-right"></i></a>
+                    <li class="dropdown magz-dropdown"><a sec:authorize="isAuthenticated()" th:href="@{#}">Authorized user<i class="ion-ios-arrow-right"></i></a>
                         <ul class="dropdown-menu">
                             <li><a th:href="@{#}"><i class="icon ion-person"></i> My Account</a></li>
                             <li><a th:href="@{#}"><i class="icon ion-heart"></i> Favorite</a></li>
