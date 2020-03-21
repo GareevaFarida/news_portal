@@ -29,10 +29,10 @@ public class MainController {
     return "ui/login";
   }
 
-  @GetMapping("/register")
-  public String register() {
-    return "ui/register";
-  }
+//  @GetMapping("/register")
+//  public String register() {
+//    return "ui/register";
+//  }
 
   @GetMapping("/category")
   public String category() {

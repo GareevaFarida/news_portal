@@ -7,28 +7,25 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import ru.geek.news_portal.base.entities.User;
 import ru.geek.news_portal.services.UserService;
 import ru.geek.news_portal.utils.SystemUser;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping("register")
 public class RegistrationController {
-  private UserService userService;
+    private UserService userService;
 
-  @Autowired
-  public void setUserService(UserService userService) {
+    @Autowired
+    public void setUserService(UserService userService) {
     this.userService = userService;
   }
 
-  @InitBinder
-  public void initBinder(WebDataBinder dataBinder) {
-    StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-    dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-  }
+    @InitBinder public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
 
 //  @GetMapping("/")
 //  public String showMyLoginPage(Model model) {
@@ -51,25 +48,39 @@ public class RegistrationController {
 //    userService.save(systemUser);
 //    return "registration-confirmation";
 //  }
-@GetMapping("/")
-public String showMyLoginPage(Model model) {
-  model.addAttribute("systemUser", new SystemUser());
-  return "ui/register";
-}
 
-  @PostMapping("/process")
-  public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
-    String username = systemUser.getUsername();
-    if (bindingResult.hasErrors()) {
-      return "ui/register";
+
+    @GetMapping
+    public String showMyLoginPage(Model model) {
+        model.addAttribute("systemUser", new SystemUser());
+        return "ui/register";
     }
-    User existing = userService.findByUsername(username);
-    if (existing != null) {
-      model.addAttribute("systemUser", systemUser);
-      model.addAttribute("registrationError", "User with current username is already exist");
-      return "ui/register";
-    }
-    userService.save(systemUser);
-    return "registration-confirmation";
+
+    @PostMapping("/process")
+    public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser,
+                                          BindingResult bindingResult, Model model) {
+
+        bindingResult.getAllErrors().forEach(System.out::println);
+
+        String username = systemUser.getUsername();
+        String email = systemUser.getEmail();
+        if (bindingResult.hasErrors()) {
+            return "ui/register";
+        }
+
+        if (userService.isUsernameExist(username)) {
+            model.addAttribute("systemUser", systemUser);
+            model.addAttribute("registrationError", "Имя пользователя уже существует");
+            return "ui/register";
+        }
+
+        if (userService.isEmailExist(email)) {
+            model.addAttribute("systemUser", systemUser);
+            model.addAttribute("registrationError", "Email уже существует");
+            return "ui/register";
+        }
+
+        userService.save(systemUser);
+        return "registration-confirmation";
   }
 }
