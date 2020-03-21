@@ -8,7 +8,8 @@ import ru.geek.news_portal.utils.SystemUser;
 
 public interface UserService extends UserDetailsService {
   User findByUsername(String username);
-  boolean isUserExist(String username);
+  boolean isUsernameExist(String username);
+  boolean isEmailExist(String email);
   User save(SystemUser systemUser);
 
 }

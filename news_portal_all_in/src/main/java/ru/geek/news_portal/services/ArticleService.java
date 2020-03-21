@@ -20,4 +20,8 @@ public class ArticleService {
   public List<Article> findAllArticles() {
     return (List<Article>) articleRepository.findAll();
   }
+
+  public Article findById(Long id){
+      return articleRepository.findById(id).orElseThrow(IllegalStateException::new);
+  }
 }

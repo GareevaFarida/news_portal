@@ -1,10 +1,3 @@
-/**
- * Условия валидации
- * @author
- * fix Dmitriy Ostrovskiy 21.03.2020
- * created on
- */
-
 package ru.geek.news_portal.utils;
 
 import lombok.Data;
