@@ -10,4 +10,5 @@ public interface UserService extends UserDetailsService {
   User findByUsername(String username);
   boolean isUserExist(String username);
   User save(SystemUser systemUser);
+
 }
