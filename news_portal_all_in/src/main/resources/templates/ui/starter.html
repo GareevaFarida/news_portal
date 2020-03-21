@@ -6,7 +6,10 @@
 
 <body class="skin-orange">
 <!-- HEADER -->
-<header class="primary" th:replace="fragments/header.html :: header"></header>
+<header class="primary" >
+	<div th:replace="fragments/header.html :: firstbar"></div>
+	<nav th:replace="fragments/header.html :: nav"></nav>
+</header>
 <!-- /HEADER -->
 
 		<section>
@@ -19,7 +22,8 @@
 		<footer th:replace="fragments/footer.html :: footer"></footer>
 		<!-- /FOOTER -->
 
-		<!-- JS -->
-		<script th:replace="fragments/footer.html :: scripts"></script>
+	<!-- JS -->
+	<script th:remove="tag" th:replace="fragments/scripts.html :: scripts"> </script>
+
 	</body>
 </html>

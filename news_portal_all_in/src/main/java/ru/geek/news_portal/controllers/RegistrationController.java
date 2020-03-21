@@ -24,52 +24,62 @@ public class RegistrationController {
     this.userService = userService;
   }
 
-  @InitBinder
-  public void initBinder(WebDataBinder dataBinder) {
-    StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-    dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-  }
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
 
-//  @GetMapping("/")
+//  @GetMapping("/register")
 //  public String showMyLoginPage(Model model) {
 //    model.addAttribute("systemUser", new SystemUser());
-//    return "registration-form";
+//    return "ui/register";
 //  }
-//
-//  @PostMapping("/process")
-//  public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
-//    String username = systemUser.getUsername();
+
+    @PostMapping("/process")
+    public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser,
+                                          BindingResult bindingResult, Model model) {
+
+        bindingResult.getAllErrors().forEach(System.out::println);
+
+        String username = systemUser.getUsername();
+        String email = systemUser.getEmail();
+        if (bindingResult.hasErrors()) {
+            return "ui/register";
+        }
+
+        if (userService.isUsernameExist(username)) {
+            model.addAttribute("systemUser", systemUser);
+            model.addAttribute("registrationError", "Имя пользователя уже существует");
+            return "ui/register";
+        }
+
+        if (userService.isEmailExist(email)) {
+            model.addAttribute("systemUser", systemUser);
+            model.addAttribute("registrationError", "Email уже существует");
+            return "ui/register";
+        }
+
+        userService.save(systemUser);
+        return "redirect:/login";
+  }
+
+//  @PostMapping("/forgot/process")
+//  public String processForgotUser(@ModelAttribute("systemUser")
+//                                        @Valid SystemUser systemUser,
+//                                        BindingResult bindingResult,
+//                                        Model model,
+//                                        final RedirectAttributes redirectAttributes) {
+//    String username = systemUser.getEmail();
 //    if (bindingResult.hasErrors()) {
-//      return "registration-form";
+//      return "ui/forgot";
 //    }
 //    User existing = userService.findByUsername(username);
 //    if (existing != null) {
 //      model.addAttribute("systemUser", systemUser);
-//      model.addAttribute("registrationError", "User with current username is already exist");
-//      return "registration-form";
+//      model.addAttribute("forgotMessage", "Email Post");
+//      return "ui/forgot";
 //    }
-//    userService.save(systemUser);
-//    return "registration-confirmation";
+//    return "redirect:/login";
 //  }
-@GetMapping("/")
-public String showMyLoginPage(Model model) {
-  model.addAttribute("systemUser", new SystemUser());
-  return "ui/register";
-}
-
-  @PostMapping("/process")
-  public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
-    String username = systemUser.getUsername();
-    if (bindingResult.hasErrors()) {
-      return "ui/register";
-    }
-    User existing = userService.findByUsername(username);
-    if (existing != null) {
-      model.addAttribute("systemUser", systemUser);
-      model.addAttribute("registrationError", "User with current username is already exist");
-      return "ui/register";
-    }
-    userService.save(systemUser);
-    return "registration-confirmation";
-  }
 }

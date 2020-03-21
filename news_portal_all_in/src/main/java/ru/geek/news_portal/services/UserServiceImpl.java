@@ -1,3 +1,10 @@
+/**
+ * Бизнес логика User
+ * @author
+ * fix Dmitriy Ostrovskiy 19.03.2020
+ * created on
+ */
+
 package ru.geek.news_portal.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,15 +70,37 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
-
+  
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
+  
+  
+//    @Override
+//     public List<User> findAll() {
+//         return userRepository.findAll();
+//     return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+//             mapRolesToAuthorities(user.getRoles()));
+//   }
+
+//   private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+//     return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+//   }
 
     @Override
     public boolean isUserExist(String username) {
         return userRepository.existsByUsername(username);
     }
+  
+  @Override
+  public boolean isUsernameExist(String username) {
+    return userRepository.existsByUsername(username);
+  }
+
+  @Override
+  public boolean isEmailExist(String email) {
+      return userRepository.existsByEmail(email);
+  }
 
     @Override
     @Transactional
@@ -90,7 +119,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(systemUser.getEmail());
         user.setRoles(Arrays.asList(roleRepository.findOneByName("ROLE_READER")));
         return userRepository.save(user);
-    }
+    } 
 
     @Override
     public User saveUser(User user) {
@@ -99,12 +128,7 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.save(user);
     }
-
-    @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
+  
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);

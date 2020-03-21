@@ -29,9 +29,14 @@ public class MainController {
     return "ui/login";
   }
 
-  @GetMapping("/register")
-  public String register() {
-    return "ui/register";
+//  @GetMapping("/register")
+//  public String register() {
+//    return "ui/register";
+//  }
+
+  @GetMapping("/logout")
+  public String logout() {
+    return "redirect:/";
   }
 
   @GetMapping("/category")
@@ -99,5 +104,4 @@ public class MainController {
 //  public String admin() {
 //    return "Hello";
 //  }
-
 }

@@ -1033,12 +1033,12 @@
   padding: 0;
   margin-top: 3px;
 }
-.skin-orange .nav-tabs-group .nav-tabs-right {
+.skin-orange.nav-tabs-group.nav-tabs-right {
   float: right;
   display: inline-block;
   width: 100px;
 }
-.skin-orange .featured-author .featured-author-body .featured-author-count .item .name {
+.skin-orange.featured-author.featured-author-body.featured-author-count.item.name {
   color: #FC624D;
 }
 

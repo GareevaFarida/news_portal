@@ -9,17 +9,21 @@ import ru.geek.news_portal.utils.SystemUser;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
-    User findByUsername(String username);
 
     User findById(Long id);
 
-    boolean isUserExist(String username);
-
-    User save(SystemUser systemUser);
+    boolean isUserExist(String username);  
 
     User saveUser(User user);
 
     List<User> findAll();
 
     void delete(Long id);
+
+    User findByUsername(String username);
+    boolean isUsernameExist(String username);
+    boolean isEmailExist(String email);
+    User save(SystemUser systemUser);
+
+
 }

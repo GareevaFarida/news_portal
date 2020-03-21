@@ -4,37 +4,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.geek.news_portal.utils.validation.FieldMatch;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
 @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
 public class SystemUser {
-    @NotNull(message = "is required")
-    @Size(min = 4, message = "is required (min 4 chars")
+    @NotEmpty(message = "Not Empty!")
     private String username;
 
-    @NotNull(message = "is required")
-    @Size(min = 4, message = "password is too short")
+    @NotNull(message = "Not Null!")
+    @Size(min = 3, message = "Too short <4!")
+//    @Pattern(regexp = "(?=^.{4,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z])", message = "must be a-Z,0-9,_'^&/+! and <4")
     private String password;
 
-    @NotNull(message = "is required")
-    @Size(min = 4, message = "password is too short")
+    @NotNull(message = "Not Null!")
+    @Size(min = 3, message = "Too short <4!")
+//    @Pattern(regexp = "(?=^.{4,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z])", message = "Must be a-Z,0-9,_'^&/+! and <4")
     private String matchingPassword;
 
-    @NotNull(message = "is required")
-    @Size(min = 1, message = "is required")
+    @NotEmpty(message = "Not Empty!")
     private String firstName;
 
-    @NotNull(message = "is required")
-    @Size(min = 1, message = "is required")
+    @NotEmpty(message = "Not Empty!")
     private String lastName;
 
-    @NotNull(message = "is required")
-    @Size(min = 4, message = "is required")
-    @Email
+    @NotNull(message = "Not Null!")
+    @Size(min = 3, message = "Too short <3!")
+    @Email(message = "Must be Email@xxx.xxx!")
     private String email;
 
     public String getUsername() {

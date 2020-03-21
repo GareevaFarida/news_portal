@@ -1,3 +1,10 @@
+/**
+ * Логика валидации
+ * @author
+ * fix Dmitriy Ostrovskiy 19.03.2020
+ * created on
+ */
+
 package ru.geek.news_portal.utils.validation;
 
 import org.springframework.beans.BeanWrapperImpl;
@@ -23,7 +30,7 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
     try {
       final Object firstObj = new BeanWrapperImpl(value).getPropertyValue(firstFieldName);
       final Object secondObj = new BeanWrapperImpl(value).getPropertyValue(secondFieldName);
-      valid = !(firstObj == null && secondObj == null) || firstObj != null && firstObj.equals(secondObj);
+      valid = firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
     } catch (final Exception ignore) {
 
     }
