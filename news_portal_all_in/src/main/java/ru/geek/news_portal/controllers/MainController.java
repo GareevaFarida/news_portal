@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.geek.news_portal.services.ArticleService;
+import ru.geek.news_portal.utils.SystemUser;
 
 @Controller
 public class MainController {

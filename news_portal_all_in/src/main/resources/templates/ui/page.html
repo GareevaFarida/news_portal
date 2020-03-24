@@ -12,12 +12,14 @@
 	<div th:replace="fragments/header.html :: firstbar"></div>
 	<nav th:replace="fragments/header.html :: nav"></nav>
 </header>
+
+<!--<header class="primary" th:replace="fragments/header.html :: header"></header>-->
 <!-- /HEADER -->
 
-		<section class="page">
+		<section class="page first">
 			<div class="container">
 				<div class="row">
-                    <form th:action="@{/articles/comment/article_id={article_id}(article_id = ${article.id})}" method="post">
+                    <form th:action="@{/page/articles/comment/{article_id}(article_id = ${article.id})}" method="post">
                         <div class="col-md-8 col-md-offset-2">
                             <ol class="breadcrumb">
                                 <li><a href="../index.html">Home</a></li>
@@ -59,10 +61,10 @@
 
 <!--                                лайки и дизлайки-->
                                 <div class="row">
-                                    <a th:href="@{/articles/addLike/{id}(id = ${article.id})}">
+                                    <a th:href="@{/page/articles/addLike/{id}(id = ${article.id})}">
                                         <i class="fa fa-thumbs-up" aria-hidden="true" th:text="${articleLikes}">2333</i>
                                     </a>&nbsp;&nbsp;&nbsp;
-                                    <a th:href="@{/articles/addDislike/{id}(id = ${article.id})}">
+                                    <a th:href="@{/page/articles/addDislike/{id}(id = ${article.id})}">
                                         <i class="fa fa-thumbs-down" aria-hidden="true" th:text="${articleDislikes}">213</i>
                                     </a>
                                 </div>
@@ -103,7 +105,6 @@
                                     </div>
                                 </div>
                                 <!--                            конец вывода  коммента-->
-
                             </div>
                         </div>
                     </form>
