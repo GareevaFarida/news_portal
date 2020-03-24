@@ -11,6 +11,7 @@ import javax.validation.constraints.*;
 @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
 public class SystemUser {
     @NotEmpty(message = "Not Empty!")
+    @Size(min = 3, message = "Too short <4!")
     private String username;
 
     @NotNull(message = "Not Null!")
@@ -34,23 +35,23 @@ public class SystemUser {
     @Email(message = "Must be Email@xxx.xxx!")
     private String email;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public CharSequence getPassword() {
-        return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public CharSequence getPassword() {
+//        return password;
+//    }
+//
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
 }

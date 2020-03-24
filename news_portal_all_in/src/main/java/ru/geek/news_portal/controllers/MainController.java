@@ -29,16 +29,6 @@ public class MainController {
     return "ui/login";
   }
 
-//  @GetMapping("/register")
-//  public String register() {
-//    return "ui/register";
-//  }
-
-  @GetMapping("/logout")
-  public String logout() {
-    return "redirect:/";
-  }
-
   @GetMapping("/category")
   public String category() {
     return "ui/category";

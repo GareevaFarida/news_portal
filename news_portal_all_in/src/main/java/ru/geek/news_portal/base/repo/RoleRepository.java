@@ -7,4 +7,5 @@ import ru.geek.news_portal.base.entities.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Role findOneByName(String name);
+    Role findRoleByName(String name);
 }

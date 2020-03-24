@@ -90,8 +90,8 @@ public class UserServiceImpl implements UserService {
     public boolean isUserExist(String username) {
         return userRepository.existsByUsername(username);
     }
-  
-  @Override
+
+    @Override
   public boolean isUsernameExist(String username) {
     return userRepository.existsByUsername(username);
   }
@@ -116,16 +116,13 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(systemUser.getFirstName());
         user.setLastName(systemUser.getLastName());
         user.setEmail(systemUser.getEmail());
-        user.setRoles(Arrays.asList(roleRepository.findOneByName("ROLE_READER")));
+        user.setRoles(Arrays.asList(roleRepository.findOneByName("READER")));
         return userRepository.save(user);
-    } 
+    }
 
     @Override
-    public User saveUser(User user) {
-        if (findByUsername(user.getUsername()) != null) {
-            throw new RuntimeException("User with username " + user.getUsername() + " is already exist");
-        }
-        return userRepository.save(user);
+    public User update(SystemUser systemUser) {
+        return null;
     }
   
     @Override

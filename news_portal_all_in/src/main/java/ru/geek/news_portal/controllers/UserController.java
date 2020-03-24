@@ -1,17 +1,18 @@
 package ru.geek.news_portal.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.User;
 import ru.geek.news_portal.base.repo.RoleRepository;
 import ru.geek.news_portal.services.UserService;
 import ru.geek.news_portal.utils.SystemUser;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -20,6 +21,7 @@ import javax.validation.Valid;
  * @author Anatoly Lebedev
  * @version 1.0.0 21.03.2020
  * @link https://github.com/Centnerman
+ * fix Dmitriy Ostrovskiy
  */
 
 @Controller
@@ -35,18 +37,39 @@ public class UserController {
         this.userService = userService;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
+
     @GetMapping("/users")
-    public String adminUsersPage(Model model) {
+    public String adminUsersPage(Model model , HttpServletRequest request) {
+        if (!request.isUserInRole("ADMIN")) {
+            return "redirect:/";
+        }
         model.addAttribute("activePage", "Users");
         model.addAttribute("users", userService.findAll());
         return "users";
     }
 
-    @GetMapping("/user/{id}/edit")
-    public String adminEditUser(Model model, @PathVariable("id") Long id) {
+//    @GetMapping("/user/edit/{id}")
+//    public String adminEditUser(Model model, @PathVariable("id") Long id) {
+//        model.addAttribute("edit", true);
+//        model.addAttribute("activePage", "Users");
+//        model.addAttribute("user", userService.findById(id));
+//        model.addAttribute("roles", roleRepository.findAll());
+//        return "user_form";
+//    }
+
+    @GetMapping({"/user/edituser", "/user/edituser/{username}"})
+    public String adminEditUser(Model model, @PathVariable(value = "username", required = false) String username, HttpServletRequest request) {
+        if (!request.isRequestedSessionIdValid()) {
+            return "redirect:/";
+        }
         model.addAttribute("edit", true);
         model.addAttribute("activePage", "Users");
-        model.addAttribute("user", userService.findById(id));
+        model.addAttribute("user", userService.findByUsername(username));
         model.addAttribute("roles", roleRepository.findAll());
         return "user_form";
     }
@@ -60,19 +83,20 @@ public class UserController {
         return "user_form";
     }
 
-    @PostMapping("/user")
-    public String adminUpsertUser(@Valid User user, Model model, BindingResult bindingResult) {
+    @PostMapping("/user/update")
+    public String updateUser(@Valid @ModelAttribute("systemUser") SystemUser systemUser,
+                             BindingResult bindingResult, Model model) {
         model.addAttribute("activePage", "Users");
 
         if (bindingResult.hasErrors()) {
             return "user_form";
         }
 
-        userService.saveUser(user);
-        return "redirect:/users";
+        userService.update(systemUser);
+        return "user_form";
     }
 
-    @GetMapping("/user/{id}/delete")
+    @GetMapping("/user/delete/{id}")
     public String adminDeleteUser(Model model, @PathVariable("id") Long id) {
         userService.delete(id);
         return "users";

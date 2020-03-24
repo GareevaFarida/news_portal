@@ -14,7 +14,7 @@ public interface UserService extends UserDetailsService {
 
     boolean isUserExist(String username);  
 
-    User saveUser(User user);
+    User update(SystemUser systemUser);
 
     List<User> findAll();
 

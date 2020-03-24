@@ -50,13 +50,13 @@ public class RegistrationController {
 
         if (userService.isUsernameExist(username)) {
             model.addAttribute("systemUser", systemUser);
-            model.addAttribute("registrationError", "Имя пользователя уже существует");
+            model.addAttribute("registrationError", "Username already exists!");
             return "ui/register";
         }
 
         if (userService.isEmailExist(email)) {
             model.addAttribute("systemUser", systemUser);
-            model.addAttribute("registrationError", "Email уже существует");
+            model.addAttribute("registrationError", "Email already exists!");
             return "ui/register";
         }
 

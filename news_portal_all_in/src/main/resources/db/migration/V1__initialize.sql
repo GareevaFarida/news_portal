@@ -29,11 +29,17 @@ CREATE TABLE users_roles (
 
 INSERT INTO roles (name)
 VALUES
-('ROLE_ADMIN'), ('ROLE_USER'), ('ROLE_WRITER'), ('ROLE_READER');
+('ADMIN'), ('USER'), ('WRITER'), ('READER');
 
 INSERT INTO users (username, password, first_name, last_name, email)
 VALUES
-('admin','$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i','Adminn','Adminoff','admin@gmail.com');
+('admin','$2a$10$93.GvO4rU88tUMM8DYqi9OIlStKWPyByqx9mQ9AZWCAmRilrC6X5i','Adminn','Adminoff','admin@gmail.com');
+-- password=12345
+
+INSERT INTO users (username, password, first_name, last_name, email)
+VALUES
+('user','$2a$10$C2yYw2Q5t1DSE48O9KG3wOFm8ermU6zIULjAMANWgwi5xZQgINK.u','Us','Er','user@mail.com');
+-- password=11111
 
 INSERT INTO users_roles (user_id, role_id)
 VALUES
