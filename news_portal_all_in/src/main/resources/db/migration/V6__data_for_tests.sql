@@ -1,17 +1,17 @@
 
 INSERT INTO articles (category_id,created, last_view_date, main_picture_url, published, status_id, title, text, total_views)
 VALUES
-(1,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic1.jpg"',current_date,1,'Заголовок1', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',100),
-(2,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic2.jpg"',current_date,1,'Заголовок2', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',200),
-(3,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic1.jpg"',current_date,1,'Заголовок3', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',300),
-(4,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic2.jpg"',current_date,2,'Заголовок4', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',500),
-(5,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic1.jpg"',current_date,2,'Заголовок5', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',100),
-(1,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic2.jpg"',current_date,2,'Заголовок6', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',200),
-(2,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic1.jpg"',current_date,3,'Заголовок7', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',500),
-(3,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic1.jpg"',current_date,3,'Заголовок8', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',400),
-(4,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic2.jpg"',current_date,3,'Заголовок9', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',1000),
-(5,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic1.jpg"',current_date,1,'Заголовок10', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',300),
-(1,current_date, current_date,'"http://localhost:8199/news_portal_all_in/image_repository/pic2.jpg"',current_date,2,'Заголовок11', '<p>TEXT</p> <img src="http://localhost:8199/news/image_repository/pic1.jpg"/> <p>TEXT</p>',250);
+(1,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,1,'Заголовок1', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',100),
+(2,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,1,'Заголовок2', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',200),
+(3,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,1,'Заголовок3', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',300),
+(4,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,2,'Заголовок4', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',500),
+(5,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,2,'Заголовок5', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',100),
+(1,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,2,'Заголовок6', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',200),
+(2,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,3,'Заголовок7', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',500),
+(3,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,3,'Заголовок8', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',400),
+(4,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,3,'Заголовок9', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',1000),
+(5,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,1,'Заголовок10', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',300),
+(1,current_date, current_date,'"http://localhost:8199/news/images/news/img01.jpg"',current_date,2,'Заголовок11', '<p>TEXT</p> <img src="http://localhost:8199/news/images/news/img01.jpg"/> <p>TEXT</p>',250);
 
 INSERT INTO comments (created, article_id, user_id, text)
 VALUES

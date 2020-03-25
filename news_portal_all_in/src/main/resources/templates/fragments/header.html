@@ -319,12 +319,12 @@
                     </li>
 
                         <li class="dropdown magz-dropdown"><a sec:authorize="isAuthenticated()" th:href="@{#}" >Authorized user<i class="ion-ios-arrow-right"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a sec:authorize="isAuthenticated()" th:href="@{/user/edituser/{username}(username=${#request.userPrincipal.getName()})}"><i class="icon ion-person"></i> My Account</a></li>
-                                <li><a th:href="@{#}"><i class="icon ion-heart"></i> Favorite</a></li>
-                                <li><a th:href="@{#}"><i class="icon ion-chatbox"></i> Comments</a></li>
-                                <li><a th:href="@{#}"><i class="icon ion-key"></i> Change Password</a></li>
-                                <li><a th:href="@{#}"><i class="icon ion-settings"></i> Settings</a></li>
+                            <ul class="dropdown-menu" sec:authorize="isAuthenticated()">
+                                <li><a  th:href="@{/user/edituser/{username}(username=${#request.userPrincipal.getName()})}"><i class="icon ion-person"></i> My Account</a></li>
+                                <li><a th:href="@{/user/favorite/{username}(username=${#request.userPrincipal.getName()})}"><i class="icon ion-heart"></i> Favorite</a></li>
+                                <li><a th:href="@{/user/comment/{username}(username=${#request.userPrincipal.getName()})}"><i class="icon ion-chatbox"></i> Comments</a></li>
+                                <li><a th:href="@{/user/change_password/{username}(username=${#request.userPrincipal.getName()})}"><i class="icon ion-key"></i> Change Password</a></li>
+                                <li><a th:href="@{/user/setting/{username}(username=${#request.userPrincipal.getName()})}"><i class="icon ion-settings"></i> Settings</a></li>
                                 <li class="divider"></li>
                                 <li><a  th:if="${#request.userPrincipal != null}" th:href="@{/logout}"><i class="icon ion-log-out"></i> Logout</a></li>
                             </ul>
