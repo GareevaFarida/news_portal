@@ -67,6 +67,7 @@ public class ArticleController {
             return "ui/404";
         }
         model.addAttribute("article", articleService.findById(id));
+        model.addAttribute("articles", articleService.findAllArticles());
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
         model.addAttribute("comment", new Comment());
         model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));

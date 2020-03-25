@@ -93,4 +93,20 @@ public class Article {
     comments.remove(comment);
   }
 
+
+
+  public LocalDateTime getCreated() {
+    if (created == null) {
+        created = LocalDateTime.now();
+    }
+    return created;
+  }
+
+  public String getTitle() {
+    if (title == null) {
+      title = "Title";
+    }
+    return title;
+  }
+
 }

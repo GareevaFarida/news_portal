@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Latest News</title>
+<!--    <div  th:replace="~{fragments/news :: latest_news(${articles})}"></div>-->
+</head>
+<body>
+
+<div th:fragment="latest_news">
+    <div class="col-md-6 col-sm-6 col-xs-12" th:each="article,state : ${articles}">
+        <div class="row" >
+            <article class="article col-md-12" >
+                <div class="inner">
+                    <figure>
+                        <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                            <!--<img th:src="@{/images/news/img10.jpg}" alt="Sample Article">-->
+                            <p  th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                        </a>
+                    </figure>
+                    <div class="padding">
+                        <div class="detail">
+                            <div class="time" th:remove="tag" th:utext="${article.created}">December 10, 2016</div>
+                            <div class="category"><a th:href="@{/category}">Healthy</a></div>
+                        </div>
+                        <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                        <footer>
+                            <a th:href="@{#}" class="love"><i class="ion-android-favorite-outline"></i> <div>1263</div></a>
+                            <a class="btn btn-primary more" th:href="@{/single/articles/{id}(id=${state.count})}">
+                                <div>More</div>
+                                <div><i class="ion-ios-arrow-thin-right"></i></div>
+                            </a>
+                        </footer>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="hot_news">
+    <article class="article-mini" th:each="article,state : ${articles}">
+        <div class="inner">
+            <figure>
+                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+<!--			<img th:src="@{/images/news/img09.jpg}" alt="Sample Article">-->
+                    <p  th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                </a>
+            </figure>
+            <div class="padding">
+                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+                <div class="detail">
+                    <div class="category"><a th:href="@{/category}">Lifestyle</a></div>
+                    <div class="time" th:remove="tag" th:utext="${article.created}">December 22, 2016</div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+<div th:fragment="popular">
+    <article class="article-mini" th:each="article,state : ${articles}">
+        <div class="inner">
+            <figure>
+                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+<!--				<img th:src="@{/images/news/img07.jpg}" alt="Sample Article">-->
+                    <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                </a>
+            </figure>
+            <div class="padding">
+                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
+            </div>
+        </div>
+    </article>
+</div>
+
+    <article th:fragment="best_of_week" class="article" th:each="article,state : ${articles}">
+        <div class="inner">
+            <figure>
+                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+<!--		        <img th:src="@{/images/news/img03.jpg}" alt="Sample Article">-->
+                    <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                </a>
+            </figure>
+            <div class="padding">
+                <div class="detail">
+                        <div class="time" th:utext="${article.created}">December 11, 2016</div>
+                        <div class="category"><a th:href="@{/category}">Travel</a></div>
+                </div>
+                <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">tempor interdum Praesent tincidunt</a></h2>
+                <p>Praesent tincidunt, leo vitae congue molestie.</p>
+            </div>
+        </div>
+    </article>
+
+
+<div th:fragment="another_news">
+    <article class="col-md-12 article-list" th:each="article,state : ${articles}">
+        <div class="inner">
+            <figure>
+                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                    <!--											<img th:src="@{/images/news/img11.jpg}" alt="Sample Article">-->
+                    <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                </a>
+            </figure>
+            <div class="details">
+                <div class="detail">
+                    <div class="category">
+                        <a th:href="@{#}">Film</a>
+                    </div>
+                    <div class="time" th:remove="tag" th:utext="${article.created}">December 19, 2016</div>
+                </div>
+                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Donec consequat arcu at ultrices sodales quam erat aliquet diam</a></h1>
+                <p>
+                    Donec consequat, arcu at ultrices sodales, quam erat aliquet diam, sit amet interdum libero nunc accumsan nisi.
+                </p>
+                <footer>
+                    <a th:href="@{#}" class="love"><i class="ion-android-favorite-outline"></i> <div>273</div></a>
+                    <a class="btn btn-primary more" th:href="@{/single/articles/{id}(id=${state.count})}">
+                        <div>More</div>
+                        <div><i class="ion-ios-arrow-thin-right"></i></div>
+                    </a>
+                </footer>
+            </div>
+        </div>
+    </article>
+</div>
+
+<div th:fragment="article_mini">
+    <article class="article-mini" th:each="article,state : ${articles}">
+        <div class="inner">
+            <figure>
+                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                    <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                </a>
+            </figure>
+            <div class="padding">
+                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+                <div class="detail">
+                    <div class="category"><a th:href="@{/category}">Lifestyle</a></div>
+                    <div class="time" th:utext="${article.created}">December 22, 2016</div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+<div th:fragment="recomended_news" th:with="recomended_news=5">
+
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li class="active">
+            <a th:href="@{#recomended}" aria-controls="recomended" role="tab" data-toggle="tab">
+                <i class="ion-android-star-outline"></i> Recomended
+            </a>
+        </li>
+        <li>
+            <a th:href="@{#comments}" aria-controls="comments" role="tab" data-toggle="tab">
+                <i class="ion-ios-chatboxes-outline"></i> Comments
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="recomended">
+            <article class="article-fw">
+                <div class="inner">
+                    <figure>
+                        <a th:href="@{/single/articles/{id}(id=${recomended_news})}">
+                            <p th:remove="tag" th:utext="${articles.get((recomended_news)-1).getMainPictureUrl()}">Main Picture</p>
+<!--                            <img th:src="@{/images/news/img16.jpg}" alt="Sample Article">-->
+                        </a>
+                    </figure>
+                    <div class="details">
+                        <div class="detail">
+                            <div class="time">December 31, 2016</div>
+                            <div class="category"><a th:href="@{/category}">Sport</a></div>
+                        </div>
+                        <h1><a th:href="@{/single/articles/{id}(id=${recomended_news})}" th:utext="${articles.get((recomended_news)-1).title}">Donec congue turpis vitae mauris</a></h1>
+                        <p>
+                            Donec congue turpis vitae mauris condimentum luctus. Ut dictum neque at egestas convallis.
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <div class="line"></div>
+
+            <div th:replace="fragments/news :: article_mini"></div>
+
+        </div>
+        <div class="tab-pane comments" id="comments">
+            <div class="comment-list sm"  th:each="comm : ${comments}">
+                <div class="item">
+                    <div class="user">
+                        <figure>
+                            <img th:src="@{/images/img01.jpg}" alt="User Picture">
+                        </figure>
+                        <div class="details">
+                            <h5 class="name"  th:text="${comm.user.getUsername()}">Mark Otto</h5>
+                            <div class="time"  th:text="${comm.created}">24 Hours</div>
+                            <div class="description" th:text="${comm.text}">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="like_news" th:with="news_one=3, news_two=5">
+
+        <article class="article related col-md-6 col-sm-6 col-xs-12" >
+            <div class="inner">
+                <figure>
+                    <a th:href="@{/single/articles/{id}(id=${news_one})}">
+                        <p th:remove="tag" th:utext="${articles.get((news_one)-1).getMainPictureUrl()}">Main Picture</p>
+
+                    </a>
+                </figure>
+                <div class="padding">
+                    <h2><a th:href="@{/single/articles/{id}(id=${news_one})}" th:utext="${articles.get((news_one)-1).title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+                    <div class="detail">
+                        <div class="category"><a href="../ui/category" th:href="@{/category}">Lifestyle</a></div>
+                        <div class="time" th:utext="${articles.get((news_one)-1).created}">December 26, 2016</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    <article class="article related col-md-6 col-sm-6 col-xs-12" >
+        <div class="inner">
+            <figure>
+                <a th:href="@{/single/articles/{id}(id=${news_two})}">
+                    <p th:remove="tag" th:utext="${articles.get((news_two)-1).getMainPictureUrl()}">Main Picture</p>
+
+                </a>
+            </figure>
+            <div class="padding">
+                <h2><a th:href="@{/single/articles/{id}(id=${news_two})}" th:utext="${articles.get((news_two)-1).title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+                <div class="detail">
+                    <div class="category"><a href="../ui/category" th:href="@{/category}">Lifestyle</a></div>
+                    <div class="time" th:utext="${articles.get((news_two)-1).created}">December 26, 2016</div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+</div>
+
+</body>
+</html>
