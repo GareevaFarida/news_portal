@@ -9,6 +9,25 @@
 </head>
 <body>
 
+<div th:fragment="featured_news">
+    <div class="owl-carousel owl-theme slide" id="featured" >
+        <div class="item" th:each="article,state : ${articles}">
+            <article class="featured">
+                <div class="overlay"></div>
+                <figure>
+<!--                    <img th:src="@{/images/news/img04.jpg}" alt="Sample Article">-->
+                    <p  th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                </figure>
+                <div class="details">
+                    <div class="category"><a th:href="@{/category/}" th:utext="${articles.get((state.count)-1).category.name}">Computer</a></div>
+                    <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Phasellus iaculis quam sed est elementum vel ornare ligula venenatis</a></h1>
+                    <div class="time" th:text="${article.created}">December 26, 2016</div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
 <div th:fragment="latest_news">
     <div class="col-md-6 col-sm-6 col-xs-12" th:each="article,state : ${articles}">
         <div class="row" >
@@ -23,7 +42,7 @@
                     <div class="padding">
                         <div class="detail">
                             <div class="time" th:remove="tag" th:utext="${article.created}">December 10, 2016</div>
-                            <div class="category"><a th:href="@{/category}">Healthy</a></div>
+                            <div class="category"><a th:href="@{/category}" th:utext="${articles.get((state.count)-1).category.name}">Healthy</a></div>
                         </div>
                         <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
@@ -53,7 +72,7 @@
             <div class="padding">
                 <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
                 <div class="detail">
-                    <div class="category"><a th:href="@{/category}">Lifestyle</a></div>
+                    <div class="category"><a th:href="@{/category}" th:utext="${articles.get((state.count)-1).category.name}">Lifestyle</a></div>
                     <div class="time" th:remove="tag" th:utext="${article.created}">December 22, 2016</div>
                 </div>
             </div>
@@ -88,7 +107,7 @@
             <div class="padding">
                 <div class="detail">
                         <div class="time" th:utext="${article.created}">December 11, 2016</div>
-                        <div class="category"><a th:href="@{/category}">Travel</a></div>
+                        <div class="category"><a th:href="@{/category}" th:utext="${articles.get((state.count)-1).category.name}">Travel</a></div>
                 </div>
                 <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">tempor interdum Praesent tincidunt</a></h2>
                 <p>Praesent tincidunt, leo vitae congue molestie.</p>
@@ -109,7 +128,7 @@
             <div class="details">
                 <div class="detail">
                     <div class="category">
-                        <a th:href="@{#}">Film</a>
+                        <a th:href="@{/category}" th:utext="${articles.get((state.count)-1).category.name}">Film</a>
                     </div>
                     <div class="time" th:remove="tag" th:utext="${article.created}">December 19, 2016</div>
                 </div>
@@ -140,7 +159,7 @@
             <div class="padding">
                 <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
                 <div class="detail">
-                    <div class="category"><a th:href="@{/category}">Lifestyle</a></div>
+                    <div class="category"><a th:href="@{/category}" th:utext="${articles.get((state.count)-1).category.name}">Lifestyle</a></div>
                     <div class="time" th:utext="${article.created}">December 22, 2016</div>
                 </div>
             </div>
@@ -175,7 +194,7 @@
                     <div class="details">
                         <div class="detail">
                             <div class="time">December 31, 2016</div>
-                            <div class="category"><a th:href="@{/category}">Sport</a></div>
+                            <div class="category"><a th:href="@{/category}" th:utext="${articles.get((recomended_news)-1).category.name}">Sport</a></div>
                         </div>
                         <h1><a th:href="@{/single/articles/{id}(id=${recomended_news})}" th:utext="${articles.get((recomended_news)-1).title}">Donec congue turpis vitae mauris</a></h1>
                         <p>
@@ -210,6 +229,30 @@
     </div>
 </div>
 
+<div th:fragment="resent_post" th:with="resent_post=10">
+    <article class="article-fw">
+        <div class="inner">
+            <figure>
+                <a href="../ui/single.html" th:href="@{/singlearticles/{id}(id=${resent_post})}">
+<!--                    <img src="../images/news/img16.jpg" th:src="@{/images/news/img16.jpg}">-->
+                    <p th:remove="tag" th:utext="${articles.get((resent_post)-1).getMainPictureUrl()}">Main Picture</p>
+                </a>
+            </figure>
+            <div class="details">
+                <h1><a href="../ui/single.html" th:href="@{/singlearticles/{id}(id=${resent_post})}" th:utext="${articles.get((resent_post)-1).title}">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</a></h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <div class="detail">
+                    <div class="time" th:utext="${articles.get((resent_post)-1).created}">December 26, 2016</div>
+                    <div class="category"><a href="../ui/category.html" th:href="@{/category}" th:utext="${articles.get((resent_post)-1).category.name}">Lifestyle</a></div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
 <div th:fragment="like_news" th:with="news_one=3, news_two=5">
 
         <article class="article related col-md-6 col-sm-6 col-xs-12" >
@@ -223,7 +266,7 @@
                 <div class="padding">
                     <h2><a th:href="@{/single/articles/{id}(id=${news_one})}" th:utext="${articles.get((news_one)-1).title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
                     <div class="detail">
-                        <div class="category"><a href="../ui/category" th:href="@{/category}">Lifestyle</a></div>
+                        <div class="category"><a href="../ui/category" th:href="@{/category}" th:utext="${articles.get((news_one)-1).category.name}">Lifestyle</a></div>
                         <div class="time" th:utext="${articles.get((news_one)-1).created}">December 26, 2016</div>
                     </div>
                 </div>
@@ -241,13 +284,12 @@
             <div class="padding">
                 <h2><a th:href="@{/single/articles/{id}(id=${news_two})}" th:utext="${articles.get((news_two)-1).title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
                 <div class="detail">
-                    <div class="category"><a href="../ui/category" th:href="@{/category}">Lifestyle</a></div>
+                    <div class="category"><a href="../ui/category" th:href="@{/category}" th:utext="${articles.get((news_two)-1).category.name}">Lifestyle</a></div>
                     <div class="time" th:utext="${articles.get((news_two)-1).created}">December 26, 2016</div>
                 </div>
             </div>
         </div>
     </article>
-
 </div>
 
 </body>

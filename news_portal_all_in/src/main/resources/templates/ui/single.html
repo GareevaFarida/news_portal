@@ -49,54 +49,59 @@
 									</div>
 								</article>
 								<div class="line"></div>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="../ui/single.html" th:href="@{/single}">
-												<img src="../images/news/img05.jpg" th:src="@{/images/news/img05.jpg}">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
-											<div class="detail">
-												<div class="category"><a href="../ui/category" th:href="@{/category}">Lifestyle</a></div>
-												<div class="time">December 22, 2016</div>
-											</div>
-										</div>
+									<div class="body-col vertical-slider" data-max="2" data-nav="#hot-news-nav" data-item="article">
+										<article th:replace="fragments/news :: article_mini"></article>
 									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="../ui/single.html" th:href="@{/single}">
-												<img src="../images/news/img02.jpg" th:src="@{/images/news/img02.jpg}">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="../ui/single.html" th:href="@{/single}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
-											<div class="detail">
-												<div class="category"><a href="../ui/category" th:href="@{/category}">Travel</a></div>
-												<div class="time">December 21, 2016</div>
-											</div>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="../ui/single.html" th:href="@{/single}">
-												<img src="../images/news/img13.jpg" th:src="@{/images/news/img13.jpg}">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
-											<div class="detail">
-												<div class="category"><a href="../ui/category" th:href="@{/category}">International</a></div>
-												<div class="time">December 20, 2016</div>
-											</div>
-										</div>
-									</div>
-								</article>
+
+
+<!--								<article class="article-mini">-->
+<!--									<div class="inner">-->
+<!--										<figure>-->
+<!--											<a href="../ui/single.html" th:href="@{/single}">-->
+<!--												<img src="../images/news/img05.jpg" th:src="@{/images/news/img05.jpg}">-->
+<!--											</a>-->
+<!--										</figure>-->
+<!--										<div class="padding">-->
+<!--											<h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>-->
+<!--											<div class="detail">-->
+<!--												<div class="category"><a href="../ui/category" th:href="@{/category}">Lifestyle</a></div>-->
+<!--												<div class="time">December 22, 2016</div>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</article>-->
+<!--								<article class="article-mini">-->
+<!--									<div class="inner">-->
+<!--										<figure>-->
+<!--											<a href="../ui/single.html" th:href="@{/single}">-->
+<!--												<img src="../images/news/img02.jpg" th:src="@{/images/news/img02.jpg}">-->
+<!--											</a>-->
+<!--										</figure>-->
+<!--										<div class="padding">-->
+<!--											<h1><a href="../ui/single.html" th:href="@{/single}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>-->
+<!--											<div class="detail">-->
+<!--												<div class="category"><a href="../ui/category" th:href="@{/category}">Travel</a></div>-->
+<!--												<div class="time">December 21, 2016</div>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</article>-->
+<!--								<article class="article-mini">-->
+<!--									<div class="inner">-->
+<!--										<figure>-->
+<!--											<a href="../ui/single.html" th:href="@{/single}">-->
+<!--												<img src="../images/news/img13.jpg" th:src="@{/images/news/img13.jpg}">-->
+<!--											</a>-->
+<!--										</figure>-->
+<!--										<div class="padding">-->
+<!--											<h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>-->
+<!--											<div class="detail">-->
+<!--												<div class="category"><a href="../ui/category" th:href="@{/category}">International</a></div>-->
+<!--												<div class="time">December 20, 2016</div>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</article>-->
 							</div>
 						</aside>
 						<aside>
