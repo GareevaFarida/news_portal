@@ -28,80 +28,13 @@
 						<aside>
 							<h1 class="aside-title">Recent Post</h1>
 							<div class="aside-body">
-								<article class="article-fw">
-									<div class="inner">
-										<figure>
-											<a href="../ui/single.html" th:href="@{/single}">
-												<img src="../images/news/img16.jpg" th:src="@{/images/news/img16.jpg}">
-											</a>
-										</figure>
-										<div class="details">
-											<h1><a href="../ui/single.html" th:href="@{/single}">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</a></h1>
-											<p>
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-											tempor incididunt ut labore et dolore magna aliqua.
-											</p>
-											<div class="detail">
-												<div class="time">December 26, 2016</div>
-												<div class="category"><a href="../ui/category.html" th:href="@{/category}">Lifestyle</a></div>
-											</div>
-										</div>
-									</div>
-								</article>
+
+								<div th:replace="fragments/news :: resent_post"></div>
+
 								<div class="line"></div>
-									<div class="body-col vertical-slider" data-max="2" data-nav="#hot-news-nav" data-item="article">
-										<article th:replace="fragments/news :: article_mini"></article>
+									<div class="body-col vertical-slider" data-max="3" data-nav="#hot-resent-post" data-item="article">
+										<div th:replace="fragments/news :: article_mini_four"></div>
 									</div>
-
-
-<!--								<article class="article-mini">-->
-<!--									<div class="inner">-->
-<!--										<figure>-->
-<!--											<a href="../ui/single.html" th:href="@{/single}">-->
-<!--												<img src="../images/news/img05.jpg" th:src="@{/images/news/img05.jpg}">-->
-<!--											</a>-->
-<!--										</figure>-->
-<!--										<div class="padding">-->
-<!--											<h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>-->
-<!--											<div class="detail">-->
-<!--												<div class="category"><a href="../ui/category" th:href="@{/category}">Lifestyle</a></div>-->
-<!--												<div class="time">December 22, 2016</div>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</article>-->
-<!--								<article class="article-mini">-->
-<!--									<div class="inner">-->
-<!--										<figure>-->
-<!--											<a href="../ui/single.html" th:href="@{/single}">-->
-<!--												<img src="../images/news/img02.jpg" th:src="@{/images/news/img02.jpg}">-->
-<!--											</a>-->
-<!--										</figure>-->
-<!--										<div class="padding">-->
-<!--											<h1><a href="../ui/single.html" th:href="@{/single}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>-->
-<!--											<div class="detail">-->
-<!--												<div class="category"><a href="../ui/category" th:href="@{/category}">Travel</a></div>-->
-<!--												<div class="time">December 21, 2016</div>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</article>-->
-<!--								<article class="article-mini">-->
-<!--									<div class="inner">-->
-<!--										<figure>-->
-<!--											<a href="../ui/single.html" th:href="@{/single}">-->
-<!--												<img src="../images/news/img13.jpg" th:src="@{/images/news/img13.jpg}">-->
-<!--											</a>-->
-<!--										</figure>-->
-<!--										<div class="padding">-->
-<!--											<h1><a href="../ui/single.html" th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>-->
-<!--											<div class="detail">-->
-<!--												<div class="category"><a href="../ui/category" th:href="@{/category}">International</a></div>-->
-<!--												<div class="time">December 20, 2016</div>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</article>-->
 							</div>
 						</aside>
 						<aside>
@@ -124,15 +57,15 @@
 					</div>
 					<div class="col-md-8">
 						<ol class="breadcrumb">
-						  <li><a href="#">Home</a></li>
-						  <li class="active">Film</li>
+						  <li><a href="#" th:href="@{/}">Home</a></li>
+						  <li class="active" th:utext="${article.category.name}">Film</li>
 						</ol>
 						<article class="article main-article">
 							<header>
 								<h1 th:text="${article.title}">Title.</h1>
 								<ul class="details">
 									<li th:remove="tag" th:utext="${article.created}">Posted on 31 December, 2016</li>
-									<li><a>Film</a></li>
+									<li><a  th:href="@{/category}" th:utext="${article.category.name}">Film</a></li>
 									<li>By <a href="#">John Doe</a></li>
 								</ul>
 							</header>
