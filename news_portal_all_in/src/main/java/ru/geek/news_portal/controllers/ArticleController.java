@@ -9,10 +9,7 @@ import ru.geek.news_portal.base.entities.Article;
 import ru.geek.news_portal.base.entities.ArticleLike;
 import ru.geek.news_portal.base.entities.Comment;
 import ru.geek.news_portal.base.entities.User;
-import ru.geek.news_portal.services.ArticleLikeService;
-import ru.geek.news_portal.services.ArticleService;
-import ru.geek.news_portal.services.CommentService;
-import ru.geek.news_portal.services.UserService;
+import ru.geek.news_portal.services.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -32,6 +29,7 @@ public class ArticleController {
     private UserService userService;
     private CommentService commentService;
     private ArticleLikeService articleLikeService;
+    private ArticleCategoryService articleCategoryService;
     private static final Integer LIKE_VALUE = 1;
     private static final Integer DISLIKE_VALUE = -1;
 
@@ -55,6 +53,11 @@ public class ArticleController {
         this.articleLikeService = articleLikeService;
     }
 
+    @Autowired
+    public void setArticleCategoryService(ArticleCategoryService articleCategoryService) {
+        this.articleCategoryService = articleCategoryService;
+    }
+
     @GetMapping({"/{id}", "/" , ""})
     public String showSinglePage(Model model, @PathVariable(value = "id", required = false) Long id) {
         if (id == null || id == 0) {
@@ -69,6 +72,7 @@ public class ArticleController {
         model.addAttribute("article", articleService.findById(id));
         model.addAttribute("articles", articleService.findAllArticles());
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
+        model.addAttribute("categories", articleCategoryService.findAll());
         model.addAttribute("comment", new Comment());
         model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));
         model.addAttribute("articleDislikes", articleLikeService.getArticleDislikes(id));
