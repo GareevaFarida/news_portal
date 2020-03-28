@@ -33,7 +33,7 @@
 
 								<div class="line"></div>
 									<div class="body-col vertical-slider" data-max="3" data-nav="#hot-resent-post" data-item="article">
-										<div th:replace="fragments/news :: article_mini_four"></div>
+										<div th:replace="fragments/news :: article_mini_three"></div>
 									</div>
 							</div>
 						</aside>
@@ -65,7 +65,7 @@
 								<h1 th:text="${article.title}">Title.</h1>
 								<ul class="details">
 									<li th:remove="tag" th:utext="${article.created}">Posted on 31 December, 2016</li>
-									<li><a  th:href="@{/category}" th:utext="${article.category.name}">Film</a></li>
+									<li><a  th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Film</a></li>
 									<li>By <a href="#">John Doe</a></li>
 								</ul>
 							</header>

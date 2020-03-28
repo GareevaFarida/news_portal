@@ -134,7 +134,15 @@
                                     <li><a th:href="@{/reset}">Reset Password</a></li>
                                 </ul>
                             </li>
-                            <li><a th:href="@{/category}">Category</a></li>
+                            <li class="dropdown magz-dropdown">
+                                <a th:href="@{/category}">All categories<i class="ion-ios-arrow-right"></i></a>
+                                <ul class="dropdown-menu" >
+                                        <li th:each="category,iter : ${categories}">
+                                            <a th:href="@{/category/{id}(id=${iter.count})}"
+                                               th:text="${category.name}">Category</a>
+                                        </li>
+                                </ul>
+                            </li>
                             <li><a th:href="@{/single}">Single</a></li>
                             <li><a th:href="@{/page}">Page</a></li>
                             <li><a th:href="@{/search}">Search</a></li>

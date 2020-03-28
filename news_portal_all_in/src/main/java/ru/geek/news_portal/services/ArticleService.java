@@ -3,9 +3,11 @@ package ru.geek.news_portal.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.geek.news_portal.base.entities.Article;
+import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.base.repo.ArticleRepository;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class ArticleService {
@@ -24,4 +26,5 @@ public class ArticleService {
   public Article findById(Long id){
       return articleRepository.findById(id).orElseThrow(IllegalStateException::new);
   }
+
 }

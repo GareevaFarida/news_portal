@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.base.entities.Comment;
+import ru.geek.news_portal.services.ArticleCategoryService;
 import ru.geek.news_portal.services.ArticleService;
 import ru.geek.news_portal.services.CommentService;
 import ru.geek.news_portal.utils.SystemUser;
@@ -21,6 +24,7 @@ public class MainController {
 
     private ArticleService articleService;
     private CommentService commentService;
+    private ArticleCategoryService articleCategoryService;
     //Временное решение до появления сервиса предпочтений пользователя
     private Long RECOMENDED_NEWS = 5L;
 
@@ -34,23 +38,42 @@ public class MainController {
         this.commentService = commentService;
     }
 
+    @Autowired
+    public void setArticleCategoryService(ArticleCategoryService articleCategoryService) {
+        this.articleCategoryService = articleCategoryService;
+    }
+
     @GetMapping("/")
     public String index(Model model, @PathVariable(value = "id", required = false) Long id) {
         model.addAttribute("articles", articleService.findAllArticles());
-//    model.addAttribute("categories",)
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
+        model.addAttribute("categories", articleCategoryService.findAll());
 //    model.addAttribute("article", articleService.findById(id));
         return "index";
     }
 
     @GetMapping("/fragments/news")
-    public String fragNews(Model model, @PathVariable(value = "id", required = false) Long id) {
+    public String fragNews(Model model, @RequestParam(value = "id", required = false) Long id) {
+            model.addAttribute("articles", articleService.findAllArticles());
+            model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
+            model.addAttribute("comment", new Comment());
+            model.addAttribute("recomended_news_id", RECOMENDED_NEWS);
+        if (id!=null) {
+            model.addAttribute("category", articleService.findById(id).getCategory());
+        } else {
+            model.addAttribute("category", null);
+        }
+        model.addAttribute("categories", articleCategoryService.findAll());
+        //    model.addAttribute("article", articleService.findById(id));
+        return "/fragments/news";
+    }
+
+    @GetMapping("/fragments/header")
+    public String fragHeader(Model model, @RequestParam(value = "id", required = false) Long id) {
         model.addAttribute("articles", articleService.findAllArticles());
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
-        model.addAttribute("comment", new Comment());
-        model.addAttribute("recomended_news_id", RECOMENDED_NEWS);
-//    model.addAttribute("article", articleService.findById(id));
-        return "/fragments/news";
+        model.addAttribute("categories", articleCategoryService.findAll());
+        return "/fragments/header";
     }
 
     @GetMapping("/login")
@@ -58,12 +81,16 @@ public class MainController {
         return "ui/login";
     }
 
-    @GetMapping("/category")
+    @GetMapping({"/category","/category/{id}"})
     public String category(Model model, @PathVariable(value = "id", required = false) Long id) {
         model.addAttribute("articles", articleService.findAllArticles());
-        model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
-        model.addAttribute("comment", new Comment());
         model.addAttribute("recomended_news_id", RECOMENDED_NEWS);
+        model.addAttribute("categories", articleCategoryService.findAll());
+        if (id!=null) {
+            model.addAttribute("category", articleService.findById(id).getCategory());
+        } else {
+            model.addAttribute("category", null);
+        }
         return "ui/category";
     }
 
