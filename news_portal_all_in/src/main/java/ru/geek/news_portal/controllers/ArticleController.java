@@ -14,6 +14,9 @@ import ru.geek.news_portal.services.ArticleService;
 import ru.geek.news_portal.services.CommentService;
 import ru.geek.news_portal.services.UserService;
 
+import ru.geek.news_portal.services.*;
+
+
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
@@ -32,6 +35,7 @@ public class ArticleController {
     private UserService userService;
     private CommentService commentService;
     private ArticleLikeService articleLikeService;
+    private ArticleCategoryService articleCategoryService;
     private static final Integer LIKE_VALUE = 1;
     private static final Integer DISLIKE_VALUE = -1;
 
@@ -58,7 +62,15 @@ public class ArticleController {
     /**
      * Updated by Stanislav Ryzhkov 28/03/2020
      * */
-    @GetMapping("/{id}")
+   
+
+    @Autowired
+    public void setArticleCategoryService(ArticleCategoryService articleCategoryService) {
+        this.articleCategoryService = articleCategoryService;
+    }
+
+//     @GetMapping({"/{id}", "/" , ""})
+   @GetMapping("/{id}")
     public String showSinglePage(Model model, @PathVariable(value = "id", required = false) Long id) {
         if (id == null) {
             return "ui/404";
@@ -78,6 +90,17 @@ public class ArticleController {
             e.printStackTrace();
             return "ui/404";
         }
+
+
+//         model.addAttribute("article", articleService.findById(id));
+//         model.addAttribute("articles", articleService.findAllArticles());
+//         model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
+//         model.addAttribute("categories", articleCategoryService.findAll());
+//         model.addAttribute("comment", new Comment());
+//         model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));
+//         model.addAttribute("articleDislikes", articleLikeService.getArticleDislikes(id));
+//         return "ui/single";
+
     }
 
     @GetMapping("/comment/{id}")

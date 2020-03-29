@@ -10,11 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.geek.news_portal.base.entities.Article;
+import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.base.repo.ArticleRepository;
 import ru.geek.news_portal.dto.ArticleDto;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
+
+import java.util.Locale;
+
 
 @Slf4j
 @Service
@@ -27,6 +32,7 @@ public class ArticleService {
     private String port;
 
     private ArticleRepository articleRepository;
+
 
     @Autowired
     public void setArticleRepository(ArticleRepository articleRepository) {
@@ -113,4 +119,8 @@ public class ArticleService {
         String updatedSrcValue = String.format("%s:%s/news/images/news/%s", host, port, srcValue);
         htmlTag.attr("src", updatedSrcValue);
     }
+
+  public Article findById(Long id){
+      return articleRepository.findById(id).orElseThrow(IllegalStateException::new);
+  }
 }
