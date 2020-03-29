@@ -5,11 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.geek.news_portal.base.entities.Article;
 import ru.geek.news_portal.base.entities.ArticleLike;
 import ru.geek.news_portal.base.entities.Comment;
 import ru.geek.news_portal.base.entities.User;
+import ru.geek.news_portal.dto.ArticleDto;
+import ru.geek.news_portal.services.ArticleLikeService;
+import ru.geek.news_portal.services.ArticleService;
+import ru.geek.news_portal.services.CommentService;
+import ru.geek.news_portal.services.UserService;
+
 import ru.geek.news_portal.services.*;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -53,30 +59,48 @@ public class ArticleController {
         this.articleLikeService = articleLikeService;
     }
 
+    /**
+     * Updated by Stanislav Ryzhkov 28/03/2020
+     * */
+   
+
     @Autowired
     public void setArticleCategoryService(ArticleCategoryService articleCategoryService) {
         this.articleCategoryService = articleCategoryService;
     }
 
-    @GetMapping({"/{id}", "/" , ""})
+//     @GetMapping({"/{id}", "/" , ""})
+   @GetMapping("/{id}")
     public String showSinglePage(Model model, @PathVariable(value = "id", required = false) Long id) {
-        if (id == null || id == 0) {
+        if (id == null) {
             return "ui/404";
         }
         try {
-            articleService.findById(id);
+            ArticleDto article = articleService.findArticleDtoById(id);
+            model.addAttribute("article", article);
+            model.addAttribute("articles", articleService.findAllArticles());
+//            model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
+            model.addAttribute("comments", article.getComments());
+            model.addAttribute("comment", new Comment());
+//            model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));
+            model.addAttribute("articleLikes", article.getLikes());
+            model.addAttribute("articleDislikes", articleLikeService.getArticleDislikes(id));
+            return "ui/single";
         } catch (Exception e) {
             e.printStackTrace();
             return "ui/404";
         }
-        model.addAttribute("article", articleService.findById(id));
-        model.addAttribute("articles", articleService.findAllArticles());
-        model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
-        model.addAttribute("categories", articleCategoryService.findAll());
-        model.addAttribute("comment", new Comment());
-        model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));
-        model.addAttribute("articleDislikes", articleLikeService.getArticleDislikes(id));
-        return "ui/single";
+
+
+//         model.addAttribute("article", articleService.findById(id));
+//         model.addAttribute("articles", articleService.findAllArticles());
+//         model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
+//         model.addAttribute("categories", articleCategoryService.findAll());
+//         model.addAttribute("comment", new Comment());
+//         model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));
+//         model.addAttribute("articleDislikes", articleLikeService.getArticleDislikes(id));
+//         return "ui/single";
+
     }
 
     @GetMapping("/comment/{id}")
