@@ -120,7 +120,4 @@ public class ArticleService {
         htmlTag.attr("src", updatedSrcValue);
     }
 
-  public Article findById(Long id){
-      return articleRepository.findById(id).orElseThrow(IllegalStateException::new);
-  }
 }

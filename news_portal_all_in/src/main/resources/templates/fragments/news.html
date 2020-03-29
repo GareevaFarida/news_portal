@@ -189,6 +189,26 @@
     </article>
 </div>
 
+<div th:fragment="article_mini_three_horizont">
+    <article class="article col-md-4 mini" th:each="article,state : ${articles}" th:if="${(state.count)<4}">
+            <div class="inner">
+                <figure>
+                    <a th:href="@{/single/articles/{id}(id=${state.count})}">
+<!--                        <img th:src="@{/images/news/img10.jpg}" alt="Sample Article">-->
+                        <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
+                    </a>
+                </figure>
+                <div class="padding">
+                    <div class="detail">
+                        <div class="time" th:utext="${article.created}">December 10, 2016</div>
+                        <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Healthy</a></div>
+                    </div>
+                    <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+                </div>
+            </div>
+    </article>
+</div>
+
 <div th:fragment="recomended_news" th:with="recomended_news=5">
 
     <ul class="nav nav-tabs nav-justified" role="tablist">

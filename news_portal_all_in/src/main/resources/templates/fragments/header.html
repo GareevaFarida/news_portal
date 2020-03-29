@@ -143,7 +143,7 @@
                                         </li>
                                 </ul>
                             </li>
-                            <li><a th:href="@{/single}">Single</a></li>
+<!--                            <li><a th:href="@{/single}">Single</a></li>-->
                             <li><a th:href="@{/page}">Page</a></li>
                             <li><a th:href="@{/search}">Search</a></li>
                             <li><a th:href="@{/contact}">Contact</a></li>
@@ -221,54 +221,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <article class="article col-md-4 mini">
-                                                <div class="inner">
-                                                    <figure>
-                                                        <a th:href="@{/single}">
-                                                            <img th:src="@{/images/news/img10.jpg}" alt="Sample Article">
-                                                        </a>
-                                                    </figure>
-                                                    <div class="padding">
-                                                        <div class="detail">
-                                                            <div class="time">December 10, 2016</div>
-                                                            <div class="category"><a th:href="@{/category}">Healthy</a></div>
-                                                        </div>
-                                                        <h2><a th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                            <article class="article col-md-4 mini">
-                                                <div class="inner">
-                                                    <figure>
-                                                        <a th:href="@{/single}">
-                                                            <img th:src="@{/images/news/img11.jpg}" alt="Sample Article">
-                                                        </a>
-                                                    </figure>
-                                                    <div class="padding">
-                                                        <div class="detail">
-                                                            <div class="time">December 13, 2016</div>
-                                                            <div class="category"><a th:href="@{/category}">Lifestyle</a></div>
-                                                        </div>
-                                                        <h2><a th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                            <article class="article col-md-4 mini">
-                                                <div class="inner">
-                                                    <figure>
-                                                        <a th:href="@{/single}">
-                                                            <img th:src="@{/images/news/img14.jpg}" alt="Sample Article">
-                                                        </a>
-                                                    </figure>
-                                                    <div class="padding">
-                                                        <div class="detail">
-                                                            <div class="time">December 14, 2016</div>
-                                                            <div class="category"><a th:href="@{/category}">Travel</a></div>
-                                                        </div>
-                                                        <h2><a th:href="@{/single}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-                                                    </div>
-                                                </div>
-                                            </article>
+                                                <div th:replace="fragments/news :: article_mini_three_horizont"></div>
                                         </div>
                                     </div>
                                 </div>
