@@ -79,10 +79,9 @@ public class ArticleController {
             ArticleDto article = articleService.findArticleDtoById(id);
             model.addAttribute("article", article);
             model.addAttribute("articles", articleService.findAllArticles());
-//            model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
             model.addAttribute("comments", article.getComments());
             model.addAttribute("comment", new Comment());
-//            model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));
+            model.addAttribute("categories", articleCategoryService.findAll());
             model.addAttribute("articleLikes", article.getLikes());
             model.addAttribute("articleDislikes", articleLikeService.getArticleDislikes(id));
             return "ui/single";
@@ -90,8 +89,6 @@ public class ArticleController {
             e.printStackTrace();
             return "ui/404";
         }
-
-
 //         model.addAttribute("article", articleService.findById(id));
 //         model.addAttribute("articles", articleService.findAllArticles());
 //         model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
@@ -108,7 +105,6 @@ public class ArticleController {
         if (bindingResult.hasErrors()) {
             return "ui/404";
         }
-//        model.addAttribute("article", articleService.findById(id));
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
         model.addAttribute("comment", new Comment());
         model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));

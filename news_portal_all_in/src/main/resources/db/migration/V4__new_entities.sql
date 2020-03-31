@@ -91,3 +91,24 @@ ADD CONSTRAINT fk_statuses
 --ALTER TABLE articles
 --DROP CONSTRAINT articles_title_key;
 
+DROP TABLE IF EXISTS contacts;
+CREATE TABLE contacts (
+    id                    bigserial,
+    name                  VARCHAR (50) NOT NULL UNIQUE,
+    subject               VARCHAR(50) UNIQUE,
+    email                 VARCHAR(50) UNIQUE,
+    created               timestamp,
+    PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS messages;
+CREATE TABLE messages (
+    id                    bigserial,
+    created               timestamp,
+    contact_id            bigint NOT NULL,
+    text                  VARCHAR(10000),
+    PRIMARY KEY (id),
+    FOREIGN KEY (contact_id)
+    REFERENCES contacts (id)
+);
+

@@ -185,12 +185,12 @@
 						</div>
 						<div class="line thin"></div>
 						<div class="comments">
-							<div th:each="comm,iter : ${comments}">
-								<div th:if="${iter.last}">
-									<h2 class="title" sec:authorize="isAnonymous()" ><span th:text="${iter.size}"></span> Responses<a th:href="@{/login}" >Registered user write a Response</a></h2>
-									<h2 class="title" sec:authorize="isAuthenticated()" ><span th:text="${iter.size}"></span> Responses <a href="#reply" >Write a Response</a></h2>
-								</div>
-							</div>
+<!--							<div th:each="comm,iter : ${comments}">-->
+<!--								<div th:if="${iter.last}">-->
+									<h2 class="title" sec:authorize="isAnonymous()" ><span th:text="${comments.size()}"></span> Responses<a th:href="@{/login}" >Registered user write a Response</a></h2>
+									<h2 class="title" sec:authorize="isAuthenticated()" ><span th:text="${comments.size()}"></span> Responses <a href="#reply" >Write a Response</a></h2>
+<!--								</div>-->
+<!--							</div>-->
 
 							<div class="comment-list" th:each="comm : ${comments}">
 								<div class="item" >
@@ -203,11 +203,28 @@
 											<div class="time" th:text="${comm.created}">24 Hours</div>
 											<div class="text" th:text="${comm.text}">Text</div>
 											<footer>
-												<a href="#rerly">Reply</a>
+												<a href="#rerly" sec:authorize="isAuthenticated()" >Reply</a>
 											</footer>
 										</div>
 									</div>
 								</div>
+<!--								<div class="reply-list" th:if="${comm.is_reply}">-->
+<!--									<div class="item">-->
+<!--										<div class="user">-->
+<!--											<figure>-->
+<!--												<img src="images/img01.jpg">-->
+<!--											</figure>-->
+<!--											<div class="details">-->
+<!--												<h5 class="name" th:text="${comm.user.getUsername()}">Mark Otto</h5>-->
+<!--												<div class="time" th:text="${comm.created}">24 Hours</div>-->
+<!--												<div class="description" th:text="${comm.text}">Text</div>-->
+<!--												<footer>-->
+<!--													<a href="#" sec:authorize="isAuthenticated()" >Reply</a>-->
+<!--												</footer>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
 							</div>
 							<form class="row" sec:authorize="isAuthenticated()"
 								  th:action="@{/single/articles/comment/{article_id}(article_id = ${article.id})}"

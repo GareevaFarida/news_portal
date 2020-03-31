@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <title>All News</title>
 </head>
-<body>
+<body >
 
-<div th:fragment="featured_news">
+<div th:fragment="featured_news" >
     <div class="owl-carousel owl-theme slide" id="featured" >
         <div class="item" th:each="article,state : ${articles}">
             <article class="featured">
@@ -149,7 +149,7 @@
 </div>
 
 <div th:fragment="article_mini">
-    <article class="article-mini" th:each="article,state : ${articles}">
+    <article class="article-mini" th:each="article,state : ${@articleService.findAllArticles()}">
         <div class="inner">
             <figure>
                 <a th:href="@{/single/articles/{id}(id=${state.count})}">
@@ -159,7 +159,7 @@
             <div class="padding">
                 <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
                 <div class="detail">
-                    <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Lifestyle</a></div>
+                    <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${@articleService.findAllArticles().get((state.count)-1).category.name}">Lifestyle</a></div>
                     <div class="time" th:utext="${article.created}">December 22, 2016</div>
                 </div>
             </div>

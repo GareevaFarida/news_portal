@@ -9,15 +9,17 @@ package ru.geek.news_portal.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.base.entities.Comment;
 import ru.geek.news_portal.services.ArticleCategoryService;
 import ru.geek.news_portal.services.ArticleService;
 import ru.geek.news_portal.services.CommentService;
+import ru.geek.news_portal.services.ContactService;
 import ru.geek.news_portal.utils.SystemUser;
+
+import javax.validation.Valid;
 
 @Controller
 public class MainController {
@@ -25,6 +27,7 @@ public class MainController {
     private ArticleService articleService;
     private CommentService commentService;
     private ArticleCategoryService articleCategoryService;
+    private ContactService contactService;
     //Временное решение до появления сервиса предпочтений пользователя
     private Long RECOMENDED_NEWS = 5L;
 
@@ -43,12 +46,16 @@ public class MainController {
         this.articleCategoryService = articleCategoryService;
     }
 
+    @Autowired
+    public void setContactService(ContactService contactService) {
+        this.contactService = contactService;
+    }
+
     @GetMapping("/")
     public String index(Model model, @PathVariable(value = "id", required = false) Long id) {
         model.addAttribute("articles", articleService.findAllArticles());
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
         model.addAttribute("categories", articleCategoryService.findAll());
-//    model.addAttribute("article", articleService.findById(id));
         return "index";
     }
 
@@ -58,14 +65,13 @@ public class MainController {
             model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
             model.addAttribute("comment", new Comment());
             model.addAttribute("recomended_news_id", RECOMENDED_NEWS);
+            model.addAttribute("categories", articleCategoryService.findAll());
         if (id!=null) {
-            model.addAttribute("category", articleService.findById(id).getCategory());
+            model.addAttribute("category", articleCategoryService.findOneById(id));
         } else {
             model.addAttribute("category", null);
         }
-        model.addAttribute("categories", articleCategoryService.findAll());
-        //    model.addAttribute("article", articleService.findById(id));
-        return "/fragments/news";
+        return "fragments/news";
     }
 
     @GetMapping("/fragments/header")
@@ -73,7 +79,7 @@ public class MainController {
         model.addAttribute("articles", articleService.findAllArticles());
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
         model.addAttribute("categories", articleCategoryService.findAll());
-        return "/fragments/header";
+        return "fragments/header";
     }
 
     @GetMapping("/login")
@@ -87,16 +93,11 @@ public class MainController {
         model.addAttribute("recomended_news_id", RECOMENDED_NEWS);
         model.addAttribute("categories", articleCategoryService.findAll());
         if (id!=null) {
-            model.addAttribute("category", articleService.findById(id).getCategory());
+            model.addAttribute("category", articleCategoryService.findOneById(id));
         } else {
             model.addAttribute("category", null);
         }
         return "ui/category";
-    }
-
-    @GetMapping("/contact")
-    public String contact() {
-        return "ui/contact";
     }
 
     @GetMapping("/forgot")
