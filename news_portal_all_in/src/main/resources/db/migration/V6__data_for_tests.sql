@@ -590,3 +590,7 @@ VALUES
 (3,1,-1),
 (3,1,-1)
 ;
+
+INSERT INTO tags (name)
+VALUES
+('JAVA'),('Spring'),('Web'),('Bootstrap 3'),('Web Design'),('CSS3'),('Html'),('Soft'),('Skill');

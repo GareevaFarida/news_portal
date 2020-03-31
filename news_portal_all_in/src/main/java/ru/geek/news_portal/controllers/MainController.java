@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.base.entities.Comment;
+import ru.geek.news_portal.base.entities.Tag;
 import ru.geek.news_portal.services.ArticleCategoryService;
 import ru.geek.news_portal.services.ArticleService;
 import ru.geek.news_portal.services.CommentService;
@@ -20,6 +21,7 @@ import ru.geek.news_portal.services.ContactService;
 import ru.geek.news_portal.utils.SystemUser;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -68,6 +70,8 @@ public class MainController {
             model.addAttribute("categories", articleCategoryService.findAll());
         if (id!=null) {
             model.addAttribute("category", articleCategoryService.findOneById(id));
+            model.addAttribute("article", articleService.findById(id));
+            model.addAttribute("tags", articleService.findById(id).getTags());
         } else {
             model.addAttribute("category", null);
         }
@@ -80,6 +84,19 @@ public class MainController {
         model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
         model.addAttribute("categories", articleCategoryService.findAll());
         return "fragments/header";
+    }
+
+    @GetMapping("/fragments/footer")
+    public String fragFooter(Model model, @RequestParam(value = "id", required = false) Long id) {
+        model.addAttribute("articles", articleService.findAllArticles());
+        model.addAttribute("comments", commentService.findAllCommentByArticle_id(RECOMENDED_NEWS));
+        model.addAttribute("categories", articleCategoryService.findAll());
+        if (id==null){
+            model.addAttribute("tags", null);
+        } else {
+            model.addAttribute("tags", articleService.findById(id).getTags());
+        }
+        return "fragments/footer";
     }
 
     @GetMapping("/login")
