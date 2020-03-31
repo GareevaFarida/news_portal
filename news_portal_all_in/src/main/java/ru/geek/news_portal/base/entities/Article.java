@@ -93,8 +93,6 @@ public class Article {
     comments.remove(comment);
   }
 
-
-
   public LocalDateTime getCreated() {
     if (created == null) {
         created = LocalDateTime.now();
