@@ -83,7 +83,7 @@ public class ArticleService {
                 getMainPictureUrlFromText(article.getText()),
                 article.getStatus(),
                 article.getComments(),
-                article.getLikes(),
+//                article.getLikes(),
                 article.getTags(),
                 article.getRatings()
         );

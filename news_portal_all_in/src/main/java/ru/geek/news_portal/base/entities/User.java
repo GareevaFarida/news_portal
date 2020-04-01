@@ -40,13 +40,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "user",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ArticleLike> articleLikes;
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "user",
+//            fetch = FetchType.LAZY,
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<ArticleLike> articleLikes;
 
     @JsonBackReference
     @OneToMany(mappedBy = "user",
@@ -80,13 +80,13 @@ public class User {
         articleRatings.remove(rating);
     }
 
-    public void addArticleLike(ArticleLike like) {
-        articleLikes.add(like);
-    }
-
-    public void removeArticleLike(ArticleLike like) {
-        articleLikes.remove(like);
-    }
+//    public void addArticleLike(ArticleLike like) {
+//        articleLikes.add(like);
+//    }
+//
+//    public void removeArticleLike(ArticleLike like) {
+//        articleLikes.remove(like);
+//    }
 
     public void addCommentLike(CommentLike like) {
         commentLikes.add(like);

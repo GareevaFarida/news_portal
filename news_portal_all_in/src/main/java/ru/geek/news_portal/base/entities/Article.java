@@ -57,12 +57,12 @@ public class Article {
   )
   private List<Comment> comments;
 
-  @JsonBackReference
-  @OneToMany(mappedBy = "article",
-          fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL
-  )
-  private List<ArticleLike> likes;
+//  @JsonBackReference
+//  @OneToMany(mappedBy = "article",
+//          fetch = FetchType.LAZY,
+//          cascade = CascadeType.ALL
+//  )
+//  private List<ArticleLike> likes;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(name = "articles_tags",
@@ -77,13 +77,13 @@ public class Article {
   )
   private List<ArticleRating> ratings = new ArrayList<>();
 
-  public void addLike(ArticleLike like) {
-    likes.add(like);
-  }
-
-  public void removeLike(ArticleLike like) {
-    likes.remove(like);
-  }
+//  public void addLike(ArticleLike like) {
+//    likes.add(like);
+//  }
+//
+//  public void removeLike(ArticleLike like) {
+//    likes.remove(like);
+//  }
 
   public void addComment(Comment comment) {
     comments.add(comment);

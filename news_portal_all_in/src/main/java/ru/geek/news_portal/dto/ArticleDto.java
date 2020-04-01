@@ -29,7 +29,7 @@ public final class ArticleDto {
     private final String mainPictureUrl;
     private final Status status;
     private final List<Comment> comments;
-    private final List<ArticleLike> likes;
+//    private final List<ArticleLike> likes;
     private final List<Tag> tags;
     private final List<ArticleRating> ratings;
 }

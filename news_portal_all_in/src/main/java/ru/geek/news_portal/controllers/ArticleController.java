@@ -82,7 +82,7 @@ public class ArticleController {
             model.addAttribute("comments", article.getComments());
             model.addAttribute("comment", new Comment());
             model.addAttribute("categories", articleCategoryService.findAll());
-            model.addAttribute("articleLikes", article.getLikes());
+//            model.addAttribute("articleLikes", article.getLikes());
             model.addAttribute("articleDislikes", articleLikeService.getArticleDislikes(id));
             return "ui/single";
         } catch (Exception e) {
@@ -130,8 +130,8 @@ public class ArticleController {
     public String addArticleLike(Model model,
                                  @PathVariable("id") Long article_id, BindingResult bindingResult, User username) {
         ArticleLike like = new ArticleLike();
-        like.setArticle(articleService.findById(article_id));
-        like.setUser(userService.findByUsername(username.getUsername()));
+//        like.setArticle(articleService.findById(article_id));
+//        like.setUser(userService.findByUsername(username.getUsername()));
         like.setValue(LIKE_VALUE);
         articleLikeService.save(like);
         return "redirect:/single/articles/" + article_id;
@@ -141,8 +141,8 @@ public class ArticleController {
     public String addArticleDislike(Model model,
                                  @PathVariable("id") Long article_id, BindingResult bindingResult, User username) {
         ArticleLike like = new ArticleLike();
-        like.setArticle(articleService.findById(article_id));
-        like.setUser(userService.findByUsername(username.getUsername()));
+//        like.setArticle(articleService.findById(article_id));
+//        like.setUser(userService.findByUsername(username.getUsername()));
         like.setValue(DISLIKE_VALUE);
         articleLikeService.save(like);
         return "redirect:/single/articles/" + article_id;
