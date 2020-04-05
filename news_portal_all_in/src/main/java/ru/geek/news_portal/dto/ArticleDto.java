@@ -47,6 +47,7 @@ public final class ArticleDto {
                 updatedText,
                 article.getPublished(),
                 article.getCategory(),
+                article.getCategoryString(),
                 article.getTotalViews(),
                 article.getLastViewDate(),
                 updatedMainPictureUrl,

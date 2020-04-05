@@ -28,7 +28,9 @@ import ru.geek.news_portal.services.ContactService;
 import ru.geek.news_portal.utils.ArticleFilter;
 import ru.geek.news_portal.utils.SystemUser;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -120,19 +122,6 @@ public class MainController {
     @GetMapping("/login")
     public String login() {
         return "ui/login";
-    }
-
-    @GetMapping({"/category","/category/{id}"})
-    public String category(Model model, @PathVariable(value = "id", required = false) Long id) {
-        model.addAttribute("articles", articleService.findAllArticles());
-        model.addAttribute("recomended_news_id", RECOMENDED_NEWS);
-        model.addAttribute("categories", articleCategoryService.findAll());
-        if (id!=null) {
-            model.addAttribute("category", articleCategoryService.findOneById(id));
-        } else {
-            model.addAttribute("category", null);
-        }
-        return "ui/category";
     }
 
     @GetMapping("/forgot")
