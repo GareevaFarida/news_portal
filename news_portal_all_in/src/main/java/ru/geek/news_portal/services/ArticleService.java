@@ -8,6 +8,9 @@ import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.geek.news_portal.base.entities.Article;
 import ru.geek.news_portal.base.entities.ArticleCategory;
@@ -78,6 +81,7 @@ public class ArticleService {
                 prepareArticleText(article.getText()),
                 article.getPublished(),
                 article.getCategory(),
+                article.getCategoryString(),
                 article.getTotalViews(),
                 article.getLastViewDate(),
                 getMainPictureUrlFromText(article.getText()),
@@ -118,6 +122,10 @@ public class ArticleService {
         String srcValue = htmlTag.attr("src");
         String updatedSrcValue = String.format("%s:%s/news/images/news/%s", host, port, srcValue);
         htmlTag.attr("src", updatedSrcValue);
+    }
+
+    public Page<Article> findAllByPagingAndFiltering(Specification<Article> specification, Pageable pageable) {
+        return articleRepository.findAll(specification, pageable);
     }
 
 }

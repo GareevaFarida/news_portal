@@ -24,6 +24,7 @@ public final class ArticleDto {
     private final String text;
     private final LocalDateTime published;
     private final ArticleCategory category;
+    private final String categoryString;
     private final Long totalViews;
     private final LocalDateTime lastViewDate;
     private final String mainPictureUrl;

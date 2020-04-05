@@ -102,9 +102,17 @@ public class Article {
 
   public String getTitle() {
     if (title == null) {
-      title = "Title";
+      title = "Title_default";
     }
     return title;
   }
 
+  public String getCategoryString() {
+    String categoryString;
+    if (category == null) {
+      categoryString = "Category_default";
+      return categoryString;
+    }
+    return category.getName();
+  }
 }
