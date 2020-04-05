@@ -24,10 +24,11 @@ public final class ArticleDto {
     private final String text;
     private final LocalDateTime published;
     private final ArticleCategory category;
+    private final String categoryString;
     private final Long totalViews;
     private final LocalDateTime lastViewDate;
     private final String mainPictureUrl;
-    private final Status status;
+    private final Article.Status status;
     private final List<Comment> comments;
     private final List<ArticleLike> likes;
     private final List<Tag> tags;

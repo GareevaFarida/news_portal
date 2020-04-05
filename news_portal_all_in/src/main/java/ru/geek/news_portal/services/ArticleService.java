@@ -9,13 +9,15 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.geek.news_portal.base.entities.Article;
 import ru.geek.news_portal.base.repo.ArticleRepository;
 import ru.geek.news_portal.dto.ArticleDto;
 import ru.geek.news_portal.exception.NotFoundException;
 import ru.geek.news_portal.utils.ListMapper;
-
 import java.util.List;
 
 
@@ -89,6 +91,18 @@ public class ArticleService {
         return ArticleDto.fromArticle(article,
                 prepareArticleText(article.getText()),
                 getMainPictureUrlFromText(article.getText()));
+                article.getPublished(),
+                article.getCategory(),
+                article.getCategoryString(),
+                article.getTotalViews(),
+                article.getLastViewDate(),
+                getMainPictureUrlFromText(article.getText()),
+                article.getStatus(),
+                article.getComments(),
+                article.getLikes(),
+                article.getTags(),
+                article.getRatings()
+        );
     }
 
     /**
@@ -122,6 +136,7 @@ public class ArticleService {
         htmlTag.attr("src", updatedSrcValue);
     }
 
+
     /**
      * @author Stanislav Ryzhkov
      * Created 05/04/2020
@@ -131,5 +146,10 @@ public class ArticleService {
         return ListMapper.mapList(articles, article -> ArticleDto.fromArticle(article,
                 prepareArticleText(article.getText()),
                 getMainPictureUrlFromText(article.getText())));
+    }
+  
+  
+  public Page<Article> findAllByPagingAndFiltering(Specification<Article> specification, Pageable pageable) {
+        return articleRepository.findAll(specification, pageable);
     }
 }
