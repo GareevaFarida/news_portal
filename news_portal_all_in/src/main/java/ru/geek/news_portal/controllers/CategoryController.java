@@ -27,8 +27,6 @@ public class CategoryController {
     private ArticleService articleService;
     private ArticleCategoryService articleCategoryService;
 
-
-
     @Autowired
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
