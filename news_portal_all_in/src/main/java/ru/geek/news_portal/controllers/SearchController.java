@@ -83,10 +83,10 @@ public class SearchController {
     }
 
         @GetMapping("/show_categories")
-    public String showSearch(Model model, HttpServletRequest request, HttpServletResponse response,
-                             @RequestParam(name = "pageLimit", required = false) Integer pageLimit
-                             // @RequestParam Map<String, String> params
-        ) {
+    public String showSearch(Model model, @RequestParam Map<String, String> params,
+                             HttpServletRequest request, HttpServletResponse response,
+                             @CookieValue(value = "page_size", required = false) Integer pageSize) {
+
         return "ui/search";
     }
 }
