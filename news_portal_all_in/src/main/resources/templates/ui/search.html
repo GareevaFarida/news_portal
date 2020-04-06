@@ -58,13 +58,13 @@
 									<div class="form-group">
 										<label><input type="checkbox" name="category" th:value="${null}"> All Categories</label>
 									</div>
-									<div class="form-group" th:each="category, state : ${categories}">
-										<input type="checkbox"   th:value="${param.catId != null} ? ${param.catId}" th:name="catId">
+									<div class="form-group" th:each="category, state : ${categories}" name="cat_id">
+										<input type="checkbox"   th:value="${param.cat_id != null} ? ${param.cat_id}" >
 										<label th:text="${category.name}">
 											 Lifestyle</label>
 									</div>
 
-									<a class="btn btn-primary more" type="submit" >
+									<a class="btn btn-primary more" type="submit">
 										<div>More</div>
 										<div><i class="ion-ios-arrow-thin-right"></i></div>
 									</a>
@@ -103,24 +103,24 @@
 								<form th:action="@{/search}" method="get">
 									<div class="form-group">
 										<div class="input-group">
-											<select class="form-control" th:name="limit" id="">
+											<select class="form-control" name="limit" id="">
 												<!--									required-->
 												<option th:value="null">
 													<a th:text="Limit" >Limit</a>
 												</option>
-												<option th:value="1">
+												<option th:value="1" >
+<!--													th:selected="${param.limit.add(1)}"-->
 													<a th:text="1" >1</a>
 												</option>
-												<option th:value="2">
+												<option th:value="2" >
 													<a th:text="2" >2</a>
 												</option>
-												<option th:value="5">
+												<option th:value="5" >
 													<a th:text="5" >5</a>
 												</option>
-												<option th:value="10">
+												<option th:value="10" >
 													<a th:text="10" >10</a>
 												</option>
-
 											</select>
 										</div>
 									</div>
@@ -149,9 +149,16 @@
 										<div class="details">
 											<div class="detail">
 												<div class="category">
-													<a href="../ui/category.html"
-													   th:href="@{/category/{id}(id=${article.category.id})}"
-													   th:utext="${article.category.name}">Healthy</a>
+<!--													<a href="../ui/category.html"-->
+<!--													   th:href="@{'/search?cat_id=' + ${article.category.id} + ${filtersDef}}"-->
+<!--													   th:utext="${article.category.name}">Healthy</a>-->
+
+													<a th:if="${category}==null" href="../ui/category.html"
+													   th:href="@{'/search?cat_id=' + ${article.category.id} + ${filtersDef}}"
+													   th:utext="${article.category.name}">Film</a>
+													<a th:unless="${category}==null" href="../ui/category.html"
+													   th:href="@{'/search?' + ${filtersDef}}"
+													   th:utext="${article.category.name}">Film</a>
 												</div>
 												<br>
 												<time th:utext="${article.created}">December 16, 2016</time>
@@ -187,26 +194,48 @@
 <!--		              <li><a href="#">97</a></li>-->
 <!--		              <li class="next"><a href="#"><i class="ion-ios-arrow-right"></i></a></li>-->
 <!--		            </ul>-->
+<!--					  <nav aria-label="Page navigation">-->
+<!--						  <ul class="pagination">-->
+<!--							  <li class="page-item " th:classappend="${!(page.getNumber() > 0) ? 'disabled' : ''}" >-->
+<!--&lt;!&ndash;								  th:if="${(page.getNumber() > 0)}"&ndash;&gt;-->
+<!--								  <a th:class="page-link" th:unless="${(page.getNumber() > 0)}"-->
+<!--									 th:href="@{'/search?pageNumber=1' + ${filters}}"><i class="ion-ios-arrow-left"></i></a>-->
+<!--								  <a th:class="page-link" th:if="${(page.getNumber() > 0)}"-->
+<!--									 th:href="@{'/search?pageNumber=' + ${page.getNumber()} + ${filters}}"><i class="ion-ios-arrow-left"></i></a>-->
+<!--							  </li>-->
+
+<!--							  <li class="page-item" th:classappend="${page.getNumber() + 1 == i ? 'active' : ''}"-->
+<!--								  th:each="i : ${#numbers.sequence(1, page.getTotalPages())}">-->
+<!--								  <a th:class="page-link" th:text="${i}" th:href="@{'/search?pageNumber=' + ${i} + ${filters}}"></a>-->
+<!--							  </li>-->
+
+<!--							  <li class="page-item" th:classappend="${!(page.getNumber() < page.getTotalPages() - 1) ? 'disabled' : ''}" >-->
+<!--								  <a th:class="page-link" th:unless="${(page.getNumber() < page.getTotalPages() - 1)}"-->
+<!--									 th:href="@{'/search?pageNumber=' + ${page.getTotalPages()} + ${filters}}"><i class="ion-ios-arrow-right"></i></a>-->
+<!--								  <a th:class="page-link" th:if="${(page.getNumber() < page.getTotalPages() - 1)}"-->
+<!--									 th:href="@{'/search?pageNumber=' + ${page.getNumber() + 2} + ${filters}}"><i class="ion-ios-arrow-right"></i></a>-->
+<!--							  </li>-->
+<!--						  </ul>-->
+<!--					  </nav>-->
+
 					  <nav aria-label="Page navigation">
 						  <ul class="pagination">
 							  <li class="page-item " th:classappend="${!(page.getNumber() > 0) ? 'disabled' : ''}" >
-<!--								  th:if="${(page.getNumber() > 0)}"-->
-								  <a th:class="page-link" th:unless="${(page.getNumber() > 0)}"
-									 th:href="@{'/search?pageNumber=1' + ${filters}}">Prev</a>
-								  <a th:class="page-link" th:if="${(page.getNumber() > 0)}"
-									 th:href="@{'/search?pageNumber=' + ${page.getNumber()} + ${filters}}">Prev</a>
+
+								  <a class="page-link"
+									 th:href="@{'/search?pageNumber=' + ${page.previousOrFirstPageable().getPageNumber() + 1} + ${filtersDef}}">
+									  <i class="ion-ios-arrow-left"></i></a>
 							  </li>
 
 							  <li class="page-item" th:classappend="${page.getNumber() + 1 == i ? 'active' : ''}"
 								  th:each="i : ${#numbers.sequence(1, page.getTotalPages())}">
-								  <a th:class="page-link" th:text="${i}" th:href="@{'/search?pageNumber=' + ${i} + ${filters}}"></a>
+								  <a class="page-link" th:text="${i}" th:href="@{'/search?pageNumber=' + ${i} + ${filtersDef}}"></a>
 							  </li>
 
 							  <li class="page-item" th:classappend="${!(page.getNumber() < page.getTotalPages() - 1) ? 'disabled' : ''}" >
-								  <a th:class="page-link" th:unless="${(page.getNumber() < page.getTotalPages() - 1)}"
-									 th:href="@{'/search?pageNumber=' + ${page.getTotalPages()} + ${filters}}">Next</a>
-								  <a th:class="page-link" th:if="${(page.getNumber() < page.getTotalPages() - 1)}"
-									 th:href="@{'/search?pageNumber=' + ${page.getNumber() + 2} + ${filters}}">Next</a>
+								  <a class="page-link"
+									 th:href="@{'/search?pageNumber=' + ${page.nextOrLastPageable().getPageNumber() + 1} + ${filtersDef}}">
+									  <i class="ion-ios-arrow-right"></i></a>
 							  </li>
 						  </ul>
 					  </nav>

@@ -1,6 +1,10 @@
 package ru.geek.news_portal.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +17,16 @@ import ru.geek.news_portal.services.CommentService;
 import ru.geek.news_portal.services.UserService;
 
 import ru.geek.news_portal.services.*;
+import ru.geek.news_portal.utils.ArticleFilter;
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Farida Gareeva
@@ -38,6 +47,8 @@ public class ArticleController {
     private CommentLikeService commentLikeService;
     private static final int LIKE_VALUE = 1;
     private static final int DISLIKE_VALUE = -1;
+    //Временное решение до появления сервиса предпочтений пользователя
+    private Long RECOMENDED_NEWS = 5L;
 
 
     @Autowired
@@ -176,5 +187,4 @@ public class ArticleController {
         commentLikeService.save(like);
         return "redirect:/single/articles/" + commentService.findCommentById(comment_id).getArticle().getId();
     }
-
 }

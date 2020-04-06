@@ -3,11 +3,13 @@ package ru.geek.news_portal.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.Article;
+import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.dto.ArticleDto;
 import ru.geek.news_portal.services.ArticleCategoryService;
 import ru.geek.news_portal.services.ArticleService;
@@ -17,14 +19,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
     private ArticleService articleService;
     private ArticleCategoryService articleCategoryService;
-    //Временное решение до появления сервиса предпочтений пользователя
-    private Long RECOMENDED_NEWS = 5L;
+
+
 
     @Autowired
     public void setArticleService(ArticleService articleService) {
@@ -36,38 +39,42 @@ public class CategoryController {
     }
 
     @GetMapping()
-    public String categoryShow(Model model, HttpServletRequest request, HttpServletResponse response,
-                         @CookieValue(value = "page_size", required = false) Integer pageSize,
-                         @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
-                         @RequestParam(name = "pageLimit", required = false) Integer pageLimit,
-                         @RequestParam(value = "catId", required = false) Long id) {
-        ArticleFilter articleFilter = new ArticleFilter(request);
-        List<ArticleDto> articles = articleService.findAllArticles();
-        model.addAttribute("articles", articleService.findAllArticles());
-        model.addAttribute("recomended_news_id", RECOMENDED_NEWS);
-        model.addAttribute("categories", articleCategoryService.findAll());
-        model.addAttribute("pageNumber", pageNumber);
-        model.addAttribute("pageLimit", pageLimit);
-        model.addAttribute("filters", articleFilter.getFiltersString());
-        if (id!=null) {
-            model.addAttribute("category", articleCategoryService.findOneById(id));
-        } else {
-            model.addAttribute("category", null);
-        }
-        if (pageNumber == null || pageNumber < 1) {
-            pageNumber = 1;
+    public String categoryShow(Model model,
+                               @RequestParam Map<String, String> params,
+                               HttpServletRequest request, HttpServletResponse response,
+                               @CookieValue(value = "page_size", required = false) Integer pageSize) {
+
+        Integer pageNumber = 0;
+        Integer pageLimit = 5;
+        ArticleCategory category = null;
+        if (params.containsKey("pageNumber")) {
+            pageNumber = Integer.parseInt(params.get("pageNumber")) - 1;
         }
         if (pageSize == null) {
             pageSize = 10;
             response.addCookie(new Cookie("page_size", String.valueOf(pageSize)));
         }
-        if (pageLimit == null) {
-            pageLimit = 5;
+        if (params.containsKey("pageLimit")) {
+            pageLimit = Integer.parseInt(params.get("pageLimit"));
         }
+        if (params.containsKey("cat_id")) {
+            category = articleCategoryService.findOneById(Long.parseLong(params.get("cat_id")));
+        }
+        ArticleFilter articleFilter = new ArticleFilter(params);
+        List<ArticleDto> articles = articleService.findAllArticles();
+        Pageable pageRequest = PageRequest.of(pageNumber, pageLimit, Sort.Direction.ASC, "id");
 
-        Page<Article> page = articleService.findAllByPagingAndFiltering(articleFilter.getSpecification(), PageRequest.of(pageNumber - 1, pageLimit, Sort.Direction.ASC, "id"));
+        Page<Article> page = articleService.findAllByPagingAndFiltering(articleFilter.getSpecification(), pageRequest);
+
+        List<ArticleCategory> categories = articleCategoryService.findAll();
+
+        model.addAttribute("filtersDef", articleFilter.getFilterDefinition());
+        model.addAttribute("articles", articles);
+        model.addAttribute("category", category);
+        model.addAttribute("categories", categories);
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("pageLimit", pageLimit);
         model.addAttribute("page", page);
         return "ui/category";
     }
-
 }

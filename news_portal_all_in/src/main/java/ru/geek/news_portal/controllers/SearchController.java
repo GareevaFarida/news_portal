@@ -10,12 +10,14 @@ package ru.geek.news_portal.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.Article;
+import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.dto.ArticleDto;
 import ru.geek.news_portal.dto.PageLimitDto;
 import ru.geek.news_portal.services.ArticleCategoryService;
@@ -43,32 +45,39 @@ public class SearchController {
     }
 
     @GetMapping()
-    public String search(Model model, HttpServletRequest request, HttpServletResponse response,
-                       @CookieValue(value = "page_size", required = false) Integer pageSize,
-                       @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
-                       @RequestParam(name = "pageLimit", required = false) Integer pageLimit
-                       // @RequestParam Map<String, String> params
-    ) {
-        ArticleFilter articleFilter = new ArticleFilter(request);
-        List<ArticleDto> articles = articleService.findAllArticles();
-        if (pageNumber == null || pageNumber < 1) {
-            pageNumber = 1;
+    public String search(Model model,  @RequestParam Map<String, String> params,
+                         HttpServletRequest request, HttpServletResponse response,
+                         @CookieValue(value = "page_size", required = false) Integer pageSize) {
+        Integer pageNumber = 0;
+        Integer pageLimit = 5;
+        ArticleCategory category = null;
+
+        if (params.containsKey("pageNumber")) {
+            pageNumber = Integer.parseInt(params.get("pageNumber")) - 1;
         }
         if (pageSize == null) {
             pageSize = 10;
             response.addCookie(new Cookie("page_size", String.valueOf(pageSize)));
         }
-        if (pageLimit == null) {
-            pageLimit = 5;
+        if (params.containsKey("pageLimit")) {
+            pageLimit = Integer.parseInt(params.get("pageLimit"));
         }
+        if (params.containsKey("cat_id")) {
+            category = articleCategoryService.findOneById(Long.parseLong(params.get("cat_id")));
+        }
+        ArticleFilter articleFilter = new ArticleFilter(params);
+        List<ArticleDto> articles = articleService.findAllArticles();
+        Pageable pageRequest = PageRequest.of(pageNumber, pageLimit, Sort.Direction.ASC, "id");
 
+        Page<Article> page = articleService.findAllByPagingAndFiltering(articleFilter.getSpecification(), pageRequest);
+
+        List<ArticleCategory> categories = articleCategoryService.findAll();
+        model.addAttribute("filtersDef", articleFilter.getFilterDefinition());
         model.addAttribute("articles", articles);
-        model.addAttribute("categories", articleCategoryService.findAll());
+        model.addAttribute("categories", categories);
+        model.addAttribute("category", category);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageLimit", pageLimit);
-        model.addAttribute("filters", articleFilter.getFiltersString());
-
-        Page<Article> page = articleService.findAllByPagingAndFiltering(articleFilter.getSpecification(), PageRequest.of(pageNumber - 1, pageLimit, Sort.Direction.ASC, "id"));
         model.addAttribute("page", page);
         return "ui/search";
     }
