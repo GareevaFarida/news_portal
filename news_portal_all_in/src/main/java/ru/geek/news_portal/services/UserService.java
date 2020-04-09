@@ -12,7 +12,7 @@ public interface UserService extends UserDetailsService {
 
     User findById(Long id);
 
-    boolean isUserExist(String username);  
+    boolean isUserExist(String username);
 
     User update(SystemUser systemUser);
 
@@ -21,9 +21,12 @@ public interface UserService extends UserDetailsService {
     void delete(Long id);
 
     User findByUsername(String username);
+
     boolean isUsernameExist(String username);
+
     boolean isEmailExist(String email);
+
     User save(SystemUser systemUser);
 
-
+    boolean updatePass(User user, String password);
 }

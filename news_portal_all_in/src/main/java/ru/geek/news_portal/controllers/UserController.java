@@ -9,6 +9,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.User;
 import ru.geek.news_portal.base.repo.RoleRepository;
+import ru.geek.news_portal.dto.UserSimpleDTO;
 import ru.geek.news_portal.services.UserService;
 import ru.geek.news_portal.utils.SystemUser;
 
@@ -25,6 +26,7 @@ import javax.validation.Valid;
  */
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     private final RoleRepository roleRepository;
 
@@ -43,68 +45,89 @@ public class UserController {
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
-    @GetMapping("/users")
-    public String adminUsersPage(Model model , HttpServletRequest request) {
-        if (!request.isUserInRole("ADMIN")) {
-            return "redirect:/";
-        }
-        model.addAttribute("activePage", "Users");
-        model.addAttribute("users", userService.findAll());
-        return "users";
-    }
-
-//    @GetMapping("/user/edit/{id}")
-//    public String adminEditUser(Model model, @PathVariable("id") Long id) {
-//        model.addAttribute("edit", true);
-//        model.addAttribute("activePage", "Users");
-//        model.addAttribute("user", userService.findById(id));
-//        model.addAttribute("roles", roleRepository.findAll());
-//        return "user_form";
-//    }
+    //-------------------------------------------------------------------------------
 
     @GetMapping({"/user/edituser", "/user/edituser/{username}"})
-    public String adminEditUser(Model model, @PathVariable(value = "username", required = false) String username, HttpServletRequest request) {
+    public String adminEditUser(Model model, @PathVariable(value = "username", required = false) String username,
+                                HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
             return "redirect:/";
         }
         model.addAttribute("edit", true);
-        model.addAttribute("activePage", "Users");
+//        model.addAttribute("activePage", "Users");
         model.addAttribute("user", userService.findByUsername(username));
         model.addAttribute("roles", roleRepository.findAll());
-        return "user_form";
+        return "ui/personal";
     }
 
-    @GetMapping("/user/create")
-    public String adminCreateUser(Model model) {
-        model.addAttribute("create", true);
-        model.addAttribute("activePage", "Users");
-        model.addAttribute("user", new User());
-        model.addAttribute("roles", roleRepository.findAll());
-        return "user_form";
+    //-------------------------------------------------------------------------------
+
+    @GetMapping({"/user/favorite", "/user/favorite/{username}"})
+    public String userFavorites(Model model, @PathVariable(value = "username", required = false) String username,
+                                HttpServletRequest request) {
+        if (!request.isRequestedSessionIdValid()) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", userService.findByUsername(username));
+        return "ui/user_favorites";
     }
 
-    @PostMapping("/user/update")
-    public String updateUser(@Valid @ModelAttribute("systemUser") SystemUser systemUser,
-                             BindingResult bindingResult, Model model) {
-        model.addAttribute("activePage", "Users");
+    //-------------------------------------------------------------------------------
 
-        if (bindingResult.hasErrors()) {
-            return "user_form";
+    @GetMapping({"/user/comment", "/user/comment/{username}"})
+    public String userComments(Model model, @PathVariable(value = "username", required = false) String username,
+                               HttpServletRequest request) {
+        if (!request.isRequestedSessionIdValid()) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", userService.findByUsername(username));
+        return "ui/user_comments";
+    }
+
+    //-------------------------------------------------------------------------------
+    // Работает через жопу (дополнительный класс) без проверки на ошибки.
+    // todo Нужно исправить изменение пароля и добавить контроль неправильного ввода
+    //-------------------------------------------------------------------------------
+    @GetMapping({"/user/change_password", "/user/change_password/{username}"})
+    public String userChangePasswordGet(
+            @PathVariable(value = "username", required = false) String username,
+            Model model,
+            HttpServletRequest request) {
+
+        if (!request.isRequestedSessionIdValid()) {
+            return "redirect:/";
         }
 
-        userService.update(systemUser);
-        return "user_form";
+        UserSimpleDTO userSimpleDTO = new UserSimpleDTO();
+        userSimpleDTO.setUsername(userService.findByUsername(username).getUsername());
+        userSimpleDTO.setPassword(userService.findByUsername(username).getPassword());
+
+        model.addAttribute("userSimpleDTO", userSimpleDTO);
+        return "ui/resetpass";
     }
 
-    @GetMapping("/user/delete/{id}")
-    public String adminDeleteUser(Model model, @PathVariable("id") Long id) {
-        userService.delete(id);
-        return "users";
+    @PostMapping("/user/change_password")
+    public String userChangePasswordPost(
+            @Valid @ModelAttribute("userSimpleDTO") UserSimpleDTO userSimpleDTO,
+            BindingResult bindingResult,
+            Model model) {
+
+        User user = userService.findByUsername(userSimpleDTO.getUsername());
+        userService.updatePass(user, userSimpleDTO.getPassword());
+        return "redirect:/";
     }
 
-    @GetMapping("/roles")
-    public String adminRolesPage(Model model) {
-        model.addAttribute("activePage", "Roles");
-        return "index";
+    //-------------------------------------------------------------------------------
+
+    @GetMapping({"/user/setting", "/user/setting/{username}"})
+    public String userSettings(Model model, @PathVariable(value = "username", required = false) String username,
+                               HttpServletRequest request) {
+        if (!request.isRequestedSessionIdValid()) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", userService.findByUsername(username));
+        return "ui/settings";
     }
+
+    //-------------------------------------------------------------------------------
 }

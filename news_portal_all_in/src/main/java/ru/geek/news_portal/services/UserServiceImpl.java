@@ -1,7 +1,7 @@
 /**
  * Бизнес логика User
- * @author
- * fix Dmitriy Ostrovskiy 19.03.2020
+ *
+ * @author fix Dmitriy Ostrovskiy 19.03.2020
  * created on
  */
 
@@ -70,14 +70,14 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
-  
+
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
-  
-  
+
+
     @Override
-     public List<User> findAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -92,14 +92,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-  public boolean isUsernameExist(String username) {
-    return userRepository.existsByUsername(username);
-  }
+    public boolean isUsernameExist(String username) {
+        return userRepository.existsByUsername(username);
+    }
 
-  @Override
-  public boolean isEmailExist(String email) {
-      return userRepository.existsByEmail(email);
-  }
+    @Override
+    public boolean isEmailExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
 
     @Override
     @Transactional
@@ -124,9 +124,21 @@ public class UserServiceImpl implements UserService {
     public User update(SystemUser systemUser) {
         return null;
     }
-  
+
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean updatePass(User user, String password) {
+        boolean result = false;
+        if (findByUsername(user.getUsername()) == null) {
+            throw new RuntimeException("User " + user + " not found");
+        }
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        result = true;
+        return result;
     }
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/header.html :: head"></head>
+
+<body class="skin-orange">
+<!-- HEADER -->
+<header class="primary" th:insert="fragments/header.html :: firstbar"></header>
+<!-- /HEADER -->
+
+
+<section class="login first grey">
+    <div class="container">
+        <div class="box-wrapper">
+            <div class="box box-border">
+                <div class="box-body">
+                    <h4>Change Password</h4>
+
+                    <div th:if="${error}!=null" class="alert alert-danger">[[${error}]]</div>
+                    <div th:if="${success}!=null" class="alert">[[${success}]]</div>
+
+                    <form th:if="${success}==null" method="post" th:action="@{/user/change_password}" th:object="${password}">
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="oldPassword"
+                                   placeholder="old password (*)">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="newPassword"
+                                   placeholder="new password (*)">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="matchingPassword"
+                                   placeholder="confirm password (*)">
+                        </div>
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary btn-block">Change Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer th:replace="fragments/footer.html :: footer"></footer>
+<!-- /FOOTER -->
+
+<!-- JS -->
+<script th:remove="tag" th:replace="fragments/scripts.html :: scripts"></script>
+
+</body>
+</html>
