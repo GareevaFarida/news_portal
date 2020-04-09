@@ -19,37 +19,31 @@
             <div class="col-md-8 col-md-offset-2">
                 <h1 class="page-title">My account</h1>
 
-
                 <div th:if="${error}!=null" class="alert alert-danger">[[${error}]]</div>
                 <div th:if="${success}!=null" class="alert">[[${success}]]</div>
 
                 <form method="post" th:action="@{/user/edituser}" th:object="${user}">
                     <div class="form-group">
-                        <!--                        <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username</label>-->
                         <label>Username</label>
                         <input type="text" class="form-control" name="username"
                                placeholder="username" value="target" autocomplete="off" required
                                readonly th:field="*{username}">
-                        <!--                        th:disabled="*{username}" th:default="*{username}" th:field="*{username}">-->
                     </div>
-                    <!--                    <div class="form-group">-->
-                    <!--                        <h4>username: </h4><h4 th:text="*{username}"></h4></div>-->
 
                     <div class="form-group">
-                        <!--                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName</label>-->
                         <label>First name</label>
                         <input type="text" class="form-control" name="firstName"
                                placeholder="firstName" value="John" autocomplete="off" required th:field="*{firstName}">
                     </div>
+
                     <div class="form-group">
-                        <!--                        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName</label>-->
                         <label>Last name</label>
                         <input type="text" class="form-control" name="lastName"
                                placeholder="lastName" value="Connor" autocomplete="off" required th:field="*{lastName}">
                     </div>
+
                     <div class="form-group">
                         <label>E-mail</label>
-                        <!--                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email</label>-->
                         <input type="email" class="form-control" name="email"
                                placeholder="email" value="terminator@murder.tv" autocomplete="off" required
                                th:field="*{email}">
@@ -74,16 +68,6 @@
                         <label>commentLikes</label>
                         <p class="form-control" th:text="*{commentLikes.size()}"></p>
                     </div>
-
-                    <!--                    <div class="form-group">-->
-                    <!--                        <h4>articleLikes: </h4><h4 th:text="*{articleLikes.size()}"></h4></div>-->
-<!--                    <div class="form-group">-->
-<!--                        <h4>articleRatings: </h4><h4 th:text="*{articleRatings.size()}"></h4></div>-->
-<!--                    <div class="form-group">-->
-<!--                        <h4>comments: </h4><h4 th:text="*{comments.size()}"></h4></div>-->
-<!--                    <div class="form-group">-->
-<!--                        <h4>commentLikes: </h4><h4 th:text="*{commentLikes.size()}"></h4>-->
-<!--                    </div>-->
 
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-primary btn-block">Save data</button>

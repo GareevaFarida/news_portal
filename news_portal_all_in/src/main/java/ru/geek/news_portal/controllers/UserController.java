@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.User;
 import ru.geek.news_portal.base.repo.RoleRepository;
+import ru.geek.news_portal.dto.NewPasswordDTO;
 import ru.geek.news_portal.dto.UpdatePasswordDTO;
 import ru.geek.news_portal.dto.UserAccountDTO;
 import ru.geek.news_portal.services.UserService;
@@ -29,7 +30,6 @@ import java.security.Principal;
  */
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
     private final RoleRepository roleRepository;
 
@@ -50,7 +50,7 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/edituser", "/edituser/{username}"})
+    @GetMapping({"/user/edituser", "/user/edituser/{username}"})
     public String editUserGet(Model model, @PathVariable(value = "username", required = false) String username,
                               Principal principal, HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
@@ -70,7 +70,7 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @PostMapping("/edituser")
+    @PostMapping("/user/edituser")
     public String editUserPost(Model model, @ModelAttribute("user") @Valid UserAccountDTO userAccountDTO,
                                Principal principal, HttpServletRequest request) {
 //        if (!request.isRequestedSessionIdValid()) {
@@ -94,7 +94,7 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/favorite", "/favorite/{username}"})
+    @GetMapping({"/user/favorite", "/user/favorite/{username}"})
     public String userFavorites(Model model, @PathVariable(value = "username", required = false) String username,
                                 HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
@@ -106,7 +106,7 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/comment", "/comment/{username}"})
+    @GetMapping({"/user/comment", "/user/comment/{username}"})
     public String userComments(Model model, @PathVariable(value = "username", required = false) String username,
                                HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
@@ -118,8 +118,8 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/change_password", "/change_password/{username}"})
-    public String userChangePasswordGet(Model model, @PathVariable(value = "username", required = false) String username,
+    @GetMapping({"/user/change_password", "/user/change_password/{username}"})
+    public String userChangePassword(Model model, @PathVariable(value = "username", required = false) String username,
                                         HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
             return "redirect:/";
@@ -129,10 +129,9 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @PostMapping("/change_password")
-    public String userChangePasswordPost(@ModelAttribute("password") @Valid UpdatePasswordDTO updatePasswordDTO,
+    @PostMapping("/user/change_password")
+    public String userChangePassword(@ModelAttribute("password") @Valid UpdatePasswordDTO updatePasswordDTO,
                                          BindingResult bindingResult, Principal principal, Model model) {
-
         User user = userService.findByUsername(principal.getName());
 
         if (!userService.checkPassword(user, updatePasswordDTO.getOldPassword())) {
@@ -146,13 +145,13 @@ public class UserController {
         }
 
         userService.updatePassword(user, updatePasswordDTO.getNewPassword());
-        model.addAttribute("success", "The password change succesful");
+        model.addAttribute("success", "The password change successful");
         return "ui/changepass";
     }
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/setting", "/setting/{username}"})
+    @GetMapping({"/user/setting", "/user/setting/{username}"})
     public String userSettings(Model model, @PathVariable(value = "username", required = false) String username,
                                HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
@@ -163,4 +162,38 @@ public class UserController {
     }
 
     //-------------------------------------------------------------------------------
+
+    @GetMapping("/forgot")
+    public String forgot() {
+        return "ui/forgot";
+    }
+
+    //-------------------------------------------------------------------------------
+
+    @GetMapping("/reset")
+    public String reset(Model model) {
+        return "ui/reset";
+    }
+
+    @PostMapping("/reset")
+    public String reset(@ModelAttribute("password") NewPasswordDTO newPassword,
+                        Principal principal, Model model) {
+
+        User user = userService.findByUsername(principal.getName());
+
+        if (!newPassword.getNewPassword().equals(newPassword.getMatchingPassword())) {
+            model.addAttribute("error", "The password fields must match");
+            return "ui/reset";
+        }
+
+        userService.updatePassword(user, newPassword.getNewPassword());
+        model.addAttribute("success", "The password change successful");
+
+        return "ui/reset";
+    }
+
+    //-------------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------
+
 }
