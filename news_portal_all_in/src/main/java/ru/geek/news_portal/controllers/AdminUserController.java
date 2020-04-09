@@ -22,7 +22,7 @@ import javax.validation.Valid;
  * @link https://github.com/Centnerman
  */
 
-// Работаем с пользователями имея правами админа -------------------------------------------
+// Работаем с пользователями имея права админа -------------------------------------------
 
 @Controller
 public class AdminUserController {

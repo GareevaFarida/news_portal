@@ -2,6 +2,8 @@ package ru.geek.news_portal.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,12 +11,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.User;
 import ru.geek.news_portal.base.repo.RoleRepository;
-import ru.geek.news_portal.dto.UserSimpleDTO;
+import ru.geek.news_portal.dto.UpdatePasswordDTO;
+import ru.geek.news_portal.dto.UserAccountDTO;
 import ru.geek.news_portal.services.UserService;
-import ru.geek.news_portal.utils.SystemUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * GeekBrains Java, news_portal.
@@ -47,22 +50,50 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/user/edituser", "/user/edituser/{username}"})
-    public String adminEditUser(Model model, @PathVariable(value = "username", required = false) String username,
-                                HttpServletRequest request) {
+    @GetMapping({"/edituser", "/edituser/{username}"})
+    public String editUserGet(Model model, @PathVariable(value = "username", required = false) String username,
+                              Principal principal, HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
             return "redirect:/";
         }
-        model.addAttribute("edit", true);
-//        model.addAttribute("activePage", "Users");
-        model.addAttribute("user", userService.findByUsername(username));
-        model.addAttribute("roles", roleRepository.findAll());
+        UserAccountDTO userDTO;
+
+        if (username == null || (principal.getName().equals(username) && userService.isUserExist(username))) {
+            userDTO = userService.userToDTO(principal.getName());
+            model.addAttribute("user", userDTO);
+        } else {
+            return "redirect:/";
+        }
+//        model.addAttribute("edit", true);
         return "ui/personal";
     }
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/user/favorite", "/user/favorite/{username}"})
+    @PostMapping("/edituser")
+    public String editUserPost(Model model, @ModelAttribute("user") @Valid UserAccountDTO userAccountDTO,
+                               Principal principal, HttpServletRequest request) {
+//        if (!request.isRequestedSessionIdValid()) {
+//            return "ui/personal";
+//        }
+
+        if (userAccountDTO.getFirstName().length() < 2 || userAccountDTO.getFirstName() == null) {
+            model.addAttribute("error", "The first name must be longer than or equal to 1 characters");
+        } else if (userAccountDTO.getLastName().length() < 2 || userAccountDTO.getLastName() == null) {
+            model.addAttribute("error", "The last name must be longer than or equal to 1 characters");
+        } else if (userAccountDTO.getEmail().length() < 6 || userAccountDTO.getEmail() == null) {
+            model.addAttribute("error", "The email is not correctly");
+        } else {
+            userService.saveDTO(userAccountDTO);
+            model.addAttribute("success", "The changing succesful");
+        }
+        model.addAttribute("user", userService.userToDTO(principal.getName()));
+        return "ui/personal";
+    }
+
+    //-------------------------------------------------------------------------------
+
+    @GetMapping({"/favorite", "/favorite/{username}"})
     public String userFavorites(Model model, @PathVariable(value = "username", required = false) String username,
                                 HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
@@ -74,7 +105,7 @@ public class UserController {
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/user/comment", "/user/comment/{username}"})
+    @GetMapping({"/comment", "/comment/{username}"})
     public String userComments(Model model, @PathVariable(value = "username", required = false) String username,
                                HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
@@ -85,41 +116,42 @@ public class UserController {
     }
 
     //-------------------------------------------------------------------------------
-    // Работает через жопу (дополнительный класс) без проверки на ошибки.
-    // todo Нужно исправить изменение пароля и добавить контроль неправильного ввода
-    //-------------------------------------------------------------------------------
-    @GetMapping({"/user/change_password", "/user/change_password/{username}"})
-    public String userChangePasswordGet(
-            @PathVariable(value = "username", required = false) String username,
-            Model model,
-            HttpServletRequest request) {
 
+    @GetMapping({"/change_password", "/change_password/{username}"})
+    public String userChangePasswordGet(Model model, @PathVariable(value = "username", required = false) String username,
+                                        HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
             return "redirect:/";
         }
-
-        UserSimpleDTO userSimpleDTO = new UserSimpleDTO();
-        userSimpleDTO.setUsername(userService.findByUsername(username).getUsername());
-        userSimpleDTO.setPassword(userService.findByUsername(username).getPassword());
-
-        model.addAttribute("userSimpleDTO", userSimpleDTO);
-        return "ui/resetpass";
-    }
-
-    @PostMapping("/user/change_password")
-    public String userChangePasswordPost(
-            @Valid @ModelAttribute("userSimpleDTO") UserSimpleDTO userSimpleDTO,
-            BindingResult bindingResult,
-            Model model) {
-
-        User user = userService.findByUsername(userSimpleDTO.getUsername());
-        userService.updatePass(user, userSimpleDTO.getPassword());
-        return "redirect:/";
+        return "ui/changepass";
     }
 
     //-------------------------------------------------------------------------------
 
-    @GetMapping({"/user/setting", "/user/setting/{username}"})
+    @PostMapping("/change_password")
+    public String userChangePasswordPost(@ModelAttribute("password") @Valid UpdatePasswordDTO updatePasswordDTO,
+                                         BindingResult bindingResult, Principal principal, Model model) {
+
+        User user = userService.findByUsername(principal.getName());
+
+        if (!userService.checkPassword(user, updatePasswordDTO.getOldPassword())) {
+            model.addAttribute("error", "Wrong current password");
+            return "ui/changepass";
+        }
+
+        if (!updatePasswordDTO.getNewPassword().equals(updatePasswordDTO.getMatchingPassword())) {
+            model.addAttribute("error", "The password fields must match");
+            return "ui/changepass";
+        }
+
+        userService.updatePassword(user, updatePasswordDTO.getNewPassword());
+        model.addAttribute("success", "The password change succesful");
+        return "ui/changepass";
+    }
+
+    //-------------------------------------------------------------------------------
+
+    @GetMapping({"/setting", "/setting/{username}"})
     public String userSettings(Model model, @PathVariable(value = "username", required = false) String username,
                                HttpServletRequest request) {
         if (!request.isRequestedSessionIdValid()) {
