@@ -181,15 +181,6 @@ public class UserServiceImpl implements UserService {
         userDTO.setComments(user.getComments());
         userDTO.setCommentLikes(user.getCommentLikes());
 
-        System.out.println("username " + userDTO.getUsername());
-        System.out.println("FirstName " + userDTO.getFirstName());
-        System.out.println("LastName " + userDTO.getLastName());
-        System.out.println("Email " + userDTO.getEmail());
-        System.out.println("ArticleLikes " + userDTO.getArticleLikes().size());
-        System.out.println("ArticleRatings " + userDTO.getArticleRatings().size());
-        System.out.println("Comments " + userDTO.getComments().size());
-        System.out.println("CommentLikes " + userDTO.getCommentLikes().size());
-
         return userDTO;
     }
 }

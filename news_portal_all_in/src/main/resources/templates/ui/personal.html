@@ -28,35 +28,62 @@
                         <!--                        <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username</label>-->
                         <label>Username</label>
                         <input type="text" class="form-control" name="username"
-                               placeholder="username" value="target" th:field="*{username}">
+                               placeholder="username" value="target" autocomplete="off" required
+                               readonly th:field="*{username}">
+                        <!--                        th:disabled="*{username}" th:default="*{username}" th:field="*{username}">-->
                     </div>
+                    <!--                    <div class="form-group">-->
+                    <!--                        <h4>username: </h4><h4 th:text="*{username}"></h4></div>-->
+
                     <div class="form-group">
                         <!--                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName</label>-->
                         <label>First name</label>
                         <input type="text" class="form-control" name="firstName"
-                               placeholder="firstName" value="John" th:field="*{firstName}">
+                               placeholder="firstName" value="John" autocomplete="off" required th:field="*{firstName}">
                     </div>
                     <div class="form-group">
                         <!--                        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName</label>-->
                         <label>Last name</label>
                         <input type="text" class="form-control" name="lastName"
-                               placeholder="lastName" value="Connor" th:field="*{lastName}">
+                               placeholder="lastName" value="Connor" autocomplete="off" required th:field="*{lastName}">
                     </div>
                     <div class="form-group">
                         <label>E-mail</label>
                         <!--                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email</label>-->
                         <input type="email" class="form-control" name="email"
-                               placeholder="email" value="terminator@murder.tv" th:field="*{email}">
+                               placeholder="email" value="terminator@murder.tv" autocomplete="off" required
+                               th:field="*{email}">
                     </div>
 
                     <div class="form-group">
-
-                        <h4>articleLikes: </h4><h4 th:text="*{articleLikes.size()}"></h4>
-                        <h4>articleRatings: </h4><h4 th:text="*{articleRatings.size()}"></h4>
-                        <h4>comments: </h4><h4 th:text="*{comments.size()}"></h4>
-                        <h4>commentLikes: </h4><h4 th:text="*{commentLikes.size()}"></h4>
-
+                        <label>articleLikes</label>
+                        <p class="form-control" th:text="*{articleLikes.size()}"></p>
                     </div>
+
+                    <div class="form-group">
+                        <label>articleRatings</label>
+                        <p class="form-control" th:text="*{articleRatings.size()}"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>comments</label>
+                        <p class="form-control" th:text="*{comments.size()}"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>commentLikes</label>
+                        <p class="form-control" th:text="*{commentLikes.size()}"></p>
+                    </div>
+
+                    <!--                    <div class="form-group">-->
+                    <!--                        <h4>articleLikes: </h4><h4 th:text="*{articleLikes.size()}"></h4></div>-->
+<!--                    <div class="form-group">-->
+<!--                        <h4>articleRatings: </h4><h4 th:text="*{articleRatings.size()}"></h4></div>-->
+<!--                    <div class="form-group">-->
+<!--                        <h4>comments: </h4><h4 th:text="*{comments.size()}"></h4></div>-->
+<!--                    <div class="form-group">-->
+<!--                        <h4>commentLikes: </h4><h4 th:text="*{commentLikes.size()}"></h4>-->
+<!--                    </div>-->
 
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-primary btn-block">Save data</button>

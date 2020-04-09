@@ -76,8 +76,9 @@ public class UserController {
 //        if (!request.isRequestedSessionIdValid()) {
 //            return "ui/personal";
 //        }
-
-        if (userAccountDTO.getFirstName().length() < 2 || userAccountDTO.getFirstName() == null) {
+        if (!userAccountDTO.getUsername().equals(principal.getName())) {
+            model.addAttribute("error","Username wrong");
+        } else if (userAccountDTO.getFirstName().length() < 2 || userAccountDTO.getFirstName() == null) {
             model.addAttribute("error", "The first name must be longer than or equal to 1 characters");
         } else if (userAccountDTO.getLastName().length() < 2 || userAccountDTO.getLastName() == null) {
             model.addAttribute("error", "The last name must be longer than or equal to 1 characters");
