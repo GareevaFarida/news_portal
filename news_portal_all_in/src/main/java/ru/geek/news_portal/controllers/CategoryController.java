@@ -13,6 +13,7 @@ import ru.geek.news_portal.base.entities.ArticleCategory;
 import ru.geek.news_portal.dto.ArticleDto;
 import ru.geek.news_portal.services.ArticleCategoryService;
 import ru.geek.news_portal.services.ArticleService;
+import ru.geek.news_portal.services.TagsService;
 import ru.geek.news_portal.utils.ArticleFilter;
 
 import javax.servlet.http.Cookie;
@@ -27,14 +28,10 @@ public class CategoryController {
     private ArticleService articleService;
     private ArticleCategoryService articleCategoryService;
 
-
-
-    @Autowired
-    public void setArticleService(ArticleService articleService) {
+@Autowired
+    public CategoryController(ArticleService articleService,
+                              ArticleCategoryService articleCategoryService) {
         this.articleService = articleService;
-    }
-    @Autowired
-    public void setArticleCategoryService(ArticleCategoryService articleCategoryService) {
         this.articleCategoryService = articleCategoryService;
     }
 

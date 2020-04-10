@@ -1,11 +1,10 @@
 package ru.geek.news_portal.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geek.news_portal.base.entities.Comment;
-import ru.geek.news_portal.base.entities.repr.CommentRepr;
 import ru.geek.news_portal.base.repo.CommentRepository;
+import ru.geek.news_portal.dto.CommentDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -30,14 +29,18 @@ public class CommentService {
 
     private CommentRepository commentRepository;
 
-    @Autowired
-    public void setCommentRepository(CommentRepository commentRepository){
-        this.commentRepository = commentRepository;
-    }
+    private ArticleService articleService;
 
-    @Autowired
-    public void setEntityManager(EntityManager entityManager) {
+    private UserService userService;
+
+    public CommentService(EntityManager entityManager,
+                          CommentRepository commentRepository,
+                          ArticleService articleService,
+                          UserService userService) {
         this.entityManager = entityManager;
+        this.commentRepository = commentRepository;
+        this.articleService = articleService;
+        this.userService = userService;
     }
 
     public List<Comment> findAllCommentByArticle_id(Long article_id){
@@ -56,18 +59,24 @@ public class CommentService {
     /**
      * @Author Farida Gareeva
      * Created 04/04/2020
-     * метод возвращает по всем комментариям к выбранной статье детальные данные:
-     *      поля сущности + сумму лайков и сумму дизлайков + имя автора
-     * Таблица-источник newsportal.comment_details является представлением (view) в базе данных
+     *
+     * В данный момент метод не используется.
+     * Создавался с целью оптимизации обращения к БД для получения
+     * итоговых значений лайков и дизлайков к комментариям статей.
+     * Для оптимизации в БД создана view comment_details
+     *
+     * метод возвращает по всем комментариям к выбранной статье список детальных данных CommentDto,
+     * содержащих следующие данные:
+     *      поля сущности + сумму лайков и сумму дизлайков + имя автора.
      */
-    public List<CommentRepr> getCommentsWithDetailsByArticle_id(Long article_id) {
-        List<CommentRepr> listCommentDetails = new ArrayList<>();
+    public List<CommentDto> getCommentsWithDetailsByArticle_id(Long article_id) {
+        List<CommentDto> listCommentDetails = new ArrayList<>();
         Query query = entityManager.createNativeQuery("SELECT id, article_id, author, created, text, likes, dislikes\n" +
                 "\tFROM newsportal.comment_details where article_id = :article_id");
         query.setParameter("article_id", article_id);
         List<Object[]> listDetails = query.getResultList();
         for (Object[] item : listDetails) {
-            CommentRepr details = new CommentRepr((BigInteger) item[0],
+            CommentDto details = new CommentDto((BigInteger) item[0],
                     (BigInteger) item[1],
                     (String) item[2],
                     (Timestamp) item[3],
@@ -77,5 +86,11 @@ public class CommentService {
             listCommentDetails.add(details);
         }
         return listCommentDetails;
+    }
+
+    public void fillAndSaveComment(Comment comment, Long article_id, String username) {
+        comment.setArticle(articleService.findById(article_id));
+        comment.setUser(userService.findByUsername(username));
+        save(comment);
     }
 }

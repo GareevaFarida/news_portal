@@ -66,7 +66,7 @@
 								<ul class="details">
 									<li th:remove="tag" th:utext="${article.created}">Posted on 31 December, 2016</li>
 									<li><a  th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Film</a></li>
-									<li>By <a href="#">John Doe</a></li>
+									<li th:text="${article.author}">By John Doe </li>
 								</ul>
 							</header>
 							<div class="main">
@@ -203,6 +203,23 @@
 <!--								</div>-->
 <!--							</div>-->
 
+							<form class="row" sec:authorize="isAuthenticated()"
+								  th:action="@{/single/articles/comment/{article_id}(article_id = ${article.id})}"
+								  th:object="${comment}" method="post" >
+								<a name="reply"></a>
+								<div class="col-md-12">
+									<h3 class="title">Leave Your Response</h3>
+								</div>
+
+								<div class="form-group col-md-12">
+									<label for="message">Response <span class="required"></span></label>
+									<textarea class="form-control" name="message" placeholder="Write your response ..." th:field="*{text}"></textarea>
+								</div>
+								<div class="form-group col-md-12">
+									<button type="submit" class="btn btn-primary">Send Response</button>
+								</div>
+							</form>
+
 							<div class="comment-list" th:each="comm : ${comments}">
 								<div class="item" >
 									<div class="user">
@@ -211,7 +228,8 @@
 										</figure>
 										<div class="details">
 <!--											<h5 class="name" th:text="${comm.user.getUsername()}">Mark Otto</h5>-->
-											<h5 class="name" th:text="${comm.author}">Mark Otto</h5>
+<!--											<h5 class="name" th:text="${comm.author}">Mark Otto</h5>-->
+											<h5 class="name" th:text="${comm.user.username}">Mark Otto</h5>
 											<div class="time" th:text="${comm.created}">24 Hours</div>
 											<div class="text" th:text="${comm.text}">Text</div>
 											<footer>
@@ -219,21 +237,23 @@
 												<div class="col" sec:authorize="isAuthenticated()">
 													<a class="love"
 													   th:href="@{/single/articles/comment/add/like/{id}(id = ${comm.getId()})}">
-<!--														<i class="fa fa-thumbs-up" th:text="${@commentLikeService.getLikes(${comm.getId()})}">2333</i>-->
-														<i class="fa fa-thumbs-up" th:text="${comm.likes}">2333</i>
+														<i class="fa fa-thumbs-up" th:text="${@commentLikeService.getLikes(comm.getId())}">2333</i>
+<!--														<i class="fa fa-thumbs-up" th:text="${comm.likes}">2333</i>-->
 													</a>&nbsp;&nbsp;&nbsp;
 													<a class="love"
 													   th:href="@{/single/articles/comment/add/dislike/{id}(id = ${comm.id})}">
 														<i class="fa fa-thumbs-down"
-														   th:text="${comm.dislikes}">213</i>
+														th:text="${@commentLikeService.getDislikes(comm.getId())}">213</i>
+<!--														   th:text="${comm.dislikes}">213</i>-->
 													</a>
 												</div>
 
 <!--												для неавторизованных пользователей кнопки с лайками должны быть недоступны-->
 												<div class="col" sec:authorize="isAnonymous()" >
-														<i class="fa fa-thumbs-up" th:text="${comm.likes}">2333</i>
-														<i class="fa fa-thumbs-down"
-														   th:text="${comm.dislikes}">213</i>
+<!--														<i class="fa fa-thumbs-up" th:text="${comm.likes}">2333</i>-->
+<!--														<i class="fa fa-thumbs-down" th:text="${comm.dislikes}">213</i>-->
+														<i class="fa fa-thumbs-up" th:text="${@commentLikeService.getLikes(comm.getId())}">2333</i>
+														<i class="fa fa-thumbs-down" th:text="${@commentLikeService.getDislikes(comm.getId())}">213</i>
 												</div>
 											</footer>
 										</div>
@@ -257,22 +277,7 @@
 <!--									</div>-->
 <!--								</div>-->
 							</div>
-							<form class="row" sec:authorize="isAuthenticated()"
-								  th:action="@{/single/articles/comment/{article_id}(article_id = ${article.id})}"
-								  th:object="${comment}" method="post" >
-								<a name="reply"></a>
-								<div class="col-md-12">
-									<h3 class="title">Leave Your Response</h3>
-								</div>
 
-								<div class="form-group col-md-12">
-									<label for="message">Response <span class="required"></span></label>
-									<textarea class="form-control" name="message" placeholder="Write your response ..." th:field="*{text}"></textarea>
-								</div>
-								<div class="form-group col-md-12">
-									<button type="submit" class="btn btn-primary">Send Response</button>
-								</div>
-							</form>
 						</div>
 					</div>
 				</div>
