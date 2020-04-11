@@ -95,6 +95,7 @@ public class SearchController {
             } else {
                 catIdInteger.add(0);
                 params.put("cat_id", "");
+
             }
         }
         if (catIdArr==null && params.size()>0) {

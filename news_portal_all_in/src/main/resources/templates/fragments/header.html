@@ -141,7 +141,7 @@
                                 <a th:href="@{/category}">All categories<i class="ion-ios-arrow-right"></i></a>
                                 <ul class="dropdown-menu" >
                                     <li th:each="category,iter : ${categories}">
-                                        <a th:href="@{/category/{id}(id=${iter.count})}"
+                                        <a th:href="@{'/category?cat_id=' + ${category.id} + ${filtersDef}}"
                                            th:text="${category.name}">Category</a>
                                     </li>
                                 </ul>
