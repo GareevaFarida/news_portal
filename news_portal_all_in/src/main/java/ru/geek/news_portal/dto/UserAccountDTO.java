@@ -19,6 +19,7 @@ import java.util.List;
  * @version 1.0.0 07.04.2020
  * @link https://github.com/Centnerman
  */
+
 @Data
 public class UserAccountDTO {
 

@@ -164,19 +164,21 @@ public class UserController {
     //-------------------------------------------------------------------------------
 
     @GetMapping("/forgot")
-    public String forgot() {
+    public String forgotPassword() {
         return "ui/forgot";
     }
 
     //-------------------------------------------------------------------------------
 
     @GetMapping("/reset")
-    public String reset(Model model) {
+    public String resetPassword(Model model, Principal principal) {
         return "ui/reset";
     }
 
+    //-------------------------------------------------------------------------------
+
     @PostMapping("/reset")
-    public String reset(@ModelAttribute("password") NewPasswordDTO newPassword,
+    public String resetPassword(@ModelAttribute("password") NewPasswordDTO newPassword,
                         Principal principal, Model model) {
 
         User user = userService.findByUsername(principal.getName());
@@ -193,7 +195,4 @@ public class UserController {
     }
 
     //-------------------------------------------------------------------------------
-
-    //-------------------------------------------------------------------------------
-
 }

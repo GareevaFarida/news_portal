@@ -40,63 +40,57 @@ public class AdminUserController {
 
     //---------------------------------------------------------------------------
 
-    @GetMapping({"/admin/users", "/users"})
-    public String adminUsersPage(Model model, HttpServletRequest request) {
-        if (!request.isUserInRole("ADMIN")) {
-            return "redirect:/";
-        }
-        model.addAttribute("activePage", "Users");
+    @GetMapping("/users")
+    public String usersPage(Model model, HttpServletRequest request) {
+//        if (!request.isUserInRole("ADMIN")) {
+//            return "redirect:/";
+//        }
         model.addAttribute("users", userService.findAll());
         return "users";
     }
 
-//    @GetMapping({"/user/edituser", "/user/edituser/{username}"})
-//    public String adminEditUser(Model model, @PathVariable(value = "username", required = false) String username,
-//                                HttpServletRequest request) {
+    //---------------------------------------------------------------------------
+
+    @GetMapping({"/users/edit_user", "/users/edit_user/{id}"})
+    public String editUser(Model model, @PathVariable("id") Long id, HttpServletRequest request) {
 //        if (!request.isRequestedSessionIdValid()) {
 //            return "redirect:/";
 //        }
-//        model.addAttribute("edit", true);
-//        model.addAttribute("activePage", "Users");
-//        model.addAttribute("user", userService.findByUsername(username));
-//        model.addAttribute("roles", roleRepository.findAll());
-//        return "users";
-//    }
+        model.addAttribute("edit", true);
+        model.addAttribute("user", userService.findById(id));
+        model.addAttribute("roles", roleRepository.findAll());
+        return "user_form";
+    }
 
+    //---------------------------------------------------------------------------
 
-    @GetMapping("/user/create")
-    public String adminCreateUser(Model model) {
+    @GetMapping({"/users/create_user", "/users/create_user/{id}"})
+    public String createUser(Model model) {
         model.addAttribute("create", true);
-        model.addAttribute("activePage", "Users");
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleRepository.findAll());
-        return "users";
+        return "user_form";
     }
 
-    @PostMapping("/user/update")
-    public String updateUser(@Valid @ModelAttribute("systemUser") SystemUser systemUser,
+    //---------------------------------------------------------------------------
+
+    @PostMapping("/users/update_user")
+    public String updateUser(@Valid @ModelAttribute("user") SystemUser systemUser,
                              BindingResult bindingResult, Model model) {
-        model.addAttribute("activePage", "Users");
-
-        if (bindingResult.hasErrors()) {
-            return "users";
-        }
-
+//        if (bindingResult.hasErrors()) {
+//            return "users";
+//        }
         userService.update(systemUser);
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
 
-    @GetMapping("/user/delete/{id}")
-    public String adminDeleteUser(Model model, @PathVariable("id") Long id) {
+    //---------------------------------------------------------------------------
+
+    @GetMapping("/users/delete_user/{id}")
+    public String deleteUser(Model model, @PathVariable("id") Long id) {
         userService.delete(id);
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
-
-    @GetMapping("/roles")
-    public String adminRolesPage(Model model) {
-        model.addAttribute("activePage", "Roles");
-        return "index";
-    }
-
-
 }

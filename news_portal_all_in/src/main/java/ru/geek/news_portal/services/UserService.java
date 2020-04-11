@@ -8,6 +8,7 @@ import ru.geek.news_portal.dto.UserAccountDTO;
 import ru.geek.news_portal.utils.SystemUser;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
 
