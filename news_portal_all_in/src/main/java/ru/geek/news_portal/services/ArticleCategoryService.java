@@ -32,4 +32,8 @@ public class ArticleCategoryService {
     public ArticleCategory findOneById(Long id) {
         return articleCategoryRepository.getOne(id);
     }
+    public List<ArticleCategory> findAllById(List<Long> idList) {
+        return (List<ArticleCategory>) articleCategoryRepository.findAllById(idList);
+    }
+
 }
