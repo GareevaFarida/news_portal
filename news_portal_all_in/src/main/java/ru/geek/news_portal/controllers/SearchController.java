@@ -55,7 +55,6 @@ public class SearchController {
         pageLimit = articleService.findAllArticles().size();
 
         ArticleCategory category = null;
-        List<ArticleCategory> categoriesList = null;
         List<Integer> catIdInteger = new ArrayList<Integer>();
 
         if (params.containsKey("pageNumber")) {
@@ -66,7 +65,6 @@ public class SearchController {
             response.addCookie(new Cookie("page_size", String.valueOf(pageSize)));
         }
         if (params.containsKey("limit")) {
-            String values = (String)params.get("limit");
             int lim = Integer.parseInt(params.get("limit"));
             if (lim>0) {
                 pageLimit = Integer.parseInt(params.get("limit"));
@@ -95,7 +93,6 @@ public class SearchController {
             } else {
                 catIdInteger.add(0);
                 params.put("cat_id", "");
-
             }
         }
         if (catIdArr==null && params.size()>0) {
@@ -107,11 +104,11 @@ public class SearchController {
 
         ArticleFilter articleFilter = new ArticleFilter(params);
         List<ArticleDto> articles = articleService.findAllArticles();
-        Pageable pageRequest = PageRequest.of(pageNumber, pageLimit, Sort.Direction.ASC, "id");
+        List<ArticleCategory> categories = articleCategoryService.findAll();
 
+        Pageable pageRequest = PageRequest.of(pageNumber, pageLimit, Sort.Direction.ASC, "id");
         Page<Article> page = articleService.findAllByPagingAndFiltering(articleFilter.getSpecification(), pageRequest);
 
-        List<ArticleCategory> categories = articleCategoryService.findAll();
         model.addAttribute("filtersDef", articleFilter.getFilterDefinition());
         model.addAttribute("filtersDefCat", articleFilter.getFilterDefinitionCat());
         model.addAttribute("articles", articles);

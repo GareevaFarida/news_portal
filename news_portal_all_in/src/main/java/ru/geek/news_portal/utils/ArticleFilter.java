@@ -18,8 +18,6 @@ import java.util.*;
 
 @Getter
 public class ArticleFilter {
-//    private Specification<Article> specification;
-//    private StringBuilder filtersString;
 
     private Specification<Article> spec;
     private StringBuilder filterDefinition;
@@ -65,8 +63,6 @@ public class ArticleFilter {
                 specCat = specCat.or(ArticleSpecifications.categoryId(0L));
             }
                 spec = spec.and(specCat);
-        } else {
-            filterDefinition.append("&cat_id=");
         }
 //        if (map.containsKey("pageNumber") && !map.get("pageNumber").isEmpty()) {
 //            Integer pageNumber = Integer.parseInt(map.get("pageNumber"));
