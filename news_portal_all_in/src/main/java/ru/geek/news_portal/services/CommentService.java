@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.geek.news_portal.base.entities.Comment;
 import ru.geek.news_portal.base.repo.CommentRepository;
 import ru.geek.news_portal.dto.CommentDto;
+import ru.geek.news_portal.utils.ierarhy_comments.Tree;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -17,9 +18,9 @@ import java.util.NoSuchElementException;
 /**
  * @Author Farida Gareeva
  * Created 19/03/2020
- * Updated 04/04/2020
+ * Updated 11/04/2020
  * сервис для комментариев
- * v1.0
+ * v1.3
  */
 
 @Service
@@ -45,6 +46,18 @@ public class CommentService {
 
     public List<Comment> findAllCommentByArticle_id(Long article_id){
         return commentRepository.findAllCommentByArticle_IdOrderByCreatedDesc(article_id);
+    }
+
+    /**
+     * @Author Farida Gareeva
+     * Created 11/04/2020
+     * v1.0
+     * метод используется для заполнения иерархического дерева комментариев.
+     * Сортировка по возрастанию id комментария, чтобы комментарии-родители
+     * были в списке гарантированно раньше своих потомков.
+     */
+    public List<Comment> findCommentsByArticle_IdOrderById(Long article_id){
+        return commentRepository.findCommentsByArticle_IdOrderById(article_id);
     }
 
     @Transactional
@@ -88,9 +101,36 @@ public class CommentService {
         return listCommentDetails;
     }
 
-    public void fillAndSaveComment(Comment comment, Long article_id, String username) {
+    public void fillAndSaveComment(Comment comment, Long article_id, String username, Long id_parent) {
         comment.setArticle(articleService.findById(article_id));
         comment.setUser(userService.findByUsername(username));
+        comment.setId_parent(id_parent);
         save(comment);
+    }
+
+    /**
+     * @Author Farida Gareeva
+     * Created 11/04/2020
+     * Метод, возвращающий дерево комментариев.
+     * В качестве корневого узла используется вспомогательный нод (null,null).
+     * Поэтому при определении размера дерева в представлении вычитается единица.
+     */
+    public Tree<Long, Comment> getCommentsTreeByArticle_id(Long id) {
+        Tree<Long, Comment> tree = new Tree<>(null, null);
+        List<Comment> comments = findCommentsByArticle_IdOrderById(id);
+        for (Comment comm: comments) {
+            tree.addChild(comm.getId_parent(),comm.getId(),comm);
+        }
+        return tree;
+    }
+
+    /**
+     * @Author Farida Gareeva
+     * Created 11/04/2020
+     * Метод, возвращающий список дочерних комментариев ближайшего родства
+     * (только детей без внуков и последующих потомков)
+     */
+    public ArrayList<Comment> getChildren(Tree tree, Long comment_id){
+        return tree.getChildren(comment_id);
     }
 }

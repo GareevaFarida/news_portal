@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.geek.news_portal.base.entities.*;
 import ru.geek.news_portal.dto.ArticleDto;
 import ru.geek.news_portal.services.*;
+import ru.geek.news_portal.utils.ierarhy_comments.Tree;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -61,11 +62,16 @@ public class ArticleController {
         if (id == null) {
             return "ui/404";
         }
-        try {
+       try {
+
+            Tree<Long, Comment> tree = commentService.getCommentsTreeByArticle_id(id);
+
             ArticleDto article = articleService.findArticleDtoById(id);
             model.addAttribute("article", article);
             model.addAttribute("articles", articleService.findAllArticles());
-            model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
+            model.addAttribute("comments", tree.getChildren(null));
+            model.addAttribute("tree_comments", tree);
+//            model.addAttribute("comments", commentService.findAllCommentByArticle_id(id));
             model.addAttribute("comment", new Comment());
             model.addAttribute("categories", articleCategoryService.findAll());
             model.addAttribute("articleLikes", articleLikeService.getArticleLikes(id));
@@ -80,11 +86,13 @@ public class ArticleController {
 
     @PostMapping("/comment/{article_id}")
     public String addComment(@PathVariable("article_id") Long article_id,
-                             @ModelAttribute("comment") Comment comment, BindingResult bindingResult, HttpServletRequest request) {
+                             @RequestParam(value = "id_parent", required = false) Long id_parent,
+                             @ModelAttribute("comment") Comment comment,
+                             BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return "ui/404";
         }
-        commentService.fillAndSaveComment(comment,article_id,request.getRemoteUser());
+        commentService.fillAndSaveComment(comment, article_id, request.getRemoteUser(), id_parent);
         return "redirect:/single/articles/" + article_id;
     }
 

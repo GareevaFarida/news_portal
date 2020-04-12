@@ -35,6 +35,7 @@ CREATE TABLE comments (
     article_id            bigint NOT NULL,
     user_id               bigint NOT NULL,
     text                  VARCHAR(10000),
+    id_parent             bigint NULL,
     PRIMARY KEY (id),
     FOREIGN KEY(article_id)
     REFERENCES articles (id),

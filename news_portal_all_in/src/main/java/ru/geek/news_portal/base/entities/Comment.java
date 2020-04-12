@@ -44,4 +44,7 @@ public class Comment {
   @ManyToOne(optional = false)
   private Article article;
 
+  @Column
+  private Long id_parent;
+
 }
