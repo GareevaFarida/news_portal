@@ -149,10 +149,10 @@ public class MainController {
         return "ui/login";
     }
 
-    @GetMapping("/forgot")
-    public String forgot() {
-        return "ui/forgot";
-    }
+//    @GetMapping("/forgot")
+//    public String forgot() {
+//        return "ui/forgot";
+//    }
 
     @GetMapping("/page")
     public String page(Model model, @PathVariable(value = "id", required = false) Long id) {
@@ -160,10 +160,10 @@ public class MainController {
         return "ui/page";
     }
 
-    @GetMapping("/reset")
-    public String reset() {
-        return "ui/reset";
-    }
+//    @GetMapping("/reset")
+//    public String reset() {
+//        return "ui/reset";
+//    }
 
     @GetMapping("/single")
     public String single() {

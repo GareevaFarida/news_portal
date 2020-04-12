@@ -40,6 +40,7 @@ public class SearchController {
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
+
     @Autowired
     public void setArticleCategoryService(ArticleCategoryService articleCategoryService) {
         this.articleCategoryService = articleCategoryService;
@@ -57,8 +58,8 @@ public class SearchController {
         ArticleCategory category = null;
         List<Integer> catIdInteger = new ArrayList<Integer>();
 
-        if (params.containsKey("pageNumber")) {
-            pageNumber = Integer.parseInt( params.get("pageNumber")) - 1;
+        if (params.containsKey("pageNumber")) { 
+            pageNumber = Integer.parseInt(params.get("pageNumber")) - 1;
         }
         if (pageSize == null) {
             pageSize = 4;
@@ -120,7 +121,7 @@ public class SearchController {
         return "ui/search";
     }
 
-        @GetMapping("/show_categories")
+    @GetMapping("/show_categories")
     public String showSearch(Model model, @RequestParam Map<String, String> params,
                              HttpServletRequest request, HttpServletResponse response,
                              @CookieValue(value = "page_size", required = false) Integer pageSize) {
