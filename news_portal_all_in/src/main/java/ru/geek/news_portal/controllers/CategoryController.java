@@ -19,6 +19,7 @@ import ru.geek.news_portal.utils.ArticleFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,22 +29,37 @@ public class CategoryController {
     private ArticleService articleService;
     private ArticleCategoryService articleCategoryService;
 
+    private Long RECOMENDED_NEWS = 5L;
+
+    @Autowired
+    public void setArticleService(ArticleService articleService) {
+
+
 @Autowired
     public CategoryController(ArticleService articleService,
                               ArticleCategoryService articleCategoryService) {
+
         this.articleService = articleService;
         this.articleCategoryService = articleCategoryService;
     }
 
-    @GetMapping()
+    @GetMapping({"/{id}", ""})
     public String categoryShow(Model model,
                                @RequestParam Map<String, String> params,
                                HttpServletRequest request, HttpServletResponse response,
-                               @CookieValue(value = "page_size", required = false) Integer pageSize) {
-
+                               @CookieValue(value = "page_size", required = false) Integer pageSize
+                               ,@PathVariable (value = "id", required = false) Long id
+    ) {
         Integer pageNumber = 0;
         Integer pageLimit = 5;
         ArticleCategory category = null;
+        if (params.size()==0) {
+            if (id==null) {
+                params.put("cat_id", "");
+            } else {
+                params.put("cat_id", id.toString());
+            }
+        }
         if (params.containsKey("pageNumber")) {
             pageNumber = Integer.parseInt(params.get("pageNumber")) - 1;
         }
@@ -51,19 +67,22 @@ public class CategoryController {
             pageSize = 10;
             response.addCookie(new Cookie("page_size", String.valueOf(pageSize)));
         }
-        if (params.containsKey("pageLimit")) {
-            pageLimit = Integer.parseInt(params.get("pageLimit"));
+        if (params.containsKey("limit")) {
+            int lim = Integer.parseInt(params.get("limit"));
+            if (lim>0) {
+                pageLimit = Integer.parseInt(params.get("limit"));
+            }
         }
-        if (params.containsKey("cat_id")) {
+        if (params.containsKey("cat_id") && params.get("cat_id").length()>0) {
             category = articleCategoryService.findOneById(Long.parseLong(params.get("cat_id")));
         }
+
         ArticleFilter articleFilter = new ArticleFilter(params);
         List<ArticleDto> articles = articleService.findAllArticles();
-        Pageable pageRequest = PageRequest.of(pageNumber, pageLimit, Sort.Direction.ASC, "id");
-
-        Page<Article> page = articleService.findAllByPagingAndFiltering(articleFilter.getSpecification(), pageRequest);
-
         List<ArticleCategory> categories = articleCategoryService.findAll();
+
+        Pageable pageRequest = PageRequest.of(pageNumber, pageLimit, Sort.Direction.ASC, "id");
+        Page<Article> page = articleService.findAllByPagingAndFiltering(articleFilter.getSpecification(), pageRequest);
 
         model.addAttribute("filtersDef", articleFilter.getFilterDefinition());
         model.addAttribute("articles", articles);

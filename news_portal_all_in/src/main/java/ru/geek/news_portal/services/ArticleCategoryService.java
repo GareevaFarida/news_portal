@@ -33,6 +33,10 @@ public class ArticleCategoryService {
         return articleCategoryRepository.getOne(id);
     }
 
+    public List<ArticleCategory> findAllById(List<Long> idList) {
+        return (List<ArticleCategory>) articleCategoryRepository.findAllById(idList);
+    }
+
     public void deleteById(Long id) {
         articleCategoryRepository.deleteById(id);
     }
@@ -40,4 +44,5 @@ public class ArticleCategoryService {
     public void save(ArticleCategory category) {
         articleCategoryRepository.save(category);
     }
+
 }
