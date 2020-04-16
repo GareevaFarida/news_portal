@@ -29,6 +29,10 @@ public class ArticleSpecifications {
            criteriaBuilder.equal(root.get("category").get("id"), catId);
         }
 
+    public static Specification<Article> tagsId(Long tagId) {
+        return (Specification<Article>) (root, criteriaQuery, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("tag_id").get("id"), tagId);
+    }
 
 
 //        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) ->

@@ -73,6 +73,18 @@ public class ArticleFilter {
             filterDefinition.append("&pageLimit=").append(pageLimit);
             filterDefinitionCat.append("&pageLimit=").append(pageLimit);
         }
+        if (map.containsKey("tag_id") && !map.get("tag_id").isEmpty()) {
+            if (map.get("tag_id")!="0") {
+                String[] arrayStr = map.get("tag_id").trim().split(",");
+                for (int i = 0; i < arrayStr.length; i++) {
+                    specCat = specCat.or(ArticleSpecifications.tagsId(Long.valueOf(arrayStr[i])));
+                    filterDefinition.append("&tag_id=").append(Long.valueOf(arrayStr[i]));
+                }
+            } else {
+                specCat = specCat.or(ArticleSpecifications.tagsId(0L));
+            }
+            spec = spec.and(specCat);
+        }
     }
 
     public Specification<Article> getSpecification() {

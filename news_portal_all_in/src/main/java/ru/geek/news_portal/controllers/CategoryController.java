@@ -31,14 +31,13 @@ public class CategoryController {
 
     private Long RECOMENDED_NEWS = 5L;
 
+//    @Autowired
+//    public void setArticleService(ArticleService articleService) {
+//    }
+
     @Autowired
-    public void setArticleService(ArticleService articleService) {
-
-
-@Autowired
     public CategoryController(ArticleService articleService,
                               ArticleCategoryService articleCategoryService) {
-
         this.articleService = articleService;
         this.articleCategoryService = articleCategoryService;
     }
@@ -48,8 +47,7 @@ public class CategoryController {
                                @RequestParam Map<String, String> params,
                                HttpServletRequest request, HttpServletResponse response,
                                @CookieValue(value = "page_size", required = false) Integer pageSize
-                               ,@PathVariable (value = "id", required = false) Long id
-    ) {
+                               ,@PathVariable (value = "id", required = false) Long id) {
         Integer pageNumber = 0;
         Integer pageLimit = 5;
         ArticleCategory category = null;

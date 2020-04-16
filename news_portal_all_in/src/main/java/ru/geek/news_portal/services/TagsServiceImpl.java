@@ -54,6 +54,16 @@ public class TagsServiceImpl implements TagsService {
         return tagRepository.save(tag);
     }
 
+    //    @Override
+//    public List<Tag> findAllTagByName(ArrayList<String> tagsArr){
+//        return  tagRepository.findAllTagByName(tagsArr);
+//    }
+//
+//    @Override
+//    public List<Tag> findTagsByName (List<String> tagsArr){
+//        return  tagRepository.findTagsByName(tagsArr);
+//    }
+
     @Override
     public void delete(Long id) {
         tagRepository.deleteById(id);
