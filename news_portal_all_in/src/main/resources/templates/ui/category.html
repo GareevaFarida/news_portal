@@ -63,7 +63,7 @@
 						<div th:if="${category}==null">
 							<div class="inner">
 								<figure>
-									<a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.category.id})}">
+									<a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}">
 										<!--                        <img src="../images/news/img01.jpg" th:src="@{images/news/img01.jpg}">-->
 										<p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
 									</a>
@@ -77,7 +77,7 @@
 										</div>
 										<div class="time" th:utext="${article.created}">December 26, 2016</div>
 									</div>
-									<h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.category.id})}"
+									<h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}"
 										   th:utext="${article.title}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
 									<p>
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -87,7 +87,7 @@
 									<footer>
 										<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>237</div></a>
 										<a class="btn btn-primary more" href="../ui/single.html"
-										   th:href="@{/single/articles/{id}(id=${article.category.id})}">
+										   th:href="@{/single/articles/{id}(id=${article.id})}">
 											<div>More</div>
 											<div><i class="ion-ios-arrow-thin-right"></i></div>
 										</a>

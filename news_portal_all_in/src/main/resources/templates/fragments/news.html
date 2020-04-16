@@ -19,8 +19,8 @@
 
                 </figure>
                 <div class="details">
-                    <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Computer</a></div>
-                    <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Phasellus iaculis quam sed est elementum vel ornare ligula venenatis</a></h1>
+                    <div class="category"><a th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Computer</a></div>
+                    <h1><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Phasellus iaculis quam sed est elementum vel ornare ligula venenatis</a></h1>
                     <div class="time" th:text="${article.created}">December 26, 2016</div>
                 </div>
             </article>
@@ -34,7 +34,7 @@
             <article class="article col-md-12" >
                 <div class="inner">
                     <figure>
-                        <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                        <a th:href="@{/single/articles/{id}(id=${article.id})}">
                             <!--<img th:src="@{/images/news/img10.jpg}" alt="Sample Article">-->
                             <p  th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                         </a>
@@ -42,13 +42,13 @@
                     <div class="padding">
                         <div class="detail">
                             <div class="time" th:utext="${article.created}">December 10, 2016</div>
-                            <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Healthy</a></div>
+                            <div class="category"><a th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Healthy</a></div>
                         </div>
-                        <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+                        <h2><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                         <footer>
                             <a th:href="@{#}" class="love"><i class="ion-android-favorite-outline"></i> <div>1263</div></a>
-                            <a class="btn btn-primary more" th:href="@{/single/articles/{id}(id=${state.count})}">
+                            <a class="btn btn-primary more" th:href="@{/single/articles/{id}(id=${article.id})}">
                                 <div>More</div>
                                 <div><i class="ion-ios-arrow-thin-right"></i></div>
                             </a>
@@ -64,15 +64,15 @@
     <article class="article-mini" th:each="article,state : ${articles}">
         <div class="inner">
             <figure>
-                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                <a th:href="@{/single/articles/{id}(id=${article.id})}">
 <!--			<img th:src="@{/images/news/img09.jpg}" alt="Sample Article">-->
                     <p  th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                 </a>
             </figure>
             <div class="padding">
-                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+                <h1><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
                 <div class="detail">
-                    <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Lifestyle</a></div>
+                    <div class="category"><a th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Lifestyle</a></div>
                     <div class="time" th:utext="${article.created}">December 22, 2016</div>
                 </div>
             </div>
@@ -84,13 +84,13 @@
     <article class="article-mini" th:each="article,state : ${articles}">
         <div class="inner">
             <figure>
-                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                <a th:href="@{/single/articles/{id}(id=${article.id})}">
 <!--				<img th:src="@{/images/news/img07.jpg}" alt="Sample Article">-->
                     <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                 </a>
             </figure>
             <div class="padding">
-                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
+                <h1><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
             </div>
         </div>
     </article>
@@ -99,7 +99,7 @@
     <article th:fragment="best_of_week" class="article" th:each="article,state : ${articles}">
         <div class="inner">
             <figure>
-                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                <a th:href="@{/single/articles/{id}(id=${article.id})}">
 <!--		        <img th:src="@{/images/news/img03.jpg}" alt="Sample Article">-->
                     <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                 </a>
@@ -107,9 +107,9 @@
             <div class="padding">
                 <div class="detail">
                         <div class="time" th:utext="${article.created}">December 11, 2016</div>
-                        <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Travel</a></div>
+                        <div class="category"><a th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Travel</a></div>
                 </div>
-                <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">tempor interdum Praesent tincidunt</a></h2>
+                <h2><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">tempor interdum Praesent tincidunt</a></h2>
                 <p>Praesent tincidunt, leo vitae congue molestie.</p>
             </div>
         </div>
@@ -120,7 +120,7 @@
     <article class="col-md-12 article-list" th:each="article,state : ${articles}">
         <div class="inner">
             <figure>
-                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                <a th:href="@{/single/articles/{id}(id=${article.id})}">
                     <!--											<img th:src="@{/images/news/img11.jpg}" alt="Sample Article">-->
                     <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                 </a>
@@ -128,17 +128,17 @@
             <div class="details">
                 <div class="detail">
                     <div class="category">
-                        <a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Film</a>
+                        <a th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Film</a>
                     </div>
                     <div class="time" th:utext="${article.created}">December 19, 2016</div>
                 </div>
-                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Donec consequat arcu at ultrices sodales quam erat aliquet diam</a></h1>
+                <h1><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Donec consequat arcu at ultrices sodales quam erat aliquet diam</a></h1>
                 <p>
                     Donec consequat, arcu at ultrices sodales, quam erat aliquet diam, sit amet interdum libero nunc accumsan nisi.
                 </p>
                 <footer>
                     <a th:href="@{#}" class="love"><i class="ion-android-favorite-outline"></i> <div>273</div></a>
-                    <a class="btn btn-primary more" th:href="@{/single/articles/{id}(id=${state.count})}">
+                    <a class="btn btn-primary more" th:href="@{/single/articles/{id}(id=${article.id})}">
                         <div>More</div>
                         <div><i class="ion-ios-arrow-thin-right"></i></div>
                     </a>
@@ -152,14 +152,14 @@
     <article class="article-mini" th:each="article,state : ${@articleService.findAllArticles()}">
         <div class="inner">
             <figure>
-                <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                <a th:href="@{/single/articles/{id}(id=${article.id})}">
                     <p th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                 </a>
             </figure>
             <div class="padding">
-                <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+                <h1><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
                 <div class="detail">
-                    <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${@articleService.findAllArticles().get((state.count)-1).category.name}">Lifestyle</a></div>
+                    <div class="category"><a th:href="@{/category/{id}(id=${article.id})}" th:utext="${@articleService.findAllArticles().get((state.index)).category.name}">Lifestyle</a></div>
                     <div class="time" th:utext="${article.created}">December 22, 2016</div>
                 </div>
             </div>
@@ -173,14 +173,14 @@
         <div class="body-col vertical-slider" data-max="3" data-nav="#hot-resent-post" data-item="article">
             <div class="inner">
                 <figure>
-                    <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                    <a th:href="@{/single/articles/{id}(id=${article.id})}">
                         <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                     </a>
                 </figure>
                 <div class="padding">
-                    <h1><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+                    <h1><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
                     <div class="detail">
-                        <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Lifestyle</a></div>
+                        <div class="category"><a th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Lifestyle</a></div>
                         <div class="time" th:utext="${article.created}">December 22, 2016</div>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
     <article class="article col-md-4 mini" th:each="article,state : ${articles}" th:if="${(state.count)<4}">
             <div class="inner">
                 <figure>
-                    <a th:href="@{/single/articles/{id}(id=${state.count})}">
+                    <a th:href="@{/single/articles/{id}(id=${article.id})}">
 <!--                        <img th:src="@{/images/news/img10.jpg}" alt="Sample Article">-->
                         <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                     </a>
@@ -201,9 +201,9 @@
                 <div class="padding">
                     <div class="detail">
                         <div class="time" th:utext="${article.created}">December 10, 2016</div>
-                        <div class="category"><a th:href="@{/category/{id}(id=${article.category.getId()})}" th:utext="${articles.get((state.count)-1).category.name}">Healthy</a></div>
+                        <div class="category"><a th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Healthy</a></div>
                     </div>
-                    <h2><a th:href="@{/single/articles/{id}(id=${state.count})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+                    <h2><a th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
                 </div>
             </div>
     </article>
@@ -236,7 +236,7 @@
                     <div class="details">
                         <div class="detail">
                             <div class="time" th:utext="${articles.get((recomended_news)-1).created}">December 31, 2016</div>
-                            <div class="category"><a th:href="@{/category/{id}(id=${articles.get((recomended_news)-1).category.getId()})}" th:utext="${articles.get((recomended_news)-1).category.name}">Sport</a></div>
+                            <div class="category"><a th:href="@{/category/{id}(id=${articles.get((recomended_news)-1).category.id})}" th:utext="${articles.get((recomended_news)-1).category.name}">Sport</a></div>
                         </div>
                         <h1><a th:href="@{/single/articles/{id}(id=${recomended_news})}" th:utext="${articles.get((recomended_news)-1).title}">Donec congue turpis vitae mauris</a></h1>
                         <p>
@@ -271,7 +271,7 @@
     </div>
 </div>
 
-<div th:fragment="resent_post" th:with="resent_post=10">
+<div th:fragment="resent_post" th:with="resent_post=9">
     <article class="article-fw">
         <div class="inner">
             <figure>
@@ -288,7 +288,7 @@
                 </p>
                 <div class="detail">
                     <div class="time" th:utext="${articles.get((resent_post)-1).created}">December 26, 2016</div>
-                    <div class="category"><a href="../ui/category.html" th:href="@{/category/{id}(id=${articles.get((resent_post)-1).category.getId()})}" th:utext="${articles.get((resent_post)-1).category.name}">Lifestyle</a></div>
+                    <div class="category"><a href="../ui/category.html" th:href="@{/category/{id}(id=${articles.get((resent_post)-1).category.id})}" th:utext="${articles.get((resent_post)-1).category.name}">Lifestyle</a></div>
                 </div>
             </div>
         </div>
@@ -308,7 +308,7 @@
                 <div class="padding">
                     <h2><a th:href="@{/single/articles/{id}(id=${news_one})}" th:utext="${articles.get((news_one)-1).title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
                     <div class="detail">
-                        <div class="category"><a href="../ui/category" th:href="@{/category/{id}(id=${articles.get((news_one)-1).category.getId()})}" th:utext="${articles.get((news_one)-1).category.name}">Lifestyle</a></div>
+                        <div class="category"><a href="../ui/category" th:href="@{/category/{id}(id=${articles.get((news_one)-1).category.id})}" th:utext="${articles.get((news_one)-1).category.name}">Lifestyle</a></div>
                         <div class="time" th:utext="${articles.get((news_one)-1).created}">December 26, 2016</div>
                     </div>
                 </div>
@@ -326,7 +326,7 @@
             <div class="padding">
                 <h2><a th:href="@{/single/articles/{id}(id=${news_two})}" th:utext="${articles.get((news_two)-1).title}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
                 <div class="detail">
-                    <div class="category"><a href="../ui/category" th:href="@{/category/{id}(id=${articles.get((news_two)-1).category.getId()})}" th:utext="${articles.get((news_two)-1).category.name}">Lifestyle</a></div>
+                    <div class="category"><a href="../ui/category" th:href="@{/category/{id}(id=${articles.get((news_two)-1).category.id})}" th:utext="${articles.get((news_two)-1).category.name}">Lifestyle</a></div>
                     <div class="time" th:utext="${articles.get((news_two)-1).created}">December 26, 2016</div>
                 </div>
             </div>
@@ -339,7 +339,7 @@
         <div th:if="${category}==null">
             <div class="inner">
                 <figure>
-                    <a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.category.id})}">
+                    <a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}">
                         <!--                        <img src="../images/news/img01.jpg" th:src="@{images/news/img01.jpg}">-->
                         <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                     </a>
@@ -351,7 +351,7 @@
                         </div>
                         <div class="time" th:utext="${article.created}">December 26, 2016</div>
                     </div>
-                    <h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.category.id})}" th:utext="${article.title}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+                    <h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -359,7 +359,7 @@
                     </p>
                     <footer>
                         <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>237</div></a>
-                        <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.category.id})}">
+                        <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}">
                             <div>More</div>
                             <div><i class="ion-ios-arrow-thin-right"></i></div>
                         </a>
@@ -383,7 +383,7 @@
                         </div>
                         <div class="time" th:utext="${article.created}">December 26, 2016</div>
                     </div>
-                    <h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${category.id})}" th:utext="${article.title}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
+                    <h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">Lorem Ipsum Dolor Sit Consectetur Adipisicing Elit</a></h1>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -391,7 +391,7 @@
                     </p>
                     <footer>
                         <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>237</div></a>
-                        <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single/articles/{id}(id=${category.id})}">
+                        <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}">
                             <div>More</div>
                             <div><i class="ion-ios-arrow-thin-right"></i></div>
                         </a>
@@ -411,7 +411,7 @@
         <div th:unless="${category}==null">
             <div class="inner" th:if="${article.category.id}==${category.id}">
                 <figure>
-                    <a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${category.id})}">
+                    <a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}">
 <!--                        <img src="../static/images/news/img09.jpg" th:src="@{/static/images/news/img09.jpg}">-->
                         <p th:remove="tag" th:utext="${article.getMainPictureUrl()}">Main Picture</p>
                     </a>
@@ -423,14 +423,14 @@
                         </div>
                         <time th:utext="${article.created}">December 16, 2016</time>
                     </div>
-                    <h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${category.id})}" th:utext="${article.title}">
+                    <h1><a href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}" th:utext="${article.title}">
                         Maecenas blandit ultricies lorem id tempor enim pulvinar at</a></h1>
                     <p>
                         Maecenas blandit ultricies lorem, id tempor enim pulvinar at. Curabitur sit amet tortor eu ipsum lacinia malesuada. Etiam sed vulputate magna.
                     </p>
                     <footer>
                         <a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>783</div></a>
-                        <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single/articles/{id}(id=${category.id})}">
+                        <a class="btn btn-primary more" href="../ui/single.html" th:href="@{/single/articles/{id}(id=${article.id})}">
                             <div>More</div>
                             <div><i class="ion-ios-arrow-thin-right"></i></div>
                         </a>

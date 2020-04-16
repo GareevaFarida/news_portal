@@ -2,13 +2,13 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header.html :: head"></head>
+<head th:replace="fragments/header :: head"></head>
 
 <body class="skin-orange">
 <!-- HEADER -->
 <header class="primary" >
-	<div th:replace="fragments/header.html :: firstbar"></div>
-	<nav th:replace="fragments/header.html :: nav"></nav>
+	<div th:replace="fragments/header :: firstbar"></div>
+	<nav th:replace="fragments/header :: nav"></nav>
 </header>
 <!-- /HEADER -->
 <br>
@@ -100,7 +100,6 @@
 							<ul class="nav-tabs-list">
 								<li class="active"><a href="#">All</a></li>
 								<li><a href="#" th:href="@{/search}"  >Latest</a></li>
-<!--								th:value="${param.limit != null} ? ${param.limit}"-->
 								<li><a href="#">Popular</a></li>
 								<li><a href="#">Trending</a></li>
 								<li><a href="#">Videos</a></li>
