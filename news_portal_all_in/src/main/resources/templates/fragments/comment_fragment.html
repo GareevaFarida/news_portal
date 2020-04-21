@@ -28,8 +28,8 @@
                             <!--											<div class="time" th:text="${#dates.format(comm.created, 'dd-MMM-yyyy')}">24 Hours</div>-->
                             <div class="text" th:text="${comm.text}">Text</div>
                             <footer>
-                                <a href="#rerly" sec:authorize="isAuthenticated()">Reply</a>
-                                <div class="col" sec:authorize="isAuthenticated()">
+                                <div class="col_comments" sec:authorize="isAuthenticated()">
+                                <a href="#rerly" >Reply</a>
                                     <a class="love"
                                        th:href="@{/single/articles/comment/add/like/{id}(id = ${comm.getId()})}">
                                         <i class="fa fa-thumbs-up"
@@ -42,7 +42,7 @@
                                     </a>
 
                                     <!--форма для отправки ответа к комментарию  (начало)-->
-                                    <form class="row" sec:authorize="isAuthenticated()"
+                                    <form class="row comment_response" th:id="id_+${comm.id}" sec:authorize="isAuthenticated()"
                                           th:action="@{/single/articles/comment/{article_id}(article_id = ${article.id})}"
                                           th:object="${comment}" method="post">
                                         <input th:fielld="*{id_parent}" type="hidden" th:name="id_parent"
@@ -69,11 +69,12 @@
                                 </div>
 
                                 <!--для неавторизованных пользователей кнопки с лайками должны быть недоступны-->
-                                <div class="col" sec:authorize="isAnonymous()">
+                                <div class="col_comments" sec:authorize="isAnonymous()">
                                     <!--														<i class="fa fa-thumbs-up" th:text="${comm.likes}">2333</i>-->
                                     <!--														<i class="fa fa-thumbs-down" th:text="${comm.dislikes}">213</i>-->
-                                    <i class="fa fa-thumbs-up" th:text="${@commentLikeService.getLikes(comm.getId())}">2333</i>
-                                    <i class="fa fa-thumbs-down"
+                                    <i class="love fa fa-thumbs-up"
+                                       th:text="${@commentLikeService.getLikes(comm.getId())}">2333</i>
+                                    <i class="love fa fa-thumbs-down"
                                        th:text="${@commentLikeService.getDislikes(comm.getId())}">213</i>
                                 </div>
                             </footer>
@@ -81,8 +82,10 @@
                     </div>
                 </div>
 
-                        <section th:include="fragments/comment_fragment.html :: comments"
+            <div th:if="${@commentService.getChildren(tree_comments,comm.id).size()>0}">
+                <section th:include="fragments/comment_fragment.html :: comments"
                                  th:with="comments=${@commentService.getChildren(tree_comments,comm.id)}"></section>
+            </div>
         </li>
     </ul>
 </section>
