@@ -3306,6 +3306,14 @@ section.single footer .col_comments:last-child .love {
   display: inline-block;
   padding: 3px 12px;
 }
+.love_news{
+  float: none;
+  border: 2px solid #989898;
+  border-radius: 30px;
+  display: inline-block;
+  padding: 3px 12px;
+}
+
 section.single footer .col_comments:last-child .love i {
   transform: scale(0.8);
   -webkit-transform: scale(0.8);

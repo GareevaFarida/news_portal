@@ -67,7 +67,13 @@
 									<li th:remove="tag" th:utext="${#temporals.format(article.created, 'dd-MMM-yyyy HH:mm')}">Posted on 31 December, 2016</li>
 <!--									<li th:remove="tag" th:utext="${#dates.format(article.created, 'dd-MMM-yyyy')}">Posted on 31 December, 2016</li>-->
 									<li><a  th:href="@{/category/{id}(id=${article.category.id})}" th:utext="${article.category.name}">Film</a></li>
-									<li th:text="${article.author}">By John Doe </li>
+<!--									<li th:text="${article.author}">By John Doe </li>-->
+									<!--вывод списка авторов-->
+									<li th:if="${article.authors.size()==1}" >Автор</li>
+									<li th:if="${article.authors.size()>1}" >Авторы</li>
+									<div th:each="writer:${article.authors}">
+										<li><a th:href="@{/user/edituser/{username}(username=${writer.username})}" th:utext="${writer.username}">А.С.Пушкин</a></li>
+									</div>
 								</ul>
 							</header>
 							<div class="main">
@@ -105,7 +111,7 @@
 								</div>
 								<!--вывод средней оценки-->
 								<div class="col_comments" th:text="#{rate.average_value}">Средняя оценка</div>
-									<div class="col_comments" th:text="${@articleRatingService.getAverageValueOfArticle(article.id)}">4.567</div>
+									<div class="col_comments" style="margin-left:5px;" th:text="${@articleRatingService.getAverageValueOfArticle(article.id)}">4.567</div>
 								<!--проставление оценки статьи пользователями (рейтинг)-->
 								<form sec:authorize="isAuthenticated()"
 									  th:action="@{/single/articles/add/rating/{article_id}(article_id = ${article.id})}"
