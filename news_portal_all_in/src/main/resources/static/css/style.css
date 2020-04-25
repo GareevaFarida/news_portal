@@ -3324,6 +3324,23 @@ section.single footer .col_comments:last-child .love.active {
 
 section.single footer .comment_response{
   display: block;
+    margin-top: 0px;
+}
+footer .margin-top-zerro{
+    margin-top: 0px;
+}
+
+.col_comments .margin-top-zerro{
+    margin-top: 0px;
+}
+section.single footer .rating {
+    text-align: left;
+}
+
+.button-like-link{
+  border: hidden;
+  background: center;
+  color: red;
 }
 
 section.single footer .col:last-child .love {
